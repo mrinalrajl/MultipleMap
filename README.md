@@ -42,9 +42,3 @@ This repository is configured as a native **Swift Playgrounds App Package** (`.s
 - **Map Integration**: MapKit (Native Apple Maps)
 - **Architecture**: MVVM (Model-View-ViewModel)
 - **Location Services**: CoreLocation
-
-## 🤝 Contributing
-Contributions, issues, and feature requests are welcome. Feel free to check the issues page if you want to contribute.
-
-## 📄 License
-This project is licensed under the MIT License - see the LICENSE file for details.
