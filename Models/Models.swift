@@ -6,6 +6,7 @@ struct User: Identifiable, Equatable {
     var name: String
     var location: CLLocationCoordinate2D?
     var isSelf: Bool = false
+    var imageName: String? = nil
     
     static func == (lhs: User, rhs: User) -> Bool {
         lhs.id == rhs.id
@@ -23,12 +24,12 @@ struct MeetingLocation: Identifiable {
 
 // Mock Data
 extension User {
-    static let mockSelf = User(id: UUID(), name: "Me", location: CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194), isSelf: true)
+    static let mockSelf = User(id: UUID(), name: "Me", location: CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194), isSelf: true, imageName: "person.circle.fill")
     
     static let mockFriends = [
-        User(id: UUID(), name: "Alice", location: CLLocationCoordinate2D(latitude: 37.7750, longitude: -122.4180)),
-        User(id: UUID(), name: "Bob", location: CLLocationCoordinate2D(latitude: 37.7730, longitude: -122.4200)),
-        User(id: UUID(), name: "Charlie", location: CLLocationCoordinate2D(latitude: 37.7800, longitude: -122.4150))
+        User(id: UUID(), name: "Alice", location: CLLocationCoordinate2D(latitude: 37.7750, longitude: -122.4180), imageName: "person.crop.circle.badge.checkmark"),
+        User(id: UUID(), name: "Bob", location: CLLocationCoordinate2D(latitude: 37.7730, longitude: -122.4200), imageName: "person.crop.circle.dashed"),
+        User(id: UUID(), name: "Charlie", location: CLLocationCoordinate2D(latitude: 37.7800, longitude: -122.4150), imageName: "person.crop.circle.fill")
     ]
 }
 

@@ -2,6 +2,8 @@ import SwiftUI
 import MapKit
 
 struct MainMapView: View {
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    
     @StateObject private var viewModel = MapViewModel()
     @StateObject private var locationService = LocationService()
     
@@ -17,15 +19,27 @@ struct MainMapView: View {
     let timer = Timer.publish(every: 3.0, on: .main, in: .common).autoconnect()
     
     var body: some View {
-        ZStack {
+        ZStack(alignment: .leading) {
+            // Background Map
             Map(position: $mapCameraPosition) {
                 // Current User
                 if let userLoc = locationService.location ?? viewModel.currentUser.location {
                     Annotation("Me", coordinate: userLoc) {
                         ZStack {
-                            Circle().fill(Color.blue).frame(width: 20, height: 20)
-                            Circle().stroke(Color.white, lineWidth: 3).frame(width: 20, height: 20)
+                            Circle().fill(Color.blue).frame(width: 28, height: 28)
+                            if let imageName = viewModel.currentUser.imageName {
+                                Image(systemName: imageName)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 20, height: 20)
+                                    .foregroundColor(.white)
+                            } else {
+                                Text("Me").font(.caption).bold().foregroundColor(.white)
+                            }
+                            Circle().stroke(Color.white, lineWidth: 3).frame(width: 28, height: 28)
                         }
+                        .animation(.spring(response: 1.0, dampingFraction: 0.8), value: userLoc.latitude)
+                        .animation(.spring(response: 1.0, dampingFraction: 0.8), value: userLoc.longitude)
                     }
                 }
                 
@@ -44,9 +58,17 @@ struct MainMapView: View {
                     if let loc = friend.location {
                         Annotation(friend.name, coordinate: loc) {
                             ZStack {
-                                Circle().fill(Color.green).frame(width: 24, height: 24)
-                                Text(String(friend.name.prefix(1))).font(.caption).bold().foregroundColor(.white)
-                                Circle().stroke(Color.white, lineWidth: 2).frame(width: 24, height: 24)
+                                Circle().fill(Color.green).frame(width: 28, height: 28)
+                                if let imageName = friend.imageName {
+                                    Image(systemName: imageName)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 20, height: 20)
+                                        .foregroundColor(.white)
+                                } else {
+                                    Text(String(friend.name.prefix(1))).font(.caption).bold().foregroundColor(.white)
+                                }
+                                Circle().stroke(Color.white, lineWidth: 2).frame(width: 28, height: 28)
                             }
                             .animation(.spring(), value: loc.latitude)
                             .animation(.spring(), value: loc.longitude)
@@ -64,6 +86,23 @@ struct MainMapView: View {
                 MapUserLocationButton()
                 MapCompass()
                 MapScaleView()
+            }
+            
+            // iPad/Mac Floating Sidebar Overlay
+            if horizontalSizeClass == .regular {
+                HStack {
+                    ContactBottomSheetView(viewModel: viewModel, onNudge: { friend in
+                        triggerNudge(friend: friend)
+                    })
+                    .frame(width: 350)
+                    .background(.ultraThinMaterial)
+                    .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
+                    .shadow(color: .black.opacity(0.15), radius: 20, x: 0, y: 10)
+                    .padding()
+                    
+                    Spacer()
+                }
+                .transition(.move(edge: .leading))
             }
             
             // UI Overlays
@@ -125,10 +164,13 @@ struct MainMapView: View {
                     }
                     .padding()
                 }
-                Spacer().frame(height: 100) // Space for bottom sheet
+                Spacer().frame(height: horizontalSizeClass == .compact ? 100 : 20) // Adjust space for compact bottom sheet
             }
         }
-        .sheet(isPresented: $showContactsSheet) {
+        .sheet(isPresented: Binding(
+            get: { showContactsSheet && horizontalSizeClass == .compact },
+            set: { showContactsSheet = $0 }
+        )) {
             ContactBottomSheetView(viewModel: viewModel, onNudge: { friend in
                 triggerNudge(friend: friend)
             })
@@ -165,6 +207,16 @@ struct MainMapView: View {
                     withAnimation(.spring(response: 2.0, dampingFraction: 0.8)) {
                         viewModel.friends[i].location = CLLocationCoordinate2D(latitude: newLat, longitude: newLon)
                     }
+                }
+            }
+            
+            // Move current user as well if using mock location
+            if locationService.location == nil, let userLoc = viewModel.currentUser.location {
+                let newLat = userLoc.latitude + (dest.latitude - userLoc.latitude) * 0.1
+                let newLon = userLoc.longitude + (dest.longitude - userLoc.longitude) * 0.1
+                
+                withAnimation(.spring(response: 2.0, dampingFraction: 0.8)) {
+                    viewModel.currentUser.location = CLLocationCoordinate2D(latitude: newLat, longitude: newLon)
                 }
             }
         }

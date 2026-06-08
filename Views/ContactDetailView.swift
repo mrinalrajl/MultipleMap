@@ -13,9 +13,17 @@ struct ContactDetailView: View {
                 Circle()
                     .fill(Color.green.opacity(0.8))
                     .frame(width: 100, height: 100)
-                Text(String(friend.name.prefix(1)))
-                    .font(.largeTitle)
-                    .foregroundColor(.white)
+                if let imageName = friend.imageName {
+                    Image(systemName: imageName)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 60, height: 60)
+                        .foregroundColor(.white)
+                } else {
+                    Text(String(friend.name.prefix(1)))
+                        .font(.largeTitle)
+                        .foregroundColor(.white)
+                }
             }
             .padding(.top, 40)
             
