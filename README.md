@@ -2,6 +2,16 @@
 
 NaviSync is a highly polished iOS application designed to revolutionize the way friends meet up. Send a single invite link, and effortlessly track everyone's real-time journey to a shared meeting location.
 
+<div align="center">
+  <img src="Screenshots/multiple_maps_ios_preview_1780343148284.png" width="80%" alt="NaviSync Preview">
+</div>
+
+<div align="center">
+  <img src="Screenshots/multiple_maps_map_view_1780876346109.png" width="30%" alt="Map View">
+  <img src="Screenshots/multiple_maps_contacts_sheet_1780876325669.png" width="30%" alt="Contacts List">
+  <img src="Screenshots/multiple_maps_contact_detail_1780876336708.png" width="30%" alt="Contact Detail View">
+</div>
+
 ## ✨ Key Features
 
 - **Real-Time Tracking**: See exactly where your friends are as they navigate to the meeting spot.
