@@ -1,0 +1,742 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AA00000A301A00000000000A /* NaviSyncWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = AA000001301A000000000001 /* NaviSyncWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		AA00000C301A00000000000C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D35DC58F301A55DF00D13089 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AA000003301A000000000003;
+			remoteInfo = NaviSyncWidgetExtension;
+		};
+		D35DC5A5301A55E000D13089 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D35DC58F301A55DF00D13089 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D35DC596301A55DF00D13089;
+			remoteInfo = NaviSync;
+		};
+		D35DC5AF301A55E000D13089 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D35DC58F301A55DF00D13089 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D35DC596301A55DF00D13089;
+			remoteInfo = NaviSync;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		AA000009301A000000000009 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				AA00000A301A00000000000A /* NaviSyncWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		AA000001301A000000000001 /* NaviSyncWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NaviSyncWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		D35DC597301A55DF00D13089 /* NaviSync.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NaviSync.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D35DC5A4301A55E000D13089 /* NaviSyncTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NaviSyncTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D35DC5AE301A55E000D13089 /* NaviSyncUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NaviSyncUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		AA000011301A000000000011 /* Exceptions for "NaviSyncWidget" folder in "NaviSyncWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = AA000003301A000000000003 /* NaviSyncWidgetExtension */;
+		};
+		D35DC5C2301A56E400D13089 /* Exceptions for "NaviSync" folder in "NaviSync" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = D35DC596301A55DF00D13089 /* NaviSync */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		AA000010301A000000000010 /* NaviSyncWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				AA000011301A000000000011 /* Exceptions for "NaviSyncWidget" folder in "NaviSyncWidgetExtension" target */,
+			);
+			path = NaviSyncWidget;
+			sourceTree = "<group>";
+		};
+		D35DC599301A55DF00D13089 /* NaviSync */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				D35DC5C2301A56E400D13089 /* Exceptions for "NaviSync" folder in "NaviSync" target */,
+			);
+			path = NaviSync;
+			sourceTree = "<group>";
+		};
+		D35DC5A7301A55E000D13089 /* NaviSyncTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = NaviSyncTests;
+			sourceTree = "<group>";
+		};
+		D35DC5B1301A55E000D13089 /* NaviSyncUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = NaviSyncUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AA000002301A000000000002 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D35DC594301A55DF00D13089 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D35DC5A1301A55E000D13089 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D35DC5AB301A55E000D13089 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D35DC58E301A55DF00D13089 = {
+			isa = PBXGroup;
+			children = (
+				D35DC599301A55DF00D13089 /* NaviSync */,
+				AA000010301A000000000010 /* NaviSyncWidget */,
+				D35DC5A7301A55E000D13089 /* NaviSyncTests */,
+				D35DC5B1301A55E000D13089 /* NaviSyncUITests */,
+				D35DC598301A55DF00D13089 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D35DC598301A55DF00D13089 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D35DC597301A55DF00D13089 /* NaviSync.app */,
+				D35DC5A4301A55E000D13089 /* NaviSyncTests.xctest */,
+				D35DC5AE301A55E000D13089 /* NaviSyncUITests.xctest */,
+				AA000001301A000000000001 /* NaviSyncWidgetExtension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AA000003301A000000000003 /* NaviSyncWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA000008301A000000000008 /* Build configuration list for PBXNativeTarget "NaviSyncWidgetExtension" */;
+			buildPhases = (
+				AA000004301A000000000004 /* Sources */,
+				AA000002301A000000000002 /* Frameworks */,
+				AA000005301A000000000005 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				AA000010301A000000000010 /* NaviSyncWidget */,
+			);
+			name = NaviSyncWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = NaviSyncWidgetExtension;
+			productReference = AA000001301A000000000001 /* NaviSyncWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		D35DC596301A55DF00D13089 /* NaviSync */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D35DC5B8301A55E000D13089 /* Build configuration list for PBXNativeTarget "NaviSync" */;
+			buildPhases = (
+				D35DC593301A55DF00D13089 /* Sources */,
+				D35DC594301A55DF00D13089 /* Frameworks */,
+				D35DC595301A55DF00D13089 /* Resources */,
+				AA000009301A000000000009 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AA00000B301A00000000000B /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				D35DC599301A55DF00D13089 /* NaviSync */,
+			);
+			name = NaviSync;
+			packageProductDependencies = (
+			);
+			productName = NaviSync;
+			productReference = D35DC597301A55DF00D13089 /* NaviSync.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D35DC5A3301A55E000D13089 /* NaviSyncTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D35DC5BB301A55E000D13089 /* Build configuration list for PBXNativeTarget "NaviSyncTests" */;
+			buildPhases = (
+				D35DC5A0301A55E000D13089 /* Sources */,
+				D35DC5A1301A55E000D13089 /* Frameworks */,
+				D35DC5A2301A55E000D13089 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D35DC5A6301A55E000D13089 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				D35DC5A7301A55E000D13089 /* NaviSyncTests */,
+			);
+			name = NaviSyncTests;
+			packageProductDependencies = (
+			);
+			productName = NaviSyncTests;
+			productReference = D35DC5A4301A55E000D13089 /* NaviSyncTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		D35DC5AD301A55E000D13089 /* NaviSyncUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D35DC5BE301A55E000D13089 /* Build configuration list for PBXNativeTarget "NaviSyncUITests" */;
+			buildPhases = (
+				D35DC5AA301A55E000D13089 /* Sources */,
+				D35DC5AB301A55E000D13089 /* Frameworks */,
+				D35DC5AC301A55E000D13089 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D35DC5B0301A55E000D13089 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				D35DC5B1301A55E000D13089 /* NaviSyncUITests */,
+			);
+			name = NaviSyncUITests;
+			packageProductDependencies = (
+			);
+			productName = NaviSyncUITests;
+			productReference = D35DC5AE301A55E000D13089 /* NaviSyncUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D35DC58F301A55DF00D13089 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1640;
+				LastUpgradeCheck = 1640;
+				TargetAttributes = {
+					AA000003301A000000000003 = {
+						CreatedOnToolsVersion = 16.4;
+					};
+					D35DC596301A55DF00D13089 = {
+						CreatedOnToolsVersion = 16.4;
+					};
+					D35DC5A3301A55E000D13089 = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = D35DC596301A55DF00D13089;
+					};
+					D35DC5AD301A55E000D13089 = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = D35DC596301A55DF00D13089;
+					};
+				};
+			};
+			buildConfigurationList = D35DC592301A55DF00D13089 /* Build configuration list for PBXProject "NaviSync" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D35DC58E301A55DF00D13089;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = D35DC598301A55DF00D13089 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D35DC596301A55DF00D13089 /* NaviSync */,
+				AA000003301A000000000003 /* NaviSyncWidgetExtension */,
+				D35DC5A3301A55E000D13089 /* NaviSyncTests */,
+				D35DC5AD301A55E000D13089 /* NaviSyncUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AA000005301A000000000005 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D35DC595301A55DF00D13089 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D35DC5A2301A55E000D13089 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D35DC5AC301A55E000D13089 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AA000004301A000000000004 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D35DC593301A55DF00D13089 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D35DC5A0301A55E000D13089 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D35DC5AA301A55E000D13089 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AA00000B301A00000000000B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AA000003301A000000000003 /* NaviSyncWidgetExtension */;
+			targetProxy = AA00000C301A00000000000C /* PBXContainerItemProxy */;
+		};
+		D35DC5A6301A55E000D13089 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D35DC596301A55DF00D13089 /* NaviSync */;
+			targetProxy = D35DC5A5301A55E000D13089 /* PBXContainerItemProxy */;
+		};
+		D35DC5B0301A55E000D13089 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D35DC596301A55DF00D13089 /* NaviSync */;
+			targetProxy = D35DC5AF301A55E000D13089 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		AA000006301A000000000006 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = JUTMKPG582;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NaviSyncWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NaviSyncWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = KeyFight.NaviSync.NaviSyncWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AA000007301A000000000007 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = JUTMKPG582;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NaviSyncWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NaviSyncWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = KeyFight.NaviSync.NaviSyncWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		D35DC5B6301A55E000D13089 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = JUTMKPG582;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D35DC5B7301A55E000D13089 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = JUTMKPG582;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D35DC5B9301A55E000D13089 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = JUTMKPG582;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = NaviSync/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = KeyFight.NaviSync;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D35DC5BA301A55E000D13089 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = JUTMKPG582;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = NaviSync/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = KeyFight.NaviSync;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		D35DC5BC301A55E000D13089 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = JUTMKPG582;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = KeyFight.NaviSyncTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NaviSync.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/NaviSync";
+			};
+			name = Debug;
+		};
+		D35DC5BD301A55E000D13089 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = JUTMKPG582;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = KeyFight.NaviSyncTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NaviSync.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/NaviSync";
+			};
+			name = Release;
+		};
+		D35DC5BF301A55E000D13089 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = JUTMKPG582;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = KeyFight.NaviSyncUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = NaviSync;
+			};
+			name = Debug;
+		};
+		D35DC5C0301A55E000D13089 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = JUTMKPG582;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = KeyFight.NaviSyncUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = NaviSync;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AA000008301A000000000008 /* Build configuration list for PBXNativeTarget "NaviSyncWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA000006301A000000000006 /* Debug */,
+				AA000007301A000000000007 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D35DC592301A55DF00D13089 /* Build configuration list for PBXProject "NaviSync" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D35DC5B6301A55E000D13089 /* Debug */,
+				D35DC5B7301A55E000D13089 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D35DC5B8301A55E000D13089 /* Build configuration list for PBXNativeTarget "NaviSync" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D35DC5B9301A55E000D13089 /* Debug */,
+				D35DC5BA301A55E000D13089 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D35DC5BB301A55E000D13089 /* Build configuration list for PBXNativeTarget "NaviSyncTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D35DC5BC301A55E000D13089 /* Debug */,
+				D35DC5BD301A55E000D13089 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D35DC5BE301A55E000D13089 /* Build configuration list for PBXNativeTarget "NaviSyncUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D35DC5BF301A55E000D13089 /* Debug */,
+				D35DC5C0301A55E000D13089 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D35DC58F301A55DF00D13089 /* Project object */;
+}

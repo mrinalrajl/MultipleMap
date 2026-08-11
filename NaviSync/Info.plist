@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- Core Bundle Metadata Required by iOS Launcher -->
+    <key>CFBundleIdentifier</key>
+    <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+    <key>CFBundleName</key>
+    <string>$(PRODUCT_NAME)</string>
+    <key>CFBundleExecutable</key>
+    <string>$(EXECUTABLE_NAME)</string>
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+    <key>CFBundleDevelopmentRegion</key>
+    <string>$(DEVELOPMENT_LANGUAGE)</string>
+    <key>CFBundleShortVersionString</key>
+    <string>$(MARKETING_VERSION)</string>
+    <key>CFBundleVersion</key>
+    <string>$(CURRENT_PROJECT_VERSION)</string>
+    <key>LSRequiresIPhoneOS</key>
+    <true/>
+    
+    <!-- Launch Screen (Required for full screen on modern iOS devices) -->
+    <key>UILaunchScreen</key>
+    <dict/>
+    
+    <!-- Live Activities Support -->
+    <key>NSSupportsLiveActivities</key>
+    <true/>
+    
+    <!-- Location Privacy Descriptions -->
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>NaviSync requires your location to show your distance to joint meeting spots and display real-time navigation for accepted invitations.</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>NaviSync uses your location in the background to keep meeting participants updated on your ETA and location relative to the destination.</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>NaviSync requires continuous location access to power live participant tracking on map and CarPlay while driving.</string>
+    
+    <!-- Custom URL Scheme for Deep Linking -->
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>CFBundleURLName</key>
+            <string>com.keyfight.navisync</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>navisync</string>
+            </array>
+        </dict>
+    </array>
+    
+    <!-- App Clip / Universal Link Capabilities Configuration -->
+    <key>NSUserActivityTypes</key>
+    <array>
+        <string>com.keyfight.navisync.meeting-invite</string>
+    </array>
+    
+    <!-- CarPlay & Multi-Scene Manifest -->
+    <key>UIApplicationSceneManifest</key>
+    <dict>
+        <key>UIApplicationSupportsMultipleScenes</key>
+        <true/>
+        <key>UISceneConfigurations</key>
+        <dict>
+            <key>CPTemplateApplicationSceneSessionRoleApplication</key>
+            <array>
+                <dict>
+                    <key>UISceneConfigurationName</key>
+                    <string>CarPlay</string>
+                    <key>UISceneDelegateClassName</key>
+                    <string>$(PRODUCT_MODULE_NAME).CarPlaySceneDelegate</string>
+                </dict>
+            </array>
+        </dict>
+    </dict>
+</dict>
+</plist>
