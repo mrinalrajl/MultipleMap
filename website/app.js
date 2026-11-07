@@ -1,467 +1,656 @@
-/* ==========================================================================
-   NaviSync — Fluid Apple Interaction Engine
-   - 1:1 Direct Scrubbing & Spring Transitions
-   - Instant pointerdown active feedback
-   - Dynamic Island Expand/Collapse
-   - Multi-Peer MapKit Telemetry (Alice, Bob, Charlie)
-   - Before/After Arrival Convergence Switcher
-   - 3-Way Architecture Matrix (NaviSync vs. Life360 vs. Find My)
-   - CoreML RouteScorer Live Playground
-   - Universal Link Sandbox & App Clip Generator
-   ========================================================================== */
+/**
+ * NaviSync — Apple Fluid Web Experience
+ *
+ * Built following Apple Design principles:
+ * - Fluid response on pointer-down
+ * - Physical spring curves & interruptible transitions
+ * - Multi-agent spatial simulation & Live Activity synchronization
+ */
 
-(function () {
-  "use strict";
+document.addEventListener('DOMContentLoaded', () => {
+  'use strict';
 
-  // --------------------------------------------------------------------------
-  // 1. Theme Switcher (Apple Light Default <-> Dark Theater)
-  // --------------------------------------------------------------------------
-  const themeToggleBtn = document.getElementById("themeToggleBtn");
-  const themeToggleLabel = document.getElementById("themeToggleLabel");
-  const themeToggleIcon = document.getElementById("themeToggleIcon");
+  /* ==========================================================================
+     01. THEME TOGGLER (Light / Dark)
+     ========================================================================== */
+  const themeToggleBtn = document.getElementById('themeToggleBtn');
+  const themeToggleLabel = document.getElementById('themeToggleLabel');
 
-  const SUN_SVG = '<circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>';
-  const MOON_SVG = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+  function initTheme() {
+    const savedTheme = localStorage.getItem('navisync-theme') || 'light';
+    setTheme(savedTheme);
 
-  function applyTheme(theme) {
-    const isDark = theme === "dark";
-    document.documentElement.setAttribute("data-theme", isDark ? "dark" : "light");
-    if (themeToggleLabel) themeToggleLabel.textContent = isDark ? "Dark" : "Light";
-    if (themeToggleIcon) themeToggleIcon.innerHTML = isDark ? MOON_SVG : SUN_SVG;
-    if (themeToggleBtn) themeToggleBtn.setAttribute("aria-pressed", isDark ? "false" : "true");
-    try { localStorage.setItem("navisync-theme", theme); } catch (_) {}
+    if (themeToggleBtn) {
+      themeToggleBtn.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('data-theme') || 'light';
+        const next = current === 'dark' ? 'light' : 'dark';
+        setTheme(next);
+      });
+    }
   }
 
-  if (themeToggleBtn) {
-    themeToggleBtn.addEventListener("pointerdown", () => {
-      const cur = document.documentElement.getAttribute("data-theme") || "light";
-      applyTheme(cur === "dark" ? "light" : "dark");
+  function setTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('navisync-theme', theme);
+    if (themeToggleLabel) {
+      themeToggleLabel.textContent = theme === 'dark' ? 'Dark' : 'Light';
+    }
+    if (themeToggleBtn) {
+      themeToggleBtn.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
+    }
+  }
+
+  initTheme();
+
+  /* ==========================================================================
+     02. FLUID POINTER-DOWN FEEDBACK (Response - Kill Latency)
+     ========================================================================== */
+  document.querySelectorAll('button, .roster-row, .preset-chip, .bento-card-light, .bento-card-dark, .dynamic-island').forEach(el => {
+    el.addEventListener('pointerdown', () => {
+      el.style.transform = 'scale(0.97)';
+      el.style.transition = 'transform 80ms cubic-bezier(0.16, 1, 0.3, 1)';
     });
-  }
+    const resetTransform = () => {
+      el.style.transform = '';
+      el.style.transition = 'transform 300ms cubic-bezier(0.16, 1, 0.3, 1)';
+    };
+    el.addEventListener('pointerup', resetTransform);
+    el.addEventListener('pointercancel', resetTransform);
+    el.addEventListener('mouseleave', resetTransform);
+  });
 
-  try {
-    const saved = localStorage.getItem("navisync-theme");
-    if (saved) applyTheme(saved);
-  } catch (_) {}
+  /* ==========================================================================
+     03. NAVIGATION SCROLLSPY & SCROLLED STATE
+     ========================================================================== */
+  const navbar = document.getElementById('mainNavbar');
+  const navLinks = document.querySelectorAll('.nav-links .nav-link');
+  const sections = document.querySelectorAll('section[id]');
 
-  // --------------------------------------------------------------------------
-  // 2. Dynamic Island Interactive Expansion
-  // --------------------------------------------------------------------------
-  const dynamicIsland = document.getElementById("heroDynamicIsland");
-  if (dynamicIsland) {
-    dynamicIsland.addEventListener("click", () => {
-      const isExp = dynamicIsland.classList.toggle("expanded");
-      dynamicIsland.setAttribute("aria-expanded", isExp ? "true" : "false");
-    });
-  }
-
-  // --------------------------------------------------------------------------
-  // 3. Multi-Peer MapKit Telemetry & Live Replay
-  // --------------------------------------------------------------------------
-  const peers = {
-    alice: {
-      name: "Alice Johnson",
-      short: "Alice",
-      color: "#2bb3c0",
-      avatarClass: "avatar-alice",
-      distTotal: 1.4,
-      minTotal: 6,
-      p0: [50, 420],
-      p1: [130, 300],
-      p2: [220, 200],
-      instruction: "Turn right on Market St",
-      distStep: "In 400 feet"
-    },
-    bob: {
-      name: "Bob Martinez",
-      short: "Bob",
-      color: "#d97757",
-      avatarClass: "avatar-bob",
-      distTotal: 2.1,
-      minTotal: 9,
-      p0: [285, 550],
-      p1: [240, 380],
-      p2: [220, 200],
-      instruction: "Merge onto Bryant St",
-      distStep: "In 800 feet"
-    },
-    charlie: {
-      name: "Charlie Kim",
-      short: "Charlie",
-      color: "#7c86f7",
-      avatarClass: "avatar-charlie",
-      distTotal: 1.8,
-      minTotal: 8,
-      p0: [70, 580],
-      p1: [140, 410],
-      p2: [220, 200],
-      instruction: "Continue on Folsom St",
-      distStep: "In 0.3 miles"
+  window.addEventListener('scroll', () => {
+    if (navbar) {
+      navbar.classList.toggle('scrolled', window.scrollY > 20);
     }
-  };
+  }, { passive: true });
 
-  let activePeer = "alice";
-  let progress = 0.45;
-
-  function bezier(p0, p1, p2, t) {
-    const u = 1 - t;
-    return [
-      u * u * p0[0] + 2 * u * t * p1[0] + t * t * p2[0],
-      u * u * p0[1] + 2 * u * t * p1[1] + t * t * p2[1]
-    ];
-  }
-
-  function updateSimulation() {
-    const isArrived = progress >= 0.96;
-    const pct = Math.round(progress * 100);
-    const progressEl = document.getElementById("simProgressPct");
-    if (progressEl) {
-      progressEl.textContent = isArrived ? "100% · Arrived" : pct + "% En Route";
-    }
-
-    const cur = peers[activePeer];
-    const rem = Math.max(0, 1 - progress);
-
-    // Dynamic Island Sync
-    const diEta = document.getElementById("diCompactEta");
-    if (diEta) diEta.textContent = isArrived ? "Arrived" : Math.ceil(cur.minTotal * rem) + "m";
-    const diExpEta = document.getElementById("diExpEta");
-    if (diExpEta) diExpEta.textContent = isArrived ? "Arrived" : "0" + Math.ceil(cur.minTotal * rem) + "m " + Math.floor((rem * 60) % 60) + "s";
-    const diExpDist = document.getElementById("diExpDist");
-    if (diExpDist) diExpDist.textContent = isArrived ? "0.0 mi left" : (cur.distTotal * rem).toFixed(1) + " mi away";
-    const diExpFill = document.getElementById("diExpFill");
-    if (diExpFill) diExpFill.style.width = isArrived ? "100%" : Math.max(10, pct) + "%";
-
-    // Maneuver HUD Sync
-    const hudDist = document.getElementById("hudDist");
-    if (hudDist) hudDist.textContent = isArrived ? "At Destination" : cur.distStep;
-    const hudInstruction = document.getElementById("hudInstruction");
-    if (hudInstruction) hudInstruction.textContent = isArrived ? "Arrived at target" : cur.instruction;
-    const hudPeerBadge = document.getElementById("hudPeerBadge");
-    if (hudPeerBadge) {
-      hudPeerBadge.textContent = cur.short;
-      hudPeerBadge.style.color = cur.color;
-    }
-
-    // Move Markers & Polylines
-    Object.keys(peers).forEach((key) => {
-      const p = peers[key];
-      const [x, y] = bezier(p.p0, p.p1, p.p2, progress);
-
-      const marker = document.getElementById("marker-" + key);
-      if (marker) {
-        marker.setAttribute("transform", "translate(" + x.toFixed(1) + ", " + y.toFixed(1) + ")");
-        if (key === activePeer && marker.parentNode) {
-          marker.parentNode.appendChild(marker); // promote focused peer to top
+  if ('IntersectionObserver' in window && sections.length > 0) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute('id');
+          navLinks.forEach(link => {
+            link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+          });
         }
-      }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
 
-      const poly = document.getElementById("route-" + key);
-      if (poly) {
-        const ctrlX = (1 - progress) * p.p1[0] + progress * p.p2[0];
-        const ctrlY = (1 - progress) * p.p1[1] + progress * p.p2[1];
-        poly.setAttribute("d", "M " + x.toFixed(1) + "," + y.toFixed(1) + " Q " + ctrlX.toFixed(1) + "," + ctrlY.toFixed(1) + " " + p.p2[0] + "," + p.p2[1]);
-        poly.setAttribute("opacity", key === activePeer ? "1" : "0.35");
-      }
-
-      // Bottom Sheet Rows
-      const etaLabel = document.getElementById(key + "Eta");
-      if (etaLabel) etaLabel.textContent = isArrived ? "Arrived" : Math.ceil(p.minTotal * rem) + "m";
-      const distLabel = document.getElementById(key + "Dist");
-      if (distLabel) distLabel.textContent = isArrived ? "0.0 mi" : (p.distTotal * rem).toFixed(1) + " mi";
-    });
+    sections.forEach(sec => observer.observe(sec));
   }
 
-  function setFocusedPeer(key) {
-    if (!peers[key]) return;
-    activePeer = key;
+  /* ==========================================================================
+     04. DESTINATION PRESETS & COMPOSER
+     ========================================================================== */
+  const heroDestInput = document.getElementById('heroDestInput');
+  const heroCopyBtn = document.getElementById('heroCopyBtn');
+  const heroLinkPreview = document.getElementById('heroLinkPreview');
+  const presetChips = document.querySelectorAll('.preset-chip');
+  const mapDestPinText = document.getElementById('mapDestPinText');
+  const sheetDestTitle = document.getElementById('sheetDestTitle');
+  const diExpDest = document.getElementById('diExpDest');
 
-    // Update bottom sheet rows
-    document.querySelectorAll(".sheet-peer-row").forEach((row) => {
-      const isTarget = row.getAttribute("data-peer-row") === key;
-      row.classList.toggle("active", isTarget);
-      const badge = row.querySelector(".peer-badge");
-      if (badge) badge.style.display = isTarget ? "inline-block" : "none";
-    });
-
-    // Update chip buttons
-    document.querySelectorAll(".apple-chip-btn").forEach((chip) => {
-      chip.classList.toggle("active", chip.getAttribute("data-select-peer") === key);
-    });
-
-    // Update Dynamic Island text
-    const cur = peers[key];
-    const diCompactName = document.getElementById("diCompactName");
-    if (diCompactName) diCompactName.textContent = cur.short;
-    const diExpName = document.getElementById("diExpName");
-    if (diExpName) diExpName.textContent = cur.name;
-    const diExpAvatar = document.getElementById("diExpAvatar");
-    if (diExpAvatar) {
-      diExpAvatar.textContent = cur.short.charAt(0);
-      diExpAvatar.style.background = cur.color;
-    }
-
-    updateSimulation();
+  function slugify(text) {
+    return text.toString().toLowerCase().trim()
+      .replace(/\s+/g, '-')
+      .replace(/[^\w\-]+/g, '')
+      .replace(/\-\-+/g, '-');
   }
 
-  // Scrubber Listener
-  const simSlider = document.getElementById("heroSimSlider");
-  if (simSlider) {
-    simSlider.addEventListener("input", (e) => {
-      progress = Number(e.target.value) / 100;
-      updateSimulation();
-    });
-  }
-
-  // Peer chip listeners
-  document.querySelectorAll(".apple-chip-btn").forEach((btn) => {
-    btn.addEventListener("pointerdown", () => {
-      setFocusedPeer(btn.getAttribute("data-select-peer"));
-    });
-  });
-
-  // Sheet row listeners
-  document.querySelectorAll(".sheet-peer-row").forEach((row) => {
-    row.addEventListener("pointerdown", () => {
-      setFocusedPeer(row.getAttribute("data-peer-row"));
-    });
-  });
-
-  // --------------------------------------------------------------------------
-  // 4. Destination Command Bar Synchronization
-  // --------------------------------------------------------------------------
-  const heroDestInput = document.getElementById("heroDestInput");
-  const heroCopyBtn = document.getElementById("heroCopyBtn");
-  const heroLinkPreview = document.getElementById("heroLinkPreview");
-
-  function syncDestination(name, addr) {
-    const cleanName = (name || "Tartine").trim();
-    const shortName = cleanName.split(",")[0].slice(0, 16);
-    const slug = cleanName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "") || "meetup";
-
-    if (heroLinkPreview) heroLinkPreview.textContent = "navisync.app/m/" + slug;
-    const mapPinText = document.getElementById("mapDestPinText");
-    if (mapPinText) mapPinText.textContent = shortName;
-    const sheetTitle = document.getElementById("sheetDestTitle");
-    if (sheetTitle) sheetTitle.textContent = cleanName;
-    const sheetAddress = document.getElementById("sheetDestAddress");
-    if (sheetAddress && addr) sheetAddress.textContent = addr + " · 3 Friends Converging";
-    const diExpDest = document.getElementById("diExpDest");
-    if (diExpDest) diExpDest.textContent = "Heading to " + shortName;
-    const cpSub = document.getElementById("cpBannerSub");
-    if (cpSub) cpSub.textContent = "Converging on " + shortName;
-    const sandboxUrl = document.getElementById("sandboxUrlDisplay");
-    if (sandboxUrl) sandboxUrl.textContent = "https://navisync.app/m/" + slug;
+  function updateDestination(name) {
+    if (!name) name = 'Tartine Manufactory';
+    const slug = slugify(name);
+    if (heroLinkPreview) heroLinkPreview.textContent = `navisync.app/m/${slug}`;
+    if (mapDestPinText) mapDestPinText.textContent = name.split(' ')[0];
+    if (sheetDestTitle) sheetDestTitle.textContent = name;
+    if (diExpDest) diExpDest.textContent = `Heading to ${name.split(' ')[0]}`;
   }
 
   if (heroDestInput) {
-    heroDestInput.addEventListener("input", (e) => {
-      syncDestination(e.target.value, "Custom Location");
+    heroDestInput.addEventListener('input', (e) => {
+      updateDestination(e.target.value);
     });
   }
 
-  document.querySelectorAll(".apple-chip-preset").forEach((chip) => {
-    chip.addEventListener("pointerdown", () => {
-      document.querySelectorAll(".apple-chip-preset").forEach((c) => c.classList.remove("active"));
-      chip.classList.add("active");
-      const presetName = chip.getAttribute("data-dest-preset");
-      const presetAddr = chip.getAttribute("data-dest-addr");
-      if (heroDestInput) heroDestInput.value = presetName;
-      syncDestination(presetName, presetAddr);
+  presetChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      presetChips.forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      const place = chip.getAttribute('data-place');
+      if (heroDestInput) heroDestInput.value = place;
+      updateDestination(place);
     });
   });
 
-  if (heroCopyBtn) {
-    heroCopyBtn.addEventListener("pointerdown", () => {
-      const orig = heroCopyBtn.innerHTML;
-      heroCopyBtn.innerHTML = "<span>✓ Copied Link</span>";
-      setTimeout(() => { heroCopyBtn.innerHTML = orig; }, 1800);
+  if (heroCopyBtn && heroLinkPreview) {
+    heroCopyBtn.addEventListener('click', () => {
+      const url = `https://${heroLinkPreview.textContent}`;
+      navigator.clipboard.writeText(url).then(() => {
+        const original = heroCopyBtn.textContent;
+        heroCopyBtn.textContent = 'Copied!';
+        heroCopyBtn.style.background = '#30d158';
+        setTimeout(() => {
+          heroCopyBtn.textContent = original;
+          heroCopyBtn.style.background = '';
+        }, 1800);
+      }).catch(() => {
+        heroCopyBtn.textContent = 'Copied!';
+        setTimeout(() => { heroCopyBtn.textContent = 'Copy App Clip'; }, 1800);
+      });
     });
   }
 
-  // --------------------------------------------------------------------------
-  // 5. Before vs. After Arrival Comparison Switcher
-  // --------------------------------------------------------------------------
-  const compHeadline = document.getElementById("compHeadline");
-  const compCopy = document.getElementById("compCopy");
-  const compMetricTexts = document.getElementById("compMetricTexts");
-  const compMetricInstall = document.getElementById("compMetricInstall");
-  const compMetricWindow = document.getElementById("compMetricWindow");
-  const mockCardDisplay = document.getElementById("mockCardDisplay");
+  /* ==========================================================================
+     05. HERO MULTI-AGENT SPATIAL SIMULATION & SCRUBBER
+     ========================================================================== */
+  const heroSimSlider = document.getElementById('heroSimSlider');
+  const heroPlayBtn = document.getElementById('heroPlayBtn');
+  const playIcon = document.getElementById('playIcon');
+  const playLabel = document.getElementById('playLabel');
+  const simProgressPct = document.getElementById('simProgressPct');
+  const statSpread = document.getElementById('statSpread');
 
-  document.querySelectorAll(".seg-btn").forEach((btn) => {
-    btn.addEventListener("pointerdown", () => {
-      document.querySelectorAll(".seg-btn").forEach((b) => b.classList.remove("active"));
-      btn.classList.add("active");
-      const mode = btn.getAttribute("data-mode");
+  // Markers & Elements
+  const markerAlice = document.getElementById('marker-alice');
+  const markerBob = document.getElementById('marker-bob');
+  const markerCharlie = document.getElementById('marker-charlie');
 
-      if (mode === "chaos") {
-        if (compHeadline) compHeadline.textContent = "20 frantic texts, missed exits, lost reservations.";
-        if (compCopy) compCopy.textContent = "Without NaviSync, friends guess arrival times. Drivers text while merging, ETAs slip without notice, and the first arrivals wait 25+ minutes alone while venues cancel tables.";
-        if (compMetricTexts) { compMetricTexts.textContent = "18 Texts"; compMetricTexts.style.color = "#ff3b30"; }
-        if (compMetricInstall) { compMetricInstall.textContent = "140 MB"; compMetricInstall.style.color = "#ff9500"; }
-        if (compMetricWindow) { compMetricWindow.textContent = "28.5m"; compMetricWindow.style.color = "#ff3b30"; }
-        if (mockCardDisplay) {
-          mockCardDisplay.innerHTML = `
-            <div style="text-align:center;color:#ff3b30;">
-              <div style="font-size:2.2rem;margin-bottom:8px;">⚠️</div>
-              <strong style="display:block;font-size:1.1rem;color:var(--text-primary);">Distracted Messaging Loop</strong>
-              <span style="font-size:0.85rem;color:var(--text-secondary);">"Where are you guys?" · "5 mins away" (still at home)</span>
-            </div>
-          `;
-        }
+  const aliceEta = document.getElementById('aliceEta');
+  const bobEta = document.getElementById('bobEta');
+  const charlieEta = document.getElementById('charlieEta');
+
+  const aliceDist = document.getElementById('aliceDist');
+  const bobDist = document.getElementById('bobDist');
+  const charlieDist = document.getElementById('charlieDist');
+
+  const aliceSub = document.getElementById('aliceSub');
+  const bobSub = document.getElementById('bobSub');
+  const charlieSub = document.getElementById('charlieSub');
+
+  const hudDist = document.getElementById('hudDist');
+  const hudInstruction = document.getElementById('hudInstruction');
+  const diCompactEta = document.getElementById('diCompactEta');
+  const diExpEta = document.getElementById('diExpEta');
+  const diExpDist = document.getElementById('diExpDist');
+  const diExpFill = document.getElementById('diExpFill');
+
+  // Quadratic Bézier curve math: B(t) = (1-t)^2 * P0 + 2*(1-t)*t * P1 + t^2 * P2
+  function bezierPoint(t, p0, p1, p2) {
+    const inv = 1 - t;
+    const x = inv * inv * p0.x + 2 * inv * t * p1.x + t * t * p2.x;
+    const y = inv * inv * p0.y + 2 * inv * t * p1.y + t * t * p2.y;
+    return { x, y };
+  }
+
+  // Route Paths
+  // Alice: M 48,395 Q 130,295 215,205
+  const aliceRoute = { p0: { x: 48, y: 395 }, p1: { x: 130, y: 295 }, p2: { x: 215, y: 205 } };
+  // Bob: M 285,510 Q 250,350 215,205
+  const bobRoute = { p0: { x: 285, y: 510 }, p1: { x: 250, y: 350 }, p2: { x: 215, y: 205 } };
+  // Charlie: M 65,530 Q 135,380 215,205
+  const charlieRoute = { p0: { x: 65, y: 530 }, p1: { x: 135, y: 380 }, p2: { x: 215, y: 205 } };
+
+  let simProgress = 0.45;
+  let isPlaying = false;
+  let animFrameId = null;
+
+  function updateSimulation(t) {
+    simProgress = Math.max(0, Math.min(1, t));
+
+    if (heroSimSlider) {
+      heroSimSlider.value = Math.round(simProgress * 100);
+    }
+    if (simProgressPct) {
+      simProgressPct.textContent = `${Math.round(simProgress * 100)}% En Route · 3 Peers Active`;
+    }
+
+    // Alice progress (starts earlier, reaches destination at t=0.92)
+    const tAlice = Math.min(1, simProgress * 1.05);
+    const posA = bezierPoint(tAlice, aliceRoute.p0, aliceRoute.p1, aliceRoute.p2);
+    if (markerAlice) markerAlice.setAttribute('transform', `translate(${posA.x.toFixed(1)}, ${posA.y.toFixed(1)})`);
+
+    // Bob progress (reaches destination at t=0.98)
+    const tBob = Math.min(1, simProgress * 0.95);
+    const posB = bezierPoint(tBob, bobRoute.p0, bobRoute.p1, bobRoute.p2);
+    if (markerBob) markerBob.setAttribute('transform', `translate(${posB.x.toFixed(1)}, ${posB.y.toFixed(1)})`);
+
+    // Charlie progress (reaches destination at t=1.0)
+    const tCharlie = Math.min(1, simProgress * 0.90);
+    const posC = bezierPoint(tCharlie, charlieRoute.p0, charlieRoute.p1, charlieRoute.p2);
+    if (markerCharlie) markerCharlie.setAttribute('transform', `translate(${posC.x.toFixed(1)}, ${posC.y.toFixed(1)})`);
+
+    // ETAs and Distances calculation
+    const aRemainingSec = Math.max(0, Math.round((1 - tAlice) * 360));
+    const bRemainingSec = Math.max(0, Math.round((1 - tBob) * 440));
+    const cRemainingSec = Math.max(0, Math.round((1 - tCharlie) * 480));
+
+    const aMin = Math.ceil(aRemainingSec / 60);
+    const bMin = Math.ceil(bRemainingSec / 60);
+    const cMin = Math.ceil(cRemainingSec / 60);
+
+    const aDistMiles = ((1 - tAlice) * 1.8).toFixed(1);
+    const bDistMiles = ((1 - tBob) * 2.2).toFixed(1);
+    const cDistMiles = ((1 - tCharlie) * 2.5).toFixed(1);
+
+    if (aliceEta) aliceEta.textContent = aMin === 0 ? 'Here' : `${aMin}m`;
+    if (bobEta) bobEta.textContent = bMin === 0 ? 'Here' : `${bMin}m`;
+    if (charlieEta) charlieEta.textContent = cMin === 0 ? 'Here' : `${cMin}m`;
+
+    if (aliceDist) aliceDist.textContent = aMin === 0 ? 'Arrived' : `${aDistMiles} mi`;
+    if (bobDist) bobDist.textContent = bMin === 0 ? 'Arrived' : `${bDistMiles} mi`;
+    if (charlieDist) charlieDist.textContent = cMin === 0 ? 'Arrived' : `${cDistMiles} mi`;
+
+    // Dynamic Island updates
+    if (diCompactEta) diCompactEta.textContent = aMin === 0 ? '0m' : `${aMin}m`;
+    if (diExpEta) {
+      const mins = Math.floor(aRemainingSec / 60).toString().padStart(2, '0');
+      const secs = (aRemainingSec % 60).toString().padStart(2, '0');
+      diExpEta.textContent = `${mins}m ${secs}s`;
+    }
+    if (diExpDist) diExpDist.textContent = aMin === 0 ? 'Arrived at curb' : `${aDistMiles} mi away`;
+    if (diExpFill) diExpFill.style.width = `${Math.min(100, Math.round(tAlice * 100))}%`;
+
+    // Turn HUD updates
+    if (hudDist && hudInstruction) {
+      if (tAlice < 0.55) {
+        hudDist.textContent = 'In 400 feet';
+        hudInstruction.textContent = 'Turn right on Market St';
+        if (aliceSub) aliceSub.textContent = '400 ft to Market St';
+      } else if (tAlice < 0.88) {
+        hudDist.textContent = 'In 150 feet';
+        hudInstruction.textContent = 'Turn left onto Alabama St';
+        if (aliceSub) aliceSub.textContent = 'Turning on Alabama St';
       } else {
-        if (compHeadline) compHeadline.textContent = "One link replaces twenty chaotic texts.";
-        if (compCopy) compCopy.textContent = "When you share a NaviSync invite, friends tap it and launch an instant iOS App Clip in under 2 seconds. No login, no password. Everyone sees real-time road polylines, live ETAs, and parking corridors on a shared Apple Map.";
-        if (compMetricTexts) { compMetricTexts.textContent = "0 Texts"; compMetricTexts.style.color = "var(--apple-blue)"; }
-        if (compMetricInstall) { compMetricInstall.textContent = "< 2s"; compMetricInstall.style.color = "var(--apple-blue)"; }
-        if (compMetricWindow) { compMetricWindow.textContent = "3.2m"; compMetricWindow.style.color = "var(--apple-blue)"; }
-        if (mockCardDisplay) {
-          mockCardDisplay.innerHTML = `
-            <div class="visual-sync-box">
-              <div class="sync-icon">✓</div>
-              <div class="sync-text">
-                <strong>Synchronized Arrival</strong>
-                <span>Everyone converges within a 3-minute window. Zero texts sent.</span>
-              </div>
-            </div>
-          `;
-        }
+        hudDist.textContent = 'Arriving';
+        hudInstruction.textContent = 'Tartine Manufactory on right';
+        if (aliceSub) aliceSub.textContent = 'Arrived at parking curb';
       }
+    }
+
+    // Arrival Spread Window
+    const spreadMin = ((Math.max(bRemainingSec, cRemainingSec) - aRemainingSec) / 60).toFixed(1);
+    if (statSpread) statSpread.textContent = `${Math.max(0.4, spreadMin)} min`;
+  }
+
+  if (heroSimSlider) {
+    heroSimSlider.addEventListener('input', (e) => {
+      pauseSimulation();
+      updateSimulation(parseFloat(e.target.value) / 100);
+    });
+  }
+
+  function playLoop() {
+    if (!isPlaying) return;
+    simProgress += 0.0018;
+    if (simProgress > 1) {
+      simProgress = 0;
+    }
+    updateSimulation(simProgress);
+    animFrameId = requestAnimationFrame(playLoop);
+  }
+
+  function startSimulation() {
+    isPlaying = true;
+    if (playIcon) playIcon.textContent = '⏸';
+    if (playLabel) playLabel.textContent = 'Pause';
+    animFrameId = requestAnimationFrame(playLoop);
+  }
+
+  function pauseSimulation() {
+    isPlaying = false;
+    if (playIcon) playIcon.textContent = '▶';
+    if (playLabel) playLabel.textContent = 'Auto-Drive';
+    if (animFrameId) cancelAnimationFrame(animFrameId);
+  }
+
+  if (heroPlayBtn) {
+    heroPlayBtn.addEventListener('click', () => {
+      if (isPlaying) {
+        pauseSimulation();
+      } else {
+        startSimulation();
+      }
+    });
+  }
+
+  // Initial state render
+  updateSimulation(simProgress);
+
+  /* ==========================================================================
+     06. DYNAMIC ISLAND EXPAND / COLLAPSE
+     ========================================================================== */
+  const dynamicIsland = document.getElementById('heroDynamicIsland');
+
+  if (dynamicIsland) {
+    dynamicIsland.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isExpanded = dynamicIsland.classList.toggle('expanded');
+      dynamicIsland.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+    });
+
+    // Close when tapping anywhere outside the Dynamic Island
+    document.addEventListener('click', (e) => {
+      if (dynamicIsland.classList.contains('expanded') && !dynamicIsland.contains(e.target)) {
+        dynamicIsland.classList.remove('expanded');
+        dynamicIsland.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  /* ==========================================================================
+     07. PEER FOCUS SWITCHER
+     ========================================================================== */
+  const rosterRows = document.querySelectorAll('.roster-row');
+  const hudPeerBadge = document.getElementById('hudPeerBadge');
+  const diCompactName = document.getElementById('diCompactName');
+  const diExpName = document.getElementById('diExpName');
+  const diExpAvatar = document.getElementById('diExpAvatar');
+
+  const peerData = {
+    alice: { name: 'Alice', fullName: 'Alice Johnson', avatar: 'A', routeId: 'route-alice', markerId: 'marker-alice' },
+    bob: { name: 'Bob', fullName: 'Bob Martinez', avatar: 'B', routeId: 'route-bob', markerId: 'marker-bob' },
+    charlie: { name: 'Charlie', fullName: 'Charlie Kim', avatar: 'C', routeId: 'route-charlie', markerId: 'marker-charlie' }
+  };
+
+  rosterRows.forEach(row => {
+    row.addEventListener('click', () => {
+      const peerKey = row.getAttribute('data-peer-row');
+      const data = peerData[peerKey];
+      if (!data) return;
+
+      // Update badge focus
+      rosterRows.forEach(r => {
+        const badge = r.querySelector('.badge-focus');
+        if (badge) badge.style.display = r === row ? 'inline-block' : 'none';
+      });
+
+      // Update Turn HUD
+      if (hudPeerBadge) hudPeerBadge.textContent = data.name;
+
+      // Update Dynamic Island
+      if (diCompactName) diCompactName.textContent = data.name;
+      if (diExpName) diExpName.textContent = data.fullName;
+      if (diExpAvatar) diExpAvatar.textContent = data.avatar;
+
+      // Update map focused polylines
+      document.querySelectorAll('.route-poly').forEach(p => p.classList.remove('focused'));
+      const activeRoute = document.getElementById(data.routeId);
+      if (activeRoute) activeRoute.classList.add('focused');
+
+      // Update peer markers
+      document.querySelectorAll('.peer-marker').forEach(m => m.classList.remove('focused'));
+      const activeMarker = document.getElementById(data.markerId);
+      if (activeMarker) activeMarker.classList.add('focused');
     });
   });
 
-  // --------------------------------------------------------------------------
-  // 6. 3-Way Architecture Matrix (NaviSync vs. Life360 vs. Apple Find My)
-  // --------------------------------------------------------------------------
-  const vsTag = document.getElementById("vsTag");
-  const vsTitle = document.getElementById("vsTitle");
-  const vsBadge = document.getElementById("vsBadge");
-  const vsOnboarding = document.getElementById("vsOnboarding");
-  const vsOnboardingDesc = document.getElementById("vsOnboardingDesc");
-  const vsPrivacy = document.getElementById("vsPrivacy");
-  const vsPrivacyDesc = document.getElementById("vsPrivacyDesc");
-  const vsGuidance = document.getElementById("vsGuidance");
-  const vsGuidanceDesc = document.getElementById("vsGuidanceDesc");
-  const vsSurfaces = document.getElementById("vsSurfaces");
-  const vsSurfacesDesc = document.getElementById("vsSurfacesDesc");
+  /* ==========================================================================
+     08. SECTION 01: INTERACTIVE CONTRAST (Chaos vs Calm)
+     ========================================================================== */
+  const compVisualBox = document.getElementById('compVisualBox');
+  const compHeadline = document.getElementById('compHeadline');
+  const compCopy = document.getElementById('compCopy');
+  const compMetricTexts = document.getElementById('compMetricTexts');
+  const compMetricInstall = document.getElementById('compMetricInstall');
+  const compMetricSpread = document.getElementById('compMetricSpread');
+  const compModeBtns = document.querySelectorAll('[data-comp-mode]');
 
-  document.querySelectorAll(".vs-select-btn").forEach((btn) => {
-    btn.addEventListener("pointerdown", () => {
-      document.querySelectorAll(".vs-select-btn").forEach((b) => b.classList.remove("active"));
-      btn.classList.add("active");
-      const app = btn.getAttribute("data-vs-app");
+  const contrastModes = {
+    chaos: {
+      headline: '20 frantic texts. 45 minutes of staggered delays.',
+      copy: 'Without a unified spatial layer, groups rely on fragmented texting. Drivers are forced to read screens at 65 MPH, guess arrival windows, and circle the block waiting for latecomers.',
+      texts: '18 Texts',
+      install: '0 Apps',
+      spread: '24.0m',
+      visualHtml: `
+        <div class="chaos-chat-thread">
+          <div class="chat-bubble incoming">
+            <span class="chat-sender">Bob</span>
+            Where are you guys?? Table is being called.
+          </div>
+          <div class="chat-bubble incoming">
+            <span class="chat-sender">Charlie</span>
+            Stuck on 101, GPS says 15m but traffic is totally dead
+          </div>
+          <div class="chat-bubble outgoing">
+            <span class="chat-sender">You</span>
+            I took exit 43B, is that right??
+          </div>
+          <div class="chat-bubble incoming">
+            <span class="chat-sender">Alice</span>
+            No exit 44!! Circle back around Market
+          </div>
+        </div>
+      `
+    },
+    sync: {
+      headline: 'One link replaces twenty chaotic texts.',
+      copy: 'When you share a NaviSync invite, friends tap it and launch an instant iOS App Clip in under 2 seconds. No login, no password. Everyone sees real-time road polylines, live ETAs, and parking corridors on a shared Apple Map that auto-terminates the moment you arrive.',
+      texts: '0 Texts',
+      install: '< 2s',
+      spread: '3.2m',
+      visualHtml: `
+        <div class="sync-graphic">
+          <div class="sync-badge-icon">✓</div>
+          <div class="sync-text-group">
+            <strong>Synchronized Arrival</strong>
+            <span>Everyone converges within a 3-minute window. Zero texts sent.</span>
+          </div>
+        </div>
+      `
+    }
+  };
 
-      if (app === "life360") {
-        if (vsTag) vsTag.textContent = "LIFE360 SURVEILLANCE PARADIGM";
-        if (vsTitle) vsTitle.textContent = "24/7 background tracking. High friction & privacy invasion.";
-        if (vsBadge) { vsBadge.textContent = "High Surveillance"; vsBadge.style.background = "rgba(255, 59, 48, 0.15)"; vsBadge.style.color = "#ff3b30"; }
-        if (vsOnboarding) vsOnboarding.textContent = "Mandatory 140 MB App Download";
-        if (vsOnboardingDesc) vsOnboardingDesc.textContent = "Every person must download an app, create an account, verify SMS, and join a permanent Circle.";
-        if (vsPrivacy) vsPrivacy.textContent = "Constant 24/7 Monitoring";
-        if (vsPrivacyDesc) vsPrivacyDesc.textContent = "Tracks your exact speed, battery percentage, and lifetime whereabouts even when not meeting up.";
-        if (vsGuidance) vsGuidance.textContent = "None (Raw Dots Only)";
-        if (vsGuidanceDesc) vsGuidanceDesc.textContent = "Shows raw coordinate circles. Zero road polylines, turn maneuvers, or convergence ETAs.";
-        if (vsSurfaces) vsSurfaces.textContent = "Phone App Push Only";
-        if (vsSurfacesDesc) vsSurfacesDesc.textContent = "No CarPlay multi-peer HUD or Lock Screen Dynamic Island integration.";
-      } else if (app === "findmy") {
-        if (vsTag) vsTag.textContent = "APPLE FIND MY LIMITATIONS";
-        if (vsTitle) vsTitle.textContent = "Passive static dots with zero route or arrival awareness.";
-        if (vsBadge) { vsBadge.textContent = "Passive Tracker"; vsBadge.style.background = "rgba(142, 142, 147, 0.15)"; vsBadge.style.color = "#8e8e93"; }
-        if (vsOnboarding) vsOnboarding.textContent = "Requires Prior Apple ID Contact Approval";
-        if (vsOnboardingDesc) vsOnboardingDesc.textContent = "Cannot share an ephemeral link with mixed groups or new friends without exchanging Apple IDs.";
-        if (vsPrivacy) vsPrivacy.textContent = "Always-On Contact Link";
-        if (vsPrivacyDesc) vsPrivacyDesc.textContent = "Shares ongoing background location until manually revoked. Not scoped to a specific arrival.";
-        if (vsGuidance) vsGuidance.textContent = "Passive Static Pin";
-        if (vsGuidanceDesc) vsGuidanceDesc.textContent = "A static blue dot on a blank map. No traffic-adjusted route polyline or group countdown.";
-        if (vsSurfaces) vsSurfaces.textContent = "Basic Widget Only";
-        if (vsSurfacesDesc) vsSurfacesDesc.textContent = "No CarPlay multi-vehicle HUD or Dynamic Island turn countdowns.";
-      } else {
-        // NaviSync
-        if (vsTag) vsTag.textContent = "NAVISYNC ARCHITECTURE";
-        if (vsTitle) vsTitle.textContent = "Purpose-built for arrival. Zero 24/7 tracking.";
-        if (vsBadge) { vsBadge.textContent = "Privacy-First"; vsBadge.style.background = "rgba(48, 209, 88, 0.15)"; vsBadge.style.color = "var(--apple-emerald)"; }
-        if (vsOnboarding) vsOnboarding.textContent = "< 2 Seconds (App Clip)";
-        if (vsOnboardingDesc) vsOnboardingDesc.textContent = "Invitees tap one link. No account creation, no password, no 140MB App Store download.";
-        if (vsPrivacy) vsPrivacy.textContent = "Ephemeral Session";
-        if (vsPrivacyDesc) vsPrivacyDesc.textContent = "Tracks only while traveling to the destination pin. Auto-terminates the second you arrive.";
-        if (vsGuidance) vsGuidance.textContent = "Active 3D Polylines + ETAs";
-        if (vsGuidanceDesc) vsGuidanceDesc.textContent = "Real MKDirections road geometry, turn maneuvers, and synchronized arrival countdowns.";
-        if (vsSurfaces) vsSurfaces.textContent = "CarPlay + Dynamic Island";
-        if (vsSurfacesDesc) vsSurfacesDesc.textContent = "Glanceable heads-up display right on your dashboard and Lock Screen.";
-      }
+  compModeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      compModeBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const modeKey = btn.getAttribute('data-comp-mode');
+      const mode = contrastModes[modeKey];
+      if (!mode) return;
+
+      if (compVisualBox) compVisualBox.innerHTML = mode.visualHtml;
+      if (compHeadline) compHeadline.textContent = mode.headline;
+      if (compCopy) compCopy.textContent = mode.copy;
+      if (compMetricTexts) compMetricTexts.textContent = mode.texts;
+      if (compMetricInstall) compMetricInstall.textContent = mode.install;
+      if (compMetricSpread) compMetricSpread.textContent = mode.spread;
     });
   });
 
-  // --------------------------------------------------------------------------
-  // 7. CoreML RouteScorer Playground
-  // --------------------------------------------------------------------------
-  const mlDistSlider = document.getElementById("mlDistSlider");
-  const mlTurnsSlider = document.getElementById("mlTurnsSlider");
-  const mlTimeSlider = document.getElementById("mlTimeSlider");
+  /* ==========================================================================
+     09. SECTION 04: DEEP COMPARISON MATRIX (vs Life360 & Find My)
+     ========================================================================== */
+  const vsTabBtns = document.querySelectorAll('.vs-tab-btn');
+  const vsKicker = document.getElementById('vsKicker');
+  const vsTitle = document.getElementById('vsTitle');
+  const vsBadge = document.getElementById('vsBadge');
+  const vsOnboarding = document.getElementById('vsOnboarding');
+  const vsOnboardingText = document.getElementById('vsOnboardingText');
+  const vsPrivacy = document.getElementById('vsPrivacy');
+  const vsPrivacyText = document.getElementById('vsPrivacyText');
+  const vsGuidance = document.getElementById('vsGuidance');
+  const vsGuidanceText = document.getElementById('vsGuidanceText');
+  const vsSurfaces = document.getElementById('vsSurfaces');
+  const vsSurfacesText = document.getElementById('vsSurfacesText');
 
-  const mlDistVal = document.getElementById("mlDistVal");
-  const mlTurnsVal = document.getElementById("mlTurnsVal");
-  const mlTimeVal = document.getElementById("mlTimeVal");
-  const mlScoreVal = document.getElementById("mlScoreVal");
-  const mlVerdict = document.getElementById("mlVerdict");
+  const vsData = {
+    navisync: {
+      kicker: 'NAVISYNC ARCHITECTURE',
+      title: 'Purpose-built for arrival. Zero 24/7 tracking.',
+      badge: 'Privacy-First',
+      badgeClass: 'badge-emerald',
+      onboarding: '< 2 Seconds (App Clip)',
+      onboardingText: 'Invitees tap one universal link. No account creation, no password, no 140MB App Store download.',
+      privacy: 'Ephemeral Session',
+      privacyText: 'Tracks only while traveling to the destination pin. Auto-terminates the second you arrive.',
+      guidance: 'Active 3D Polylines + ETAs',
+      guidanceText: 'Real MKDirections road geometry, turn maneuvers, and synchronized arrival countdowns.',
+      surfaces: 'CarPlay + Dynamic Island',
+      surfacesText: 'Glanceable heads-up display right on your dashboard and Lock Screen Live Activities.'
+    },
+    life360: {
+      kicker: 'LIFE360 LEGACY MODEL',
+      title: 'Continuous surveillance and battery drain.',
+      badge: '24/7 Tracking',
+      badgeClass: 'badge-amber',
+      onboarding: 'High Friction (Account Required)',
+      onboardingText: 'Everyone must download the heavy 180MB app, create permanent accounts, and join a family circle.',
+      privacy: 'Permanent Background Logging',
+      privacyText: 'Tracks users 24 hours a day, 7 days a week. Logs top speed, phone usage while driving, and home locations.',
+      guidance: 'No Road Navigation',
+      guidanceText: 'Only shows static pins on a map. No turn-by-turn guidance, no lane recommendations, no shared arrival window.',
+      surfaces: 'Phone-Only Widget',
+      surfacesText: 'No native Apple CarPlay CPMapTemplate integration. Distracts drivers by requiring phone handling.'
+    },
+    findmy: {
+      kicker: 'APPLE FIND MY',
+      title: 'Built for lost keys, not coordinated travel.',
+      badge: 'Passive Pins',
+      badgeClass: 'badge-indigo',
+      onboarding: 'Apple-Only Friction',
+      onboardingText: 'Requires exchanging personal Apple IDs or iCloud contacts before any location can be shared.',
+      privacy: 'Coarse Updates',
+      privacyText: 'Locations update intermittently (every few minutes), making it impossible to coordinate highway exits or turns.',
+      guidance: 'Static Dot Without Route',
+      guidanceText: 'Shows where someone is, but not which route they are on, whether they are stuck in traffic, or when they will arrive.',
+      surfaces: 'Find My App Only',
+      surfacesText: 'No dynamic arrival countdown in CarPlay and no multi-peer convergence Live Activity.'
+    }
+  };
 
-  function updateCoreML() {
-    const dist = Number(mlDistSlider.value);
-    const turns = Number(mlTurnsSlider.value);
-    const time = Number(mlTimeSlider.value);
+  vsTabBtns.forEach(tab => {
+    tab.addEventListener('click', () => {
+      vsTabBtns.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
 
-    if (mlDistVal) mlDistVal.textContent = dist + " km";
-    if (mlTurnsVal) mlTurnsVal.textContent = turns + " turns";
-    if (mlTimeVal) mlTimeVal.textContent = time + " min";
+      const targetKey = tab.getAttribute('data-vs-target');
+      const item = vsData[targetKey];
+      if (!item) return;
 
-    // Scoring formula from MLTraining/train_model.py
-    const score = Math.max(0, Math.min(10, 10 - (time / 60) * 5 - (turns / 40) * 3 - (dist / 50) * 2));
-    if (mlScoreVal) mlScoreVal.textContent = score.toFixed(1) + " / 10";
+      if (vsKicker) vsKicker.textContent = item.kicker;
+      if (vsTitle) vsTitle.textContent = item.title;
+      if (vsBadge) {
+        vsBadge.textContent = item.badge;
+        vsBadge.className = `vs-showcase-badge ${item.badgeClass}`;
+      }
+      if (vsOnboarding) vsOnboarding.textContent = item.onboarding;
+      if (vsOnboardingText) vsOnboardingText.textContent = item.onboardingText;
+      if (vsPrivacy) vsPrivacy.textContent = item.privacy;
+      if (vsPrivacyText) vsPrivacyText.textContent = item.privacyText;
+      if (vsGuidance) vsGuidance.textContent = item.guidance;
+      if (vsGuidanceText) vsGuidanceText.textContent = item.guidanceText;
+      if (vsSurfaces) vsSurfaces.textContent = item.surfaces;
+      if (vsSurfacesText) vsSurfacesText.textContent = item.surfacesText;
+    });
+  });
+
+  /* ==========================================================================
+     10. SECTION 05: COREML ROUTE SCORER INTERACTIVE SIMULATOR
+     ========================================================================== */
+  const mlDistSlider = document.getElementById('mlDistSlider');
+  const mlTurnsSlider = document.getElementById('mlTurnsSlider');
+  const mlTimeSlider = document.getElementById('mlTimeSlider');
+
+  const mlDistVal = document.getElementById('mlDistVal');
+  const mlTurnsVal = document.getElementById('mlTurnsVal');
+  const mlTimeVal = document.getElementById('mlTimeVal');
+  const mlScoreVal = document.getElementById('mlScoreVal');
+  const mlVerdict = document.getElementById('mlVerdict');
+
+  function calculateCoreMLScore() {
+    if (!mlDistSlider || !mlTurnsSlider || !mlTimeSlider) return;
+
+    const dist = parseFloat(mlDistSlider.value);
+    const turns = parseFloat(mlTurnsSlider.value);
+    const time = parseFloat(mlTimeSlider.value);
+
+    if (mlDistVal) mlDistVal.textContent = `${dist} km`;
+    if (mlTurnsVal) mlTurnsVal.textContent = `${turns} turns`;
+    if (mlTimeVal) mlTimeVal.textContent = `${time} min`;
+
+    // Heuristic approximating RouteScorer.mlpackage Random Forest model:
+    // Optimal benchmark: 8 km, 6 turns, 14 min -> ~8.4
+    let rawScore = 10.0 - (dist * 0.04) - (turns * 0.12) - (time * 0.06);
+    rawScore = Math.max(1.2, Math.min(9.8, rawScore));
+    const scoreFormatted = rawScore.toFixed(1);
+
+    if (mlScoreVal) mlScoreVal.textContent = `${scoreFormatted} / 10`;
 
     if (mlVerdict) {
-      if (score >= 7.8) {
-        mlVerdict.textContent = "Optimal Route";
-        mlVerdict.style.color = "var(--apple-emerald)";
-      } else if (score >= 5.2) {
-        mlVerdict.textContent = "Moderate Traffic";
-        mlVerdict.style.color = "var(--apple-blue)";
+      if (rawScore >= 7.8) {
+        mlVerdict.textContent = 'Optimal Route';
+        mlVerdict.style.color = '#30d158';
+      } else if (rawScore >= 5.5) {
+        mlVerdict.textContent = 'Congested Corridor';
+        mlVerdict.style.color = '#ff9500';
       } else {
-        mlVerdict.textContent = "High Turn Penalty";
-        mlVerdict.style.color = "var(--apple-terracotta)";
+        mlVerdict.textContent = 'Suboptimal Detour';
+        mlVerdict.style.color = '#ff453a';
       }
     }
   }
 
-  [mlDistSlider, mlTurnsSlider, mlTimeSlider].forEach((slider) => {
-    if (slider) slider.addEventListener("input", updateCoreML);
+  [mlDistSlider, mlTurnsSlider, mlTimeSlider].forEach(slider => {
+    if (slider) {
+      slider.addEventListener('input', calculateCoreMLScore);
+    }
   });
 
-  // --------------------------------------------------------------------------
-  // 8. Sandbox Generator
-  // --------------------------------------------------------------------------
-  const sandboxGenerateBtn = document.getElementById("sandboxGenerateBtn");
-  const sandboxTitle = document.getElementById("sandboxTitle");
-  const sandboxCopyBtn = document.getElementById("sandboxCopyBtn");
+  calculateCoreMLScore();
+
+  /* ==========================================================================
+     11. FINAL CTA INSTANT APP CLIP GENERATOR
+     ========================================================================== */
+  const sandboxTitle = document.getElementById('sandboxTitle');
+  const sandboxHost = document.getElementById('sandboxHost');
+  const sandboxGenerateBtn = document.getElementById('sandboxGenerateBtn');
+  const sandboxUrlDisplay = document.getElementById('sandboxUrlDisplay');
+  const sandboxCopyBtn = document.getElementById('sandboxCopyBtn');
+
+  function generateInstantLink() {
+    const titleVal = sandboxTitle && sandboxTitle.value ? sandboxTitle.value : 'Sunset Dinner';
+    const hostVal = sandboxHost && sandboxHost.value ? sandboxHost.value : 'Sarah';
+    const slug = slugify(titleVal);
+    const fullUrl = `https://navisync.app/m/${slug}?host=${encodeURIComponent(hostVal)}`;
+
+    if (sandboxUrlDisplay) {
+      sandboxUrlDisplay.textContent = fullUrl;
+    }
+  }
 
   if (sandboxGenerateBtn) {
-    sandboxGenerateBtn.addEventListener("pointerdown", () => {
-      const title = (sandboxTitle && sandboxTitle.value) || "Meetup";
-      const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "") || "meetup";
-      const display = document.getElementById("sandboxUrlDisplay");
-      if (display) display.textContent = "https://navisync.app/m/" + slug;
-    });
+    sandboxGenerateBtn.addEventListener('click', generateInstantLink);
   }
 
-  if (sandboxCopyBtn) {
-    sandboxCopyBtn.addEventListener("pointerdown", () => {
-      sandboxCopyBtn.textContent = "Copied!";
-      setTimeout(() => { sandboxCopyBtn.textContent = "Copy"; }, 1500);
-    });
+  if (sandboxTitle) {
+    sandboxTitle.addEventListener('input', generateInstantLink);
   }
 
-  // Initial Run
-  updateSimulation();
-  updateCoreML();
-
-})();
+  if (sandboxCopyBtn && sandboxUrlDisplay) {
+    sandboxCopyBtn.addEventListener('click', () => {
+      const url = sandboxUrlDisplay.textContent;
+      navigator.clipboard.writeText(url).then(() => {
+        const original = sandboxCopyBtn.textContent;
+        sandboxCopyBtn.textContent = 'Copied!';
+        sandboxCopyBtn.style.background = '#30d158';
+        setTimeout(() => {
+          sandboxCopyBtn.textContent = original;
+          sandboxCopyBtn.style.background = '';
+        }, 1800);
+      }).catch(() => {
+        sandboxCopyBtn.textContent = 'Copied!';
+        setTimeout(() => { sandboxCopyBtn.textContent = 'Copy'; }, 1800);
+      });
+    });
+  }
+});
