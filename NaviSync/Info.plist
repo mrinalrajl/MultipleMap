@@ -17,8 +17,12 @@
     <string>$(MARKETING_VERSION)</string>
     <key>CFBundleVersion</key>
     <string>$(CURRENT_PROJECT_VERSION)</string>
-    <key>LSRequiresIPhoneOS</key>
-    <true/>
+    <key>CFBundleDisplayName</key>
+    <string>NaviSync</string>
+    
+    <!-- App Store Export Compliance (Standard HTTPS only) -->
+    <key>ITSAppUsesNonExemptEncryption</key>
+    <false/>
     
     <!-- Launch Screen (Required for full screen on modern iOS devices) -->
     <key>UILaunchScreen</key>
@@ -26,6 +30,8 @@
     
     <!-- Live Activities Support -->
     <key>NSSupportsLiveActivities</key>
+    <true/>
+    <key>NSSupportsLiveActivitiesFrequentUpdates</key>
     <true/>
     
     <!-- Location Privacy Descriptions -->

@@ -40,6 +40,11 @@ class MeetingStore: ObservableObject {
         if selectedMeetingID == nil, let first = meetings.first {
             selectedMeetingID = first.id
         }
+        if let current = selectedMeeting {
+            Task {
+                await RouteService.shared.fetchRoutes(for: current)
+            }
+        }
     }
     
     // MARK: - Actions
@@ -99,6 +104,9 @@ class MeetingStore: ObservableObject {
         meetings.insert(newMeeting, at: 0)
         selectedMeetingID = newMeeting.id
         saveToDisk()
+        Task {
+            await RouteService.shared.fetchRoutes(for: newMeeting)
+        }
         return newMeeting
     }
     
@@ -144,6 +152,9 @@ class MeetingStore: ObservableObject {
         
         meetings[index] = meeting
         saveToDisk()
+        Task {
+            await RouteService.shared.fetchRoutes(for: meeting)
+        }
     }
     
     func addPendingParticipant(meetingID: UUID, name: String, contact: String = "") {
@@ -164,26 +175,59 @@ class MeetingStore: ObservableObject {
         return "Hi \(participant.name)! Join us at \(meeting.title) at \(meeting.targetLocation.title). RSVP & see live locations here: \(urlString)"
     }
     
-    // MARK: - Live Movement Simulation Mode
+    // MARK: - Live Movement Simulation & Lock Screen Live Activity
     
-    func toggleLiveSimulation() {
+    @Published private var initialDistances: [UUID: Double] = [:]
+    
+    func startLockScreenLiveActivity(for meeting: Meeting? = nil, isHost: Bool = true) {
+        let activeMeeting = meeting ?? meetings.first(where: { $0.id == selectedMeetingID }) ?? meetings.first
+        guard let activeMeeting else { return }
+        
+        let participant = activeMeeting.acceptedParticipants.first ?? activeMeeting.participants.first
+        guard let participant, participant.currentLocation != nil else { return }
+        
+        let route = RouteService.shared.route(for: participant.id)
+        let distanceStr = route?.formattedRemainingDistance ?? participant.formattedDistance(to: activeMeeting.targetLocation)
+        let etaStr = route?.formattedRemainingETA ?? participant.estimatedETA(to: activeMeeting.targetLocation)
+        let destETAStr = route?.destinationETAString ?? {
+            let f = DateFormatter()
+            f.dateFormat = "h:mm a"
+            return f.string(from: activeMeeting.scheduledDate)
+        }()
+        
+        LiveActivityManager.shared.startTracking(
+            meetingTitle: activeMeeting.title,
+            targetLocation: activeMeeting.targetLocation.title,
+            participantName: participant.name,
+            distance: distanceStr,
+            eta: etaStr,
+            destinationETA: destETAStr,
+            progress: route?.progress ?? 0.25,
+            avatarImageName: "car.fill",
+            isHost: isHost
+        )
+    }
+    
+    func stopLockScreenLiveActivity() {
+        LiveActivityManager.shared.endTracking()
+        if isSimulatingLiveMovement {
+            stopSimulationTimer()
+            isSimulatingLiveMovement = false
+        }
+    }
+    
+    func toggleLiveSimulation(isHost: Bool = true) {
         isSimulatingLiveMovement.toggle()
         if isSimulatingLiveMovement {
-            startSimulationTimer()
-            
-            // Start Live Activity for the first accepted participant
-            if let meetingID = selectedMeetingID,
-               let meeting = meetings.first(where: { $0.id == meetingID }),
-               let firstParticipant = meeting.acceptedParticipants.first,
-               let loc = firstParticipant.currentLocation {
-                
-                LiveActivityManager.shared.startTracking(
-                    meetingTitle: meeting.title,
-                    targetLocation: meeting.targetLocation.title,
-                    participantName: firstParticipant.name,
-                    distance: loc.formattedDistance(to: meeting.targetLocation),
-                    eta: loc.estimatedETA(to: meeting.targetLocation)
-                )
+            if let activeMeeting = selectedMeeting {
+                Task {
+                    await RouteService.shared.fetchRoutes(for: activeMeeting)
+                    self.startSimulationTimer()
+                    self.startLockScreenLiveActivity(isHost: isHost)
+                }
+            } else {
+                startSimulationTimer()
+                startLockScreenLiveActivity(isHost: isHost)
             }
         } else {
             stopSimulationTimer()
@@ -191,9 +235,22 @@ class MeetingStore: ObservableObject {
         }
     }
     
+    func resetSimulation() {
+        stopSimulationTimer()
+        isSimulatingLiveMovement = false
+        LiveActivityManager.shared.endTracking()
+        setupSampleData()
+        if let m = selectedMeeting {
+            RouteService.shared.resetRoutes(for: m)
+            Task {
+                await RouteService.shared.fetchRoutes(for: m)
+            }
+        }
+    }
+    
     private func startSimulationTimer() {
         simulationTimer?.invalidate()
-        simulationTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { [weak self] _ in
+        simulationTimer = Timer.scheduledTimer(withTimeInterval: 1.2, repeats: true) { [weak self] _ in
             guard let self else { return }
             Task { @MainActor [weak self] in
                 self?.stepSimulation()
@@ -211,33 +268,7 @@ class MeetingStore: ObservableObject {
               let index = meetings.firstIndex(where: { $0.id == meetingID }) else { return }
         
         var meeting = meetings[index]
-        let target = meeting.targetLocation
-        
-        for pIndex in 0..<meeting.participants.count {
-            guard meeting.participants[pIndex].status == .accepted,
-                  var currentLoc = meeting.participants[pIndex].currentLocation else { continue }
-            
-            let dLat = target.latitude - currentLoc.latitude
-            let dLng = target.longitude - currentLoc.longitude
-            
-            // Move 5% closer to target each tick
-            if abs(dLat) > 0.0001 || abs(dLng) > 0.0001 {
-                currentLoc.latitude += dLat * 0.05
-                currentLoc.longitude += dLng * 0.05
-                meeting.participants[pIndex].currentLocation = currentLoc
-                
-                // Update Live Activity if it's the first accepted participant
-                if meeting.participants[pIndex].id == meeting.acceptedParticipants.first?.id {
-                    LiveActivityManager.shared.updateTracking(
-                        participantName: meeting.participants[pIndex].name,
-                        distance: currentLoc.formattedDistance(to: target),
-                        eta: currentLoc.estimatedETA(to: target),
-                        isArriving: abs(dLat) < 0.0005 && abs(dLng) < 0.0005
-                    )
-                }
-            }
-        }
-        
+        RouteService.shared.advanceSimulation(in: &meeting)
         meetings[index] = meeting
     }
     

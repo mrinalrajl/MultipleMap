@@ -1,0 +1,11 @@
+.DS_Store
+.ui_audit/
+*.xcuserstate
+xcuserdata/
+*.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+*.mp4
+.build/
+.swiftpm/
+venv/
+MLTraining/venv/

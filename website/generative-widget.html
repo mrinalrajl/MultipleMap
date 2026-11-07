@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NaviSync — Apple HomeView Product &amp; Telemetry Studio</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+</head>
+<body class="bg-transparent text-[var(--foreground)] antialiased p-4">
+  <div class="bg-[var(--card)] text-[var(--foreground)] border border-[var(--border)] rounded-xl p-5 shadow-sm max-w-4xl mx-auto">
+    <!-- Top Header & 4-Pillar Apple Product Tabs -->
+    <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-[var(--border)]">
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full" style="background:#28cd41;"></span>
+          <span class="text-xs font-mono uppercase tracking-wider text-[var(--muted-foreground)]">NaviSync · iOS 17 Synchronized Arrival</span>
+        </div>
+        <h2 class="text-lg font-semibold tracking-tight text-[var(--foreground)] mt-0.5">Arrive together. Without 24/7 surveillance.</h2>
+      </div>
+
+      <div class="flex items-center gap-1 bg-[var(--background)] p-1 rounded-lg border border-[var(--border)] flex-wrap" role="tablist" aria-label="Product Explorer Views">
+        <button type="button" data-tab="map" class="tab-btn px-2.5 py-1.5 rounded-md text-xs font-medium bg-[var(--card)] text-[var(--foreground)] shadow-sm transition">01 · Live Map</button>
+        <button type="button" data-tab="why" class="tab-btn px-2.5 py-1.5 rounded-md text-xs font-medium text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition">02 · Problem &amp; Who</button>
+        <button type="button" data-tab="compare" class="tab-btn px-2.5 py-1.5 rounded-md text-xs font-medium text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition">03 · vs. Life360 &amp; Find My</button>
+        <button type="button" data-tab="coreml" class="tab-btn px-2.5 py-1.5 rounded-md text-xs font-medium text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition">04 · CoreML &amp; Island</button>
+      </div>
+    </div>
+
+    <!-- Main Interactive Stage (Compact < 440px total height) -->
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 pt-4 items-center">
+      <!-- Left Column: Destination Composer + Peer Roster -->
+      <div class="md:col-span-5 flex flex-col gap-2.5">
+        <div class="bg-[var(--background)] border border-[var(--border)] rounded-lg p-3">
+          <div class="flex items-center justify-between mb-1">
+            <label for="destInput" class="block text-xs font-mono uppercase text-[var(--muted-foreground)]">Shared Meetup Pin</label>
+            <div class="flex items-center gap-1">
+              <button type="button" data-preset="Tartine Manufactory" class="preset-btn text-xs px-1.5 py-0.5 rounded border border-[var(--border)] bg-[var(--card)] text-[var(--foreground)]">Tartine</button>
+              <button type="button" data-preset="Ferry Building" class="preset-btn text-xs px-1.5 py-0.5 rounded border border-transparent text-[var(--muted-foreground)] hover:text-[var(--foreground)]">Ferry</button>
+              <button type="button" data-preset="Dolores Overlook" class="preset-btn text-xs px-1.5 py-0.5 rounded border border-transparent text-[var(--muted-foreground)] hover:text-[var(--foreground)]">Dolores</button>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 p-1.5 rounded-md bg-[var(--card)] border border-[var(--border)] mt-1">
+            <input id="destInput" type="text" value="Tartine Manufactory" class="w-full bg-transparent text-sm font-medium text-[var(--foreground)] focus:outline-none" />
+            <button id="copyBtn" type="button" class="px-2.5 py-1 rounded text-xs font-medium bg-[var(--primary)] text-[var(--primary-foreground)] shrink-0">Copy Clip</button>
+          </div>
+          <div id="slugPreview" class="text-xs font-mono mt-1.5 truncate" style="color:#0071e3;">navisync.app/m/tartine-manufactory</div>
+        </div>
+
+        <!-- Peer Selector Rows -->
+        <div class="flex flex-col gap-1.5">
+          <button type="button" data-peer="alice" class="peer-row flex items-center justify-between p-2 rounded-lg border border-[var(--border)] bg-[var(--background)] text-left transition">
+            <div class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-semibold" style="background:#2bb3c0;color:#081012;">A</span>
+              <div>
+                <div class="text-xs font-semibold text-[var(--foreground)]">Alice Johnson</div>
+                <div id="turn-alice" class="text-xs text-[var(--muted-foreground)]">Turn right onto Market St</div>
+              </div>
+            </div>
+            <span id="eta-alice" class="text-xs font-mono font-medium text-[var(--foreground)]">0.8 mi · 4m</span>
+          </button>
+
+          <button type="button" data-peer="bob" class="peer-row flex items-center justify-between p-2 rounded-lg border border-transparent hover:border-[var(--border)] text-left transition">
+            <div class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-semibold" style="background:#d97757;color:#140906;">B</span>
+              <div>
+                <div class="text-xs font-semibold text-[var(--foreground)]">Bob Martinez</div>
+                <div id="turn-bob" class="text-xs text-[var(--muted-foreground)]">Merge onto Bryant St</div>
+              </div>
+            </div>
+            <span id="eta-bob" class="text-xs font-mono font-medium text-[var(--muted-foreground)]">1.2 mi · 5m</span>
+          </button>
+
+          <button type="button" data-peer="charlie" class="peer-row flex items-center justify-between p-2 rounded-lg border border-transparent hover:border-[var(--border)] text-left transition">
+            <div class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-semibold" style="background:#7c86f7;color:#080917;">C</span>
+              <div>
+                <div class="text-xs font-semibold text-[var(--foreground)]">Charlie Kim</div>
+                <div id="turn-charlie" class="text-xs text-[var(--muted-foreground)]">Continue on Folsom St</div>
+              </div>
+            </div>
+            <span id="eta-charlie" class="text-xs font-mono font-medium text-[var(--muted-foreground)]">1.0 mi · 5m</span>
+          </button>
+        </div>
+
+        <!-- Scrubber Control -->
+        <div class="pt-0.5">
+          <div class="flex justify-between text-xs font-mono text-[var(--muted-foreground)] mb-1">
+            <span>CONVERGENCE TIMELINE</span>
+            <span id="progressText" class="text-[var(--foreground)] font-medium">45% En Route</span>
+          </div>
+          <input id="progressSlider" type="range" min="0" max="100" value="45" class="w-full cursor-pointer" style="accent-color:#0071e3;" />
+        </div>
+      </div>
+
+      <!-- Right Column: 4 Interactive Panels -->
+      <div class="md:col-span-7">
+        <!-- PANEL 1: Live Multi-Peer Vector Map -->
+        <div id="panel-map" class="tab-panel rounded-xl overflow-hidden border border-[var(--border)] bg-[var(--background)] relative" style="height:288px;">
+          <svg viewBox="0 0 420 288" class="w-full h-full block">
+            <rect width="420" height="288" fill="#0c0f14" />
+            <g fill="#12161d" stroke="rgba(255,255,255,0.03)" stroke-width="1">
+              <rect x="20" y="20" width="95" height="60" rx="6" />
+              <rect x="135" y="20" width="110" height="60" rx="6" />
+              <rect x="265" y="20" width="130" height="60" rx="6" />
+              <rect x="20" y="100" width="95" height="75" rx="6" />
+              <rect x="135" y="100" width="110" height="75" rx="6" />
+              <rect x="265" y="100" width="130" height="75" rx="6" />
+            </g>
+            <g stroke="#1b212c" stroke-width="10" stroke-linecap="round">
+              <line x1="0" y1="90" x2="420" y2="90" />
+              <line x1="0" y1="185" x2="420" y2="185" />
+              <line x1="125" y1="0" x2="125" y2="288" />
+              <line x1="255" y1="0" x2="255" y2="288" />
+              <line x1="25" y1="260" x2="365" y2="55" stroke-width="12" />
+            </g>
+
+            <path id="svg-route-alice" d="M 70,195 Q 180,145 300,105" fill="none" stroke="#2bb3c0" stroke-width="4" stroke-linecap="round" />
+            <path id="svg-route-bob" d="M 355,235 Q 290,175 300,105" fill="none" stroke="#d97757" stroke-width="2.5" stroke-linecap="round" opacity="0.5" />
+            <path id="svg-route-charlie" d="M 95,245 Q 200,195 300,105" fill="none" stroke="#7c86f7" stroke-width="2.5" stroke-linecap="round" opacity="0.5" />
+
+            <g transform="translate(300, 105)">
+              <circle r="16" fill="rgba(16,163,127,0.2)" />
+              <circle r="8" fill="#10a37f" stroke="#f4f4f0" stroke-width="2" />
+              <rect x="-82" y="-36" width="164" height="22" rx="6" fill="rgba(12,15,20,0.92)" stroke="rgba(255,255,255,0.18)" />
+              <text id="svgDestText" x="0" y="-21" text-anchor="middle" fill="#f4f4f0" font-size="12" font-weight="600">Tartine Manufactory</text>
+            </g>
+
+            <g id="svgPeersLayer">
+              <g id="node-bob" transform="translate(320, 185)">
+                <circle r="12" fill="#0c0f14" stroke="#d97757" stroke-width="2.5" />
+                <text text-anchor="middle" dy="4" fill="#f4f4f0" font-size="12" font-weight="700">B</text>
+              </g>
+              <g id="node-charlie" transform="translate(175, 210)">
+                <circle r="12" fill="#0c0f14" stroke="#7c86f7" stroke-width="2.5" />
+                <text text-anchor="middle" dy="4" fill="#f4f4f0" font-size="12" font-weight="700">C</text>
+              </g>
+              <g id="node-alice" transform="translate(150, 160)">
+                <circle r="12" fill="#0c0f14" stroke="#2bb3c0" stroke-width="2.5" />
+                <text text-anchor="middle" dy="4" fill="#f4f4f0" font-size="12" font-weight="700">A</text>
+              </g>
+            </g>
+          </svg>
+
+          <div class="absolute top-3 left-3 right-3 flex items-center justify-between pointer-events-none">
+            <div class="px-2.5 py-1 rounded-md bg-[var(--card)] border border-[var(--border)] text-xs font-mono text-[var(--foreground)] shadow-sm">
+              <span id="hudActivePeer" class="font-semibold" style="color:#2bb3c0;">Alice</span> · <span id="hudManeuver">Turn right onto Market St</span>
+            </div>
+            <span class="px-2.5 py-1 rounded-full bg-[var(--card)] border border-[var(--border)] text-[var(--foreground)] text-xs font-mono shadow-sm">App Clip · Ephemeral</span>
+          </div>
+        </div>
+
+        <!-- PANEL 2: The Problem, Root Causes & Who It Caters To -->
+        <div id="panel-why" class="tab-panel hidden rounded-xl border border-[var(--border)] bg-[var(--background)] p-4 flex flex-col justify-between text-[var(--foreground)]" style="height:288px;">
+          <div>
+            <span class="text-xs font-mono uppercase text-[var(--muted-foreground)]">Why It’s Necessary &amp; Why The Problem Occurred</span>
+            <h4 class="text-sm font-semibold mt-0.5 text-[var(--foreground)]">Solving Last-Mile Convergence Failure</h4>
+            <p class="text-xs text-[var(--muted-foreground)] mt-1">
+              Legacy maps (Apple/Google Maps) only route <strong>1 origin → 1 destination</strong>. Group chats fragment road progress into distracted <em>“Where are you?”</em> texts, and family trackers demand invasive 24/7 app installs.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2 my-2">
+            <div class="p-2.5 rounded-lg bg-[var(--card)] border border-[var(--border)]">
+              <div class="text-xs font-semibold text-[var(--foreground)]">Friends &amp; Dinners</div>
+              <div class="text-xs text-[var(--muted-foreground)]">1-tap iMessage App Clip; auto-expires when seated.</div>
+            </div>
+            <div class="p-2.5 rounded-lg bg-[var(--card)] border border-[var(--border)]">
+              <div class="text-xs font-semibold text-[var(--foreground)]">Road-Trip Convoys</div>
+              <div class="text-xs text-[var(--muted-foreground)]">Multi-car CarPlay 3D map &amp; CoreML route scoring.</div>
+            </div>
+            <div class="p-2.5 rounded-lg bg-[var(--card)] border border-[var(--border)]">
+              <div class="text-xs font-semibold text-[var(--foreground)]">Families &amp; Pickups</div>
+              <div class="text-xs text-[var(--muted-foreground)]">Lock Screen &amp; Dynamic Island live approach bar.</div>
+            </div>
+            <div class="p-2.5 rounded-lg bg-[var(--card)] border border-[var(--border)]">
+              <div class="text-xs font-semibold text-[var(--foreground)]">Field &amp; Event Teams</div>
+              <div class="text-xs text-[var(--muted-foreground)]">Zero-account guest links for site convergence.</div>
+            </div>
+          </div>
+
+          <div class="text-xs font-mono text-[var(--muted-foreground)] pt-2 border-t border-[var(--border)] flex justify-between">
+            <span>Zero App Download Drop-Off</span>
+            <span style="color:#28cd41;">&lt; 2.0s App Clip Launch</span>
+          </div>
+        </div>
+
+        <!-- PANEL 3: Head-to-Head vs. Life360 & Apple Find My -->
+        <div id="panel-compare" class="tab-panel hidden rounded-xl border border-[var(--border)] bg-[var(--background)] p-4 flex flex-col justify-between text-[var(--foreground)]" style="height:288px;">
+          <div class="flex items-center justify-between">
+            <div>
+              <span class="text-xs font-mono uppercase text-[var(--muted-foreground)]">Competitive Architecture Matrix</span>
+              <h4 class="text-sm font-semibold text-[var(--foreground)]">Why Switch From Life360 &amp; Apple Find My?</h4>
+            </div>
+            <span class="px-2 py-0.5 rounded-full text-xs font-mono bg-[var(--card)] border border-[var(--border)]" style="color:#28cd41;">Privacy + Polylines</span>
+          </div>
+
+          <div class="flex flex-col gap-2 my-1.5 text-xs">
+            <div class="p-2.5 rounded-lg bg-[var(--card)] border border-[var(--border)]">
+              <div class="flex justify-between font-semibold">
+                <span>vs. Life360 (24/7 Surveillance)</span>
+                <span style="color:#28cd41;">NaviSync Wins</span>
+              </div>
+              <p class="text-xs text-[var(--muted-foreground)] mt-0.5">
+                Life360 tracks you 24/7 and requires heavy app installs + permanent Circles. <strong>NaviSync is ephemeral</strong>: launches via zero-install App Clip and stops tracking on arrival.
+              </p>
+            </div>
+
+            <div class="p-2.5 rounded-lg bg-[var(--card)] border border-[var(--border)]">
+              <div class="flex justify-between font-semibold">
+                <span>vs. Apple Find My (Passive Static Dot)</span>
+                <span style="color:#28cd41;">NaviSync Wins</span>
+              </div>
+              <p class="text-xs text-[var(--muted-foreground)] mt-0.5">
+                Find My shows a static pin with no shared destination, no road polylines, no turn HUD, and no multi-peer Dynamic Island or CarPlay cockpit. <strong>NaviSync syncs live routes.</strong>
+              </p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-3 gap-2 text-xs font-mono pt-1 border-t border-[var(--border)]">
+            <div><strong class="text-[var(--foreground)]">NaviSync:</strong> Polylines + Clip</div>
+            <div><strong class="text-[var(--muted-foreground)]">Life360:</strong> 24/7 Circle App</div>
+            <div><strong class="text-[var(--muted-foreground)]">Find My:</strong> Static Dot Only</div>
+          </div>
+        </div>
+
+        <!-- PANEL 4: CoreML RouteScorer & ActivityKit Stage -->
+        <div id="panel-coreml" class="tab-panel hidden rounded-xl border border-[var(--border)] bg-[var(--background)] p-4 flex flex-col justify-between" style="height:288px;">
+          <div class="flex items-baseline justify-between pb-2 border-b border-[var(--border)]">
+            <div>
+              <span class="text-xs font-mono uppercase text-[var(--muted-foreground)]">RouteScorer.mlpackage + ActivityKit</span>
+              <div id="mlVerdict" class="text-sm font-semibold mt-0.5" style="color:#28cd41;">Optimal Corridor</div>
+            </div>
+            <div id="mlScore" class="text-xl font-mono font-semibold text-[var(--foreground)]">8.2 / 10</div>
+          </div>
+
+          <div class="grid grid-cols-3 gap-3 my-1.5">
+            <div>
+              <label for="sDist" class="block text-xs text-[var(--muted-foreground)] mb-1">Distance (<span id="vDist">8</span> km)</label>
+              <input id="sDist" type="range" min="1" max="50" value="8" class="w-full" style="accent-color:#0071e3;" />
+            </div>
+            <div>
+              <label for="sTime" class="block text-xs text-[var(--muted-foreground)] mb-1">Time (<span id="vTime">14</span> min)</label>
+              <input id="sTime" type="range" min="3" max="60" value="14" class="w-full" style="accent-color:#0071e3;" />
+            </div>
+            <div>
+              <label for="sTurns" class="block text-xs text-[var(--muted-foreground)] mb-1">Turns (<span id="vTurns">6</span>)</label>
+              <input id="sTurns" type="range" min="1" max="45" value="6" class="w-full" style="accent-color:#0071e3;" />
+            </div>
+          </div>
+
+          <div class="p-2.5 rounded-lg border border-[var(--border)]" style="background:#0d0f13;color:#f4f4f0;">
+            <div class="flex items-center justify-between mb-1.5 text-xs">
+              <span class="font-semibold" id="islandDestTitle">Dynamic Island · Tartine Manufactory</span>
+              <span id="islandBadge" class="font-mono" style="color:#2bb3c0;">4m · 0.8 mi</span>
+            </div>
+            <div class="w-full h-2 rounded-full overflow-hidden" style="background:rgba(255,255,255,0.12);">
+              <div id="islandBar" class="h-full transition" style="width:45%;background:#2bb3c0;"></div>
+            </div>
+          </div>
+
+          <div class="text-xs font-mono text-[var(--muted-foreground)] pt-1.5 border-t border-[var(--border)] flex justify-between">
+            <span>Penalties: <strong id="gwTimePen">-1.17</strong>t · <strong id="gwTurnPen">-0.36</strong>u · <strong id="gwDistPen">-0.32</strong>d</span>
+            <span style="color:#0071e3;">0.4ms Neural Engine</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      // Populate fallback tokens on body only when opened outside host iframe
+      const rootStyles = getComputedStyle(document.documentElement);
+      if (!rootStyles.getPropertyValue("--card").trim()) {
+        const b = document.body.style;
+        b.setProperty("--background", "#f5f5f7");
+        b.setProperty("--card", "#ffffff");
+        b.setProperty("--foreground", "#1d1d1f");
+        b.setProperty("--muted-foreground", "#515154");
+        b.setProperty("--border", "rgba(0,0,0,0.1)");
+        b.setProperty("--primary", "#0071e3");
+        b.setProperty("--primary-foreground", "#ffffff");
+      }
+
+      const peers = {
+        alice: {
+          name: "Alice",
+          initial: "A",
+          color: "#2bb3c0",
+          dist: 1.4,
+          min: 6,
+          p0: [70, 195],
+          p1: [180, 145],
+          p2: [300, 105],
+          turns: ["Turn right onto Market St", "Keep left onto Alabama St"],
+          endOffset: [-10, -4]
+        },
+        bob: {
+          name: "Bob",
+          initial: "B",
+          color: "#d97757",
+          dist: 2.1,
+          min: 9,
+          p0: [355, 235],
+          p1: [290, 175],
+          p2: [300, 105],
+          turns: ["Merge onto Bryant St", "Turn right onto 18th St"],
+          endOffset: [10, 6]
+        },
+        charlie: {
+          name: "Charlie",
+          initial: "C",
+          color: "#7c86f7",
+          dist: 1.8,
+          min: 8,
+          p0: [95, 245],
+          p1: [200, 195],
+          p2: [300, 105],
+          turns: ["Continue on Folsom St", "Turn left into drop-off"],
+          endOffset: [-4, 11]
+        }
+      };
+      let activePeer = "alice";
+      let progress = 0.45;
+
+      function bezier(p0, p1, p2, t) {
+        const u = 1 - t;
+        return [
+          u * u * p0[0] + 2 * u * t * p1[0] + t * t * p2[0],
+          u * u * p0[1] + 2 * u * t * p1[1] + t * t * p2[1]
+        ];
+      }
+
+      function render() {
+        const rawDest = (document.getElementById("destInput").value || "Tartine Manufactory").trim() || "Tartine Manufactory";
+        const shortDest = rawDest.split(",")[0].slice(0, 26);
+        const slug = rawDest.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "") || "meetup";
+        document.getElementById("slugPreview").textContent = "navisync.app/m/" + slug;
+        document.getElementById("svgDestText").textContent = shortDest;
+        document.getElementById("islandDestTitle").textContent = "Dynamic Island · " + shortDest;
+
+        const pct = Math.round(progress * 100);
+        const arrived = progress >= 0.97;
+        document.getElementById("progressText").textContent = arrived ? "100% · Arrived" : pct + "% En Route";
+
+        const cur = peers[activePeer];
+        const islandBar = document.getElementById("islandBar");
+        islandBar.style.width = Math.max(6, pct) + "%";
+        islandBar.style.background = arrived ? "#28cd41" : cur.color;
+
+        Object.keys(peers).forEach((k) => {
+          const p = peers[k];
+          let [x, y] = bezier(p.p0, p.p1, p.p2, progress);
+          if (progress > 0.85) {
+            const spread = (progress - 0.85) / 0.15;
+            x += p.endOffset[0] * spread;
+            y += p.endOffset[1] * spread;
+          }
+          const node = document.getElementById("node-" + k);
+          if (node) {
+            node.setAttribute("transform", "translate(" + x.toFixed(1) + "," + y.toFixed(1) + ")");
+            if (k === activePeer && node.parentNode) {
+              node.parentNode.appendChild(node);
+            }
+          }
+          const rem = Math.max(0, 1 - progress);
+          const etaEl = document.getElementById("eta-" + k);
+          if (etaEl) {
+            etaEl.textContent = arrived ? "Arrived" : (p.dist * rem).toFixed(1) + " mi · " + Math.ceil(p.min * rem) + "m";
+          }
+          const turnEl = document.getElementById("turn-" + k);
+          if (turnEl) {
+            turnEl.textContent = arrived
+              ? "Arrived at " + shortDest
+              : progress >= 0.5
+              ? p.turns[1]
+              : p.turns[0];
+          }
+          const route = document.getElementById("svg-route-" + k);
+          if (route) {
+            const ctrlX = (1 - progress) * p.p1[0] + progress * p.p2[0];
+            const ctrlY = (1 - progress) * p.p1[1] + progress * p.p2[1];
+            route.setAttribute(
+              "d",
+              "M " + x.toFixed(1) + "," + y.toFixed(1) + " Q " + ctrlX.toFixed(1) + "," + ctrlY.toFixed(1) + " " + p.p2[0] + "," + p.p2[1]
+            );
+            route.setAttribute("opacity", k === activePeer ? "1" : "0.4");
+            route.setAttribute("stroke-width", k === activePeer ? "4" : "2.5");
+          }
+        });
+
+        const rem = Math.max(0, 1 - progress);
+        const remMin = Math.ceil(cur.min * rem);
+        const remDist = (cur.dist * rem).toFixed(1);
+        const maneuverText = arrived
+          ? "Arrived at " + shortDest
+          : progress >= 0.5
+          ? cur.turns[1]
+          : cur.turns[0];
+        const hudPeer = document.getElementById("hudActivePeer");
+        hudPeer.textContent = cur.name;
+        hudPeer.style.color = cur.color;
+        document.getElementById("hudManeuver").textContent = maneuverText;
+
+        const islandBadge = document.getElementById("islandBadge");
+        islandBadge.textContent = arrived ? "Arrived · Auto-Stopped" : remMin + "m · " + remDist + " mi";
+        islandBadge.style.color = arrived ? "#28cd41" : cur.color;
+      }
+
+      document.getElementById("destInput").addEventListener("input", () => {
+        document.querySelectorAll(".preset-btn").forEach((b) => {
+          b.classList.remove("bg-[var(--card)]", "border-[var(--border)]", "text-[var(--foreground)]");
+          b.classList.add("border-transparent", "text-[var(--muted-foreground)]");
+        });
+        render();
+      });
+
+      document.querySelectorAll(".preset-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document.getElementById("destInput").value = btn.getAttribute("data-preset");
+          document.querySelectorAll(".preset-btn").forEach((b) => {
+            const active = b === btn;
+            b.classList.toggle("bg-[var(--card)]", active);
+            b.classList.toggle("border-[var(--border)]", active);
+            b.classList.toggle("text-[var(--foreground)]", active);
+            b.classList.toggle("border-transparent", !active);
+            b.classList.toggle("text-[var(--muted-foreground)]", !active);
+          });
+          render();
+        });
+      });
+
+      document.getElementById("progressSlider").addEventListener("input", (e) => {
+        progress = Number(e.target.value) / 100;
+        render();
+      });
+
+      document.querySelectorAll(".peer-row").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          activePeer = btn.getAttribute("data-peer");
+          document.querySelectorAll(".peer-row").forEach((b) => {
+            b.classList.toggle("bg-[var(--background)]", b === btn);
+            b.classList.toggle("border-[var(--border)]", b === btn);
+            b.classList.toggle("border-transparent", b !== btn);
+          });
+          render();
+        });
+      });
+
+      document.querySelectorAll(".tab-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const target = btn.getAttribute("data-tab");
+          document.querySelectorAll(".tab-panel").forEach((p) => p.classList.add("hidden"));
+          document.getElementById("panel-" + target).classList.remove("hidden");
+          document.querySelectorAll(".tab-btn").forEach((b) => {
+            const active = b === btn;
+            b.classList.toggle("bg-[var(--card)]", active);
+            b.classList.toggle("text-[var(--foreground)]", active);
+            b.classList.toggle("shadow-sm", active);
+            b.classList.toggle("text-[var(--muted-foreground)]", !active);
+          });
+        });
+      });
+
+      function updateML() {
+        const d = Number(document.getElementById("sDist").value);
+        const t = Number(document.getElementById("sTime").value);
+        const u = Number(document.getElementById("sTurns").value);
+        document.getElementById("vDist").textContent = d;
+        document.getElementById("vTime").textContent = t;
+        document.getElementById("vTurns").textContent = u;
+        const timePen = (t / 60) * 5;
+        const turnPen = (u / 50) * 3;
+        const distPen = (d / 50) * 2;
+        const score = Math.max(0, Math.min(10, 10 - timePen - turnPen - distPen));
+        document.getElementById("mlScore").textContent = score.toFixed(1) + " / 10";
+        document.getElementById("gwTimePen").textContent = "-" + timePen.toFixed(2);
+        document.getElementById("gwTurnPen").textContent = "-" + turnPen.toFixed(2);
+        document.getElementById("gwDistPen").textContent = "-" + distPen.toFixed(2);
+        const verdictEl = document.getElementById("mlVerdict");
+        if (score >= 7.5) {
+          verdictEl.textContent = "Optimal Corridor";
+          verdictEl.style.color = "#28cd41";
+        } else if (score >= 4.8) {
+          verdictEl.textContent = "Balanced Urban Route";
+          verdictEl.style.color = "#0071e3";
+        } else {
+          verdictEl.textContent = "High Turn Penalty";
+          verdictEl.style.color = "#ff9500";
+        }
+      }
+      ["sDist", "sTime", "sTurns"].forEach((id) => document.getElementById(id).addEventListener("input", updateML));
+
+      document.getElementById("copyBtn").addEventListener("click", (e) => {
+        e.target.textContent = "Copied";
+        setTimeout(() => (e.target.textContent = "Copy Clip"), 1500);
+      });
+
+      render();
+      updateML();
+    })();
+  </script>
+</body>
+</html>

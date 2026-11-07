@@ -13,8 +13,7 @@ struct ParticipantRowView: View {
     let targetLocation: LocationPoint
     let shareURL: URL?
     let shareMessage: String?
-    
-    @State private var isShowingContactAlert = false
+    var isSelected: Bool = false
     
     var avatarColor: Color {
         switch participant.avatarColorName {
@@ -30,111 +29,128 @@ struct ParticipantRowView: View {
     
     var body: some View {
         HStack(spacing: 12) {
-            // Avatar
+            // Avatar with status ring & indicator dot
             ZStack {
                 Circle()
-                    .fill(avatarColor.opacity(0.2))
-                    .frame(width: 46, height: 46)
+                    .fill(
+                        LinearGradient(
+                            colors: [avatarColor.opacity(0.85), avatarColor.opacity(0.5)],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                    )
+                    .frame(width: 38, height: 38)
+                    .overlay(
+                        Circle()
+                            .stroke(isSelected ? Color.cyan : avatarColor.opacity(0.4), lineWidth: isSelected ? 2 : 1)
+                    )
+                    .shadow(color: isSelected ? Color.cyan.opacity(0.4) : Color.clear, radius: 4)
                 
                 Text(String(participant.name.prefix(1)).uppercased())
-                    .font(.headline)
-                    .fontWeight(.bold)
-                    .foregroundColor(avatarColor)
+                    .font(.system(size: 15, weight: .bold, design: .rounded))
+                    .foregroundColor(.white)
+            }
+            .overlay(alignment: .bottomTrailing) {
+                Circle()
+                    .fill(statusColor(participant.status))
+                    .frame(width: 9, height: 9)
+                    .overlay(Circle().stroke(Color(red: 0.12, green: 0.14, blue: 0.18), lineWidth: 1.5))
+                    .offset(x: 1, y: 1)
             }
             
-            // Participant Info
-            VStack(alignment: .leading, spacing: 4) {
-                HStack {
-                    Text(participant.name)
-                        .font(.system(.body, design: .rounded))
-                        .fontWeight(.semibold)
-                        .foregroundColor(.primary)
-                    
-                    Spacer()
-                    
-                    // Status Badge
-                    HStack(spacing: 4) {
-                        Image(systemName: participant.status.iconName)
-                            .font(.caption2)
-                        Text(participant.status.rawValue)
-                            .font(.caption)
-                            .fontWeight(.medium)
-                    }
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 3)
-                    .background(statusBackgroundColor(participant.status))
-                    .foregroundColor(statusForegroundColor(participant.status))
-                    .clipShape(Capsule())
-                }
-                
-                // Origin & Contact Info
+            // Name & Subtitle
+            VStack(alignment: .leading, spacing: 2) {
                 HStack(spacing: 6) {
-                    Image(systemName: "house.fill")
-                        .font(.caption2)
-                        .foregroundColor(.secondary)
-                    Text("From: \(participant.originLocationName)")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                }
-                
-                if !participant.contactInfo.isEmpty {
-                    HStack(spacing: 6) {
-                        Image(systemName: "phone.fill")
-                            .font(.caption2)
-                            .foregroundColor(.secondary)
-                        Text(participant.contactInfo)
-                            .font(.caption)
-                            .foregroundColor(.secondary)
+                    Text(participant.name)
+                        .font(.system(size: 14, weight: .semibold, design: .rounded))
+                        .foregroundColor(.white)
+                    
+                    if isSelected {
+                        Text("TRACKING")
+                            .font(.system(size: 8, weight: .black))
+                            .padding(.horizontal, 5)
+                            .padding(.vertical, 2)
+                            .background(Color.cyan.opacity(0.25))
+                            .foregroundColor(.cyan)
+                            .clipShape(Capsule())
                     }
                 }
                 
-                // Distance & ETA if Accepted
-                if participant.status == .accepted, let loc = participant.currentLocation {
-                    HStack(spacing: 12) {
-                        Label(loc.formattedDistance(to: targetLocation), systemImage: "location.fill")
-                            .font(.caption)
-                            .fontWeight(.semibold)
-                            .foregroundColor(.blue)
-                        
-                        Label("ETA: \(loc.estimatedETA(to: targetLocation))", systemImage: "car.fill")
-                            .font(.caption)
-                            .fontWeight(.semibold)
-                            .foregroundColor(.indigo)
+                HStack(spacing: 4) {
+                    if participant.status == .accepted {
+                        Image(systemName: "mappin.fill")
+                            .font(.system(size: 8))
+                            .foregroundColor(.cyan.opacity(0.8))
+                        Text(participant.originLocationName)
+                            .font(.system(size: 11, design: .rounded))
+                            .foregroundColor(.secondary)
+                            .lineLimit(1)
+                    } else if participant.status == .pending {
+                        Text("Awaiting response • \(participant.originLocationName)")
+                            .font(.system(size: 11, design: .rounded))
+                            .foregroundColor(.orange.opacity(0.85))
+                            .lineLimit(1)
+                    } else {
+                        Text("Unable to attend")
+                            .font(.system(size: 11, design: .rounded))
+                            .foregroundColor(.red.opacity(0.8))
+                            .lineLimit(1)
                     }
-                    .padding(.top, 2)
                 }
             }
             
-            // Resend Invite / Ping Button for Pending Users
-            if participant.status == .pending, let shareURL = shareURL, let shareMessage = shareMessage {
+            Spacer()
+            
+            // Trailing Metrics or Actions
+            if participant.status == .accepted {
+                VStack(alignment: .trailing, spacing: 1) {
+                    Text(participant.formattedDistance(to: targetLocation))
+                        .font(.system(size: 13, weight: .bold, design: .rounded))
+                        .foregroundColor(.cyan)
+                    
+                    HStack(spacing: 3) {
+                        Image(systemName: "car.fill")
+                            .font(.system(size: 9))
+                        Text(participant.estimatedETA(to: targetLocation))
+                            .font(.system(size: 11, weight: .medium, design: .rounded))
+                    }
+                    .foregroundColor(.white.opacity(0.75))
+                }
+            } else if participant.status == .pending, let shareURL = shareURL, let shareMessage = shareMessage {
                 ShareLink(item: shareURL, subject: Text("Meeting Invitation"), message: Text(shareMessage)) {
-                    VStack(spacing: 2) {
+                    HStack(spacing: 4) {
                         Image(systemName: "paperplane.fill")
-                            .font(.system(size: 14))
-                        Text("Send Link")
-                            .font(.system(size: 10, weight: .bold))
+                            .font(.system(size: 9))
+                        Text("Remind")
+                            .font(.system(size: 11, weight: .bold, design: .rounded))
                     }
                     .padding(.horizontal, 10)
-                    .padding(.vertical, 8)
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(8)
+                    .padding(.vertical, 5)
+                    .background(Color.orange.opacity(0.18))
+                    .foregroundColor(.orange)
+                    .clipShape(Capsule())
+                    .overlay(Capsule().stroke(Color.orange.opacity(0.35), lineWidth: 1))
                 }
-                .buttonStyle(BorderlessButtonStyle())
+                .buttonStyle(.plain)
+            } else if participant.status == .rejected {
+                Text("Declined")
+                    .font(.system(size: 10, weight: .semibold, design: .rounded))
+                    .foregroundColor(.red.opacity(0.75))
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 3)
+                    .background(Color.red.opacity(0.12))
+                    .clipShape(Capsule())
             }
         }
-        .padding(.vertical, 6)
+        .padding(.horizontal, 12)
+        .padding(.vertical, 7)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(isSelected ? Color.white.opacity(0.08) : Color.clear)
+        )
     }
     
-    private func statusBackgroundColor(_ status: ParticipantStatus) -> Color {
-        switch status {
-        case .accepted: return Color.green.opacity(0.15)
-        case .pending: return Color.orange.opacity(0.15)
-        case .rejected: return Color.red.opacity(0.15)
-        }
-    }
-    
-    private func statusForegroundColor(_ status: ParticipantStatus) -> Color {
+    private func statusColor(_ status: ParticipantStatus) -> Color {
         switch status {
         case .accepted: return .green
         case .pending: return .orange

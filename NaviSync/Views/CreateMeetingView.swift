@@ -254,7 +254,7 @@ struct CreateMeetingView: View {
                         .foregroundColor(.secondary)
                     }
                     .padding(32)
-                    .background(Color(UIColor.systemBackground))
+                    .background(Color(UIColor.secondarySystemGroupedBackground))
                     .cornerRadius(24)
                     .shadow(color: .black.opacity(0.15), radius: 20, x: 0, y: 10)
                     .padding(24)

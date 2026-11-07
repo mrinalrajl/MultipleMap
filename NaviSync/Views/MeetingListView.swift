@@ -48,8 +48,10 @@ struct MeetingListView: View {
                             HStack {
                                 Image(systemName: "link.circle.fill")
                                     .foregroundColor(.white)
-                                Text("Simulate Opening Invite Link as Friend")
+                                Text("Simulate Invite as Friend")
                                     .fontWeight(.bold)
+                                    .lineLimit(1)
+                                    .minimumScaleFactor(0.85)
                             }
                             .frame(maxWidth: .infinity)
                             .padding()
@@ -60,7 +62,8 @@ struct MeetingListView: View {
                     }
                     .padding(.horizontal)
                 }
-                .padding(.vertical)
+                .padding(.top)
+                .padding(.bottom, 20)
             }
             .background(Color(UIColor.systemGroupedBackground))
             .navigationTitle("Joint Meetings")
@@ -86,29 +89,29 @@ struct MeetingListView: View {
 struct MeetingCardView: View {
     let meeting: Meeting
     @EnvironmentObject var meetingStore: MeetingStore
+    @Environment(AppRouter.self) private var appRouter
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             // Header
             HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: 4) {
-                    HStack {
-                        Text(meeting.title)
-                            .font(.title3)
-                            .fontWeight(.bold)
-                            .foregroundColor(.primary)
-                        
-                        if meeting.id == meetingStore.selectedMeetingID {
-                            Text("Active")
-                                .font(.caption2)
-                                .fontWeight(.bold)
-                                .padding(.horizontal, 8)
-                                .padding(.vertical, 4)
-                                .background(Color.blue)
-                                .foregroundColor(.white)
-                                .clipShape(Capsule())
-                        }
+                    if meeting.id == meetingStore.selectedMeetingID {
+                        Text("ACTIVE")
+                            .font(.system(size: 10, weight: .heavy, design: .rounded))
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 3)
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .clipShape(Capsule())
                     }
+                    
+                    Text(meeting.title)
+                        .font(.title3)
+                        .fontWeight(.bold)
+                        .foregroundColor(.primary)
+                        .lineLimit(2)
+                        .fixedSize(horizontal: false, vertical: true)
                     
                     HStack(spacing: 4) {
                         Image(systemName: "mappin.and.ellipse")
@@ -170,15 +173,21 @@ struct MeetingCardView: View {
             HStack {
                 Button {
                     meetingStore.selectedMeetingID = meeting.id
+                    withAnimation(.spring(response: 0.35, dampingFraction: 0.8)) {
+                        appRouter.selectedTab = 0
+                    }
                 } label: {
-                    Text("View on Map")
-                        .font(.subheadline)
-                        .fontWeight(.bold)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 12)
-                        .background(meeting.id == meetingStore.selectedMeetingID ? Color.blue.opacity(0.1) : Color.blue)
-                        .foregroundColor(meeting.id == meetingStore.selectedMeetingID ? .blue : .white)
-                        .cornerRadius(10)
+                    HStack(spacing: 6) {
+                        Image(systemName: "map.fill")
+                        Text("View on Multi-Map")
+                    }
+                    .font(.subheadline)
+                    .fontWeight(.bold)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 12)
+                    .background(meeting.id == meetingStore.selectedMeetingID ? Color.blue : Color.blue.opacity(0.85))
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
                 }
             }
             
@@ -209,12 +218,12 @@ struct MeetingCardView: View {
                     }
                 }
                 .padding()
-                .background(Color(UIColor.secondarySystemBackground))
+                .background(Color(UIColor.tertiarySystemGroupedBackground))
                 .cornerRadius(12)
             }
         }
         .padding()
-        .background(Color(UIColor.systemBackground))
+        .background(Color(UIColor.secondarySystemGroupedBackground))
         .cornerRadius(16)
         .shadow(color: Color.black.opacity(0.05), radius: 10, x: 0, y: 5)
         .padding(.horizontal)

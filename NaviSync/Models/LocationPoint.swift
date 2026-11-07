@@ -69,4 +69,27 @@ struct LocationPoint: Identifiable, Codable, Equatable, Hashable {
             return "\(hrs)h \(mins)m"
         }
     }
+    
+    static func formatMeters(_ meters: CLLocationDistance) -> String {
+        let miles = meters / 1609.34
+        if miles < 0.1 {
+            let feet = meters * 3.28084
+            return String(format: "%.0f ft", feet)
+        } else {
+            return String(format: "%.1f mi", miles)
+        }
+    }
+    
+    static func formatSeconds(_ seconds: TimeInterval) -> String {
+        let minutes = Int(ceil(seconds / 60.0))
+        if minutes <= 1 {
+            return "1 min"
+        } else if minutes < 60 {
+            return "\(minutes) min"
+        } else {
+            let hrs = minutes / 60
+            let mins = minutes % 60
+            return "\(hrs)h \(mins)m"
+        }
+    }
 }

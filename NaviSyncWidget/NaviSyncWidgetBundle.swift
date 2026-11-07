@@ -9,6 +9,7 @@ import SwiftUI
 @main
 struct NaviSyncWidgetBundle: WidgetBundle {
     var body: some Widget {
+        NaviSyncWidget()
         NaviSyncLiveActivity()
     }
 }

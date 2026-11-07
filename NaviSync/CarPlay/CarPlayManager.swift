@@ -25,17 +25,15 @@ class CarPlayManager: NSObject, ObservableObject, CPInterfaceControllerDelegate 
         self.mapTemplate = mapTemplate
         
         // Add CarPlay Action Bar Buttons
-        let attendeesButton = CPBarButton(type: .text) { [weak self] _ in
+        let attendeesButton = CPBarButton(title: "Attendees") { [weak self] _ in
             self?.presentAttendeesList(meetingStore: meetingStore)
         }
-        attendeesButton.title = "Attendees"
         
-        let simulateButton = CPBarButton(type: .text) { _ in
+        let simulateButton = CPBarButton(title: "Simulate") { _ in
             Task { @MainActor in
-                meetingStore.toggleLiveSimulation()
+                meetingStore.toggleLiveSimulation(isHost: false)
             }
         }
-        simulateButton.title = "Simulate"
         
         mapTemplate.trailingNavigationBarButtons = [attendeesButton, simulateButton]
         

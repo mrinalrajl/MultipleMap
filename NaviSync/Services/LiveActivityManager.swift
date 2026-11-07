@@ -11,19 +11,42 @@ class LiveActivityManager: ObservableObject {
     static let shared = LiveActivityManager()
     
     @Published var currentActivityId: String?
+    @Published var isLiveActivityActive: Bool = false
     
-    func startTracking(meetingTitle: String, targetLocation: String, participantName: String, distance: String, eta: String) {
+    var isEnabled: Bool {
+        ActivityAuthorizationInfo().areActivitiesEnabled
+    }
+    
+    func startTracking(
+        meetingTitle: String,
+        targetLocation: String,
+        participantName: String,
+        distance: String,
+        eta: String,
+        destinationETA: String = "18:50",
+        progress: Double = 0.25,
+        avatarImageName: String = "person.crop.circle.fill",
+        isHost: Bool = true
+    ) {
         guard ActivityAuthorizationInfo().areActivitiesEnabled else {
             print("Live Activities are not enabled.")
             return
         }
         
-        let attributes = MeetingActivityAttributes(meetingTitle: meetingTitle, targetLocationName: targetLocation)
+        // If an existing activity is active, end it first before starting a new one
+        if currentActivityId != nil {
+            endTracking()
+        }
+        
+        let attributes = MeetingActivityAttributes(meetingTitle: meetingTitle, targetLocationName: targetLocation, isHost: isHost)
         let initialContentState = MeetingActivityAttributes.ContentState(
             participantName: participantName,
             distanceString: distance,
             etaString: eta,
-            isArriving: false
+            destinationETA: destinationETA,
+            progress: progress,
+            isArriving: false,
+            avatarImageName: avatarImageName
         )
         
         do {
@@ -33,13 +56,22 @@ class LiveActivityManager: ObservableObject {
                 pushType: nil
             )
             currentActivityId = activity.id
-            print("Started Live Activity: \(activity.id)")
+            isLiveActivityActive = true
+            print("Started Live Activity on Lock Screen: \(activity.id)")
         } catch {
             print("Error starting Live Activity: \(error.localizedDescription)")
         }
     }
     
-    func updateTracking(participantName: String, distance: String, eta: String, isArriving: Bool = false) {
+    func updateTracking(
+        participantName: String,
+        distance: String,
+        eta: String,
+        destinationETA: String = "18:50",
+        progress: Double = 0.5,
+        isArriving: Bool = false,
+        avatarImageName: String = "person.crop.circle.fill"
+    ) {
         guard let activityId = currentActivityId,
               let activity = Activity<MeetingActivityAttributes>.activities.first(where: { $0.id == activityId }) else {
             return
@@ -49,7 +81,10 @@ class LiveActivityManager: ObservableObject {
             participantName: participantName,
             distanceString: distance,
             etaString: eta,
-            isArriving: isArriving
+            destinationETA: destinationETA,
+            progress: progress,
+            isArriving: isArriving,
+            avatarImageName: avatarImageName
         )
         
         Task {
@@ -65,6 +100,8 @@ class LiveActivityManager: ObservableObject {
     func endTracking() {
         guard let activityId = currentActivityId,
               let activity = Activity<MeetingActivityAttributes>.activities.first(where: { $0.id == activityId }) else {
+            isLiveActivityActive = false
+            currentActivityId = nil
             return
         }
         
@@ -74,6 +111,7 @@ class LiveActivityManager: ObservableObject {
                 dismissalPolicy: .immediate
             )
             currentActivityId = nil
+            isLiveActivityActive = false
         }
     }
 }

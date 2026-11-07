@@ -10,7 +10,7 @@ import CoreLocation
 import Combine
 
 @MainActor
-class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
+class LocationManager: NSObject, ObservableObject, @preconcurrency CLLocationManagerDelegate {
     @Published var userLocation: CLLocationCoordinate2D?
     @Published var authorizationStatus: CLAuthorizationStatus = .notDetermined
     @Published var heading: CLHeading?

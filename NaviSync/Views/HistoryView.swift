@@ -74,7 +74,8 @@ struct HistoryView: View {
                             .padding(.horizontal)
                         }
                     }
-                    .padding(.vertical)
+                    .padding(.top)
+                    .padding(.bottom, 20)
                 }
             }
             .searchable(text: $searchText, prompt: "Search meetings, locations, hosts...")
@@ -114,7 +115,7 @@ struct HistoryStatBox: View {
         }
         .frame(maxWidth: .infinity)
         .padding(.vertical, 10)
-        .background(Color(UIColor.systemBackground))
+        .background(Color(UIColor.secondarySystemGroupedBackground))
         .cornerRadius(12)
         .shadow(color: Color.black.opacity(0.04), radius: 6, x: 0, y: 3)
     }
@@ -184,7 +185,7 @@ struct HistoryCardView: View {
                 }
             }
             .padding(14)
-            .background(Color(UIColor.systemBackground))
+            .background(Color(UIColor.secondarySystemGroupedBackground))
             .cornerRadius(16)
             .shadow(color: Color.black.opacity(0.04), radius: 8, x: 0, y: 4)
         }
@@ -212,6 +213,8 @@ struct HistoryCardView: View {
 
 struct HistoryMeetingDetailSheet: View {
     @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var meetingStore: MeetingStore
+    @Environment(AppRouter.self) private var appRouter
     let meeting: Meeting
     
     var body: some View {
@@ -323,18 +326,39 @@ struct HistoryMeetingDetailSheet: View {
                     .background(Color(UIColor.secondarySystemBackground))
                     .cornerRadius(16)
                     
-                    // Share Link Action
-                    ShareLink(item: meeting.shareURL, subject: Text(meeting.title), message: Text("Join us at \(meeting.title)!")) {
-                        HStack {
-                            Image(systemName: "square.and.arrow.up")
-                            Text("Share Meeting Link")
-                                .fontWeight(.bold)
+                    // Actions
+                    VStack(spacing: 12) {
+                        Button {
+                            meetingStore.selectedMeetingID = meeting.id
+                            withAnimation(.spring(response: 0.35, dampingFraction: 0.8)) {
+                                appRouter.selectedTab = 0
+                            }
+                            dismiss()
+                        } label: {
+                            HStack {
+                                Image(systemName: "map.fill")
+                                Text("View on Multi-Map")
+                                    .fontWeight(.bold)
+                            }
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(14)
                         }
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(14)
+                        
+                        ShareLink(item: meeting.shareURL, subject: Text(meeting.title), message: Text("Join us at \(meeting.title)!")) {
+                            HStack {
+                                Image(systemName: "square.and.arrow.up")
+                                Text("Share Meeting Link")
+                                    .fontWeight(.semibold)
+                            }
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 14)
+                            .background(Color(UIColor.secondarySystemBackground))
+                            .foregroundColor(.primary)
+                            .cornerRadius(14)
+                        }
                     }
                 }
                 .padding()
