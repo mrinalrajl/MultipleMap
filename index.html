@@ -3,1557 +3,759 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NaviSync — Synchronized Group Navigation &amp; Arrival for iOS 17</title>
-  <meta name="description" content="Discover why NaviSync is the privacy-first, zero-install group navigation platform for iOS 17—solving last-mile convergence where Apple Find My and Life360 fall short." />
+  <title>NaviSync — Synchronized Group Navigation for iOS 17</title>
+  <meta name="description" content="One universal link synchronizes every friend's live route, turn maneuver, and ETA on a shared Apple Map. Ephemeral, privacy-first, zero-install App Clips." />
   <link rel="icon" type="image/png" href="Logo/NaviSync-AppIcon-1024.png" />
   <link rel="stylesheet" href="website/styles.css" />
   <script>window.NAVISYNC_ASSET_PREFIX = "";</script>
 </head>
 <body>
-  <!-- Apple-Style Global System Ribbon -->
-  <div class="apple-global-ribbon" role="region" aria-label="Apple Platform Ribbon">
-    <div class="apple-global-inner">
-      <div class="apple-global-left">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
-        </svg>
-        <span><strong>NaviSync for iOS 17+</strong> · Apple MapKit · App Clips · ActivityKit · CarPlay · CoreML</span>
-      </div>
-      <div class="apple-global-Status">
-        <span>EPHEMERAL PRIVACY</span>
-        <span>·</span>
-        <span>ZERO-INSTALL APP CLIP</span>
-        <span>·</span>
-        <span>60 FPS TELEMETRY</span>
-      </div>
-    </div>
-  </div>
 
-  <!-- Sticky Apple HomeView Local Sub-Navigation Bar -->
-  <header class="navbar-wrapper">
-    <nav class="navbar" id="mainNavbar" aria-label="Product Sub-Navigation">
-      <a href="#top" class="nav-brand">
-        <span class="nav-brand-icon">
+  <!-- ====================================================================
+       APPLE SUB-NAVIGATION BAR (Translucent Liquid Glass)
+       ==================================================================== -->
+  <header class="apple-nav-wrapper">
+    <nav class="apple-nav" id="mainNavbar" aria-label="Product Navigation">
+      <a href="#top" class="apple-nav-brand">
+        <span class="apple-nav-icon">
           <img src="Logo/NaviSync-AppIcon-1024.png" alt="NaviSync Icon" />
         </span>
-        <span>NaviSync</span>
-        <span class="nav-badge">iOS 17.0+</span>
+        <span class="apple-nav-title">NaviSync</span>
+        <span class="apple-nav-badge">iOS 17</span>
       </a>
 
-      <ul class="nav-links">
-        <li><a href="#top">Overview</a></li>
-        <li><a href="#the-problem">The Problem</a></li>
-        <li><a href="#root-causes">Why It Happens</a></li>
-        <li><a href="#who-its-for">Who It’s For</a></li>
-        <li><a href="#comparison">vs. Life360 &amp; Find My</a></li>
-        <li><a href="#how-it-works">Architecture</a></li>
-        <li><a href="#features">System &amp; ML</a></li>
-      </ul>
+      <div class="apple-nav-center">
+        <a href="#overview" class="apple-nav-link active">Overview</a>
+        <a href="#the-problem" class="apple-nav-link">The Crisis</a>
+        <a href="#why-it-happened" class="apple-nav-link">Root Cause</a>
+        <a href="#who-its-for" class="apple-nav-link">Who It's For</a>
+        <a href="#comparison" class="apple-nav-link">vs. Life360 &amp; Find My</a>
+        <a href="#ecosystem" class="apple-nav-link">CarPlay &amp; ML</a>
+      </div>
 
-      <div class="nav-actions">
-        <button type="button" class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle color theme" aria-pressed="true">
-          <svg id="themeToggleIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <div class="apple-nav-actions">
+        <button type="button" class="apple-theme-btn" id="themeToggleBtn" aria-label="Toggle color theme" aria-pressed="true">
+          <svg id="themeToggleIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="12" cy="12" r="4"></circle>
             <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
           </svg>
           <span id="themeToggleLabel">Light</span>
         </button>
-        <a href="#comparison" class="btn btn-secondary">Compare Apps</a>
-        <a href="#try-invite" class="btn btn-primary">
-          <span>Try App Clip</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M5 12h14M12 5l7 7-7 7"></path>
-          </svg>
+        <a href="#try-invite" class="apple-btn-cta">
+          <span>Get Link</span>
         </a>
       </div>
     </nav>
   </header>
 
   <main id="top">
+
     <!-- ====================================================================
-         HERO — Apple HomeView Product Thesis + Live iOS 17 Telemetry Stage
+         HERO SECTION: THE VISCERAL APPLE DISPLAY
          ==================================================================== -->
-    <section class="hero" id="overview">
-      <div class="container">
-        <div class="hero-layout">
-          <!-- Left Column: Product Definition, Value Pillars & Live Destination Composer -->
-          <div class="hero-copy reveal visible">
-            <div class="hero-eyebrow">
-              <span class="status-dot"></span>
-              <span>Synchronized Group Navigation · Ephemeral &amp; Zero-Install</span>
+    <section class="apple-hero" id="overview">
+      <div class="apple-container">
+        
+        <div class="apple-hero-header">
+          <div class="apple-pill-tag">
+            <span class="apple-pill-pulse"></span>
+            <span>Synchronized Spatial Telemetry · iOS 17</span>
+          </div>
+
+          <h1 class="apple-hero-headline">
+            Arrive together.<br />
+            <span class="apple-gradient-text">Down to the second.</span>
+          </h1>
+
+          <p class="apple-hero-subhead">
+            No more texting <em>“Where are you?”</em> at 65&nbsp;MPH. Drop one universal link and watch every friend’s live road polyline, turn maneuver, and arrival countdown converge on a shared 3D Apple Map.
+          </p>
+
+          <!-- Interactive Destination Command Bar -->
+          <div class="apple-command-bar">
+            <div class="apple-command-input-row">
+              <span class="apple-command-icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+              </span>
+              <input
+                type="text"
+                id="heroDestInput"
+                class="apple-command-input"
+                value="Tartine Manufactory"
+                placeholder="Where are you meeting?"
+                aria-label="Meeting destination name"
+              />
+              <button type="button" class="apple-btn-primary" id="heroCopyBtn">
+                <span>Copy App Clip</span>
+              </button>
             </div>
 
-            <h1 class="hero-title">
-              Arrive together.<br />
-              <em class="serif-italic">Without the surveillance.</em>
-            </h1>
-
-            <p class="hero-description">
-              <strong>NaviSync</strong> is a synchronized group navigation and arrival platform for iOS 17+. Share one universal link so every participant’s live road polyline, turn-by-turn maneuver, and arrival countdown converge on a single Apple Map—via an instant <strong>iOS App Clip</strong> that automatically stops tracking the moment you arrive.
-            </p>
-
-            <div class="hero-value-pills" aria-label="Core Product Highlights">
-              <span class="value-pill"><span class="dot"></span>Zero-Install iOS App Clip</span>
-              <span class="value-pill"><span class="dot"></span>Auto-Expires on Arrival</span>
-              <span class="value-pill"><span class="dot"></span>Live MKPolyline Trajectories</span>
-              <span class="value-pill"><span class="dot"></span>Dynamic Island &amp; CarPlay</span>
+            <div class="apple-command-footer">
+              <div class="apple-preset-row">
+                <button type="button" class="apple-chip-preset active" data-dest-preset="Tartine Manufactory" data-dest-addr="595 Alabama St, SF">Tartine</button>
+                <button type="button" class="apple-chip-preset" data-dest-preset="Blue Bottle Ferry Bldg" data-dest-addr="1 Ferry Building, SF">Ferry Building</button>
+                <button type="button" class="apple-chip-preset" data-dest-preset="Dolores Park Overlook" data-dest-addr="19th &amp; Cumberland, SF">Dolores Park</button>
+              </div>
+              <span class="apple-command-preview" id="heroLinkPreview">navisync.app/m/tartine-manufactory</span>
             </div>
+          </div>
+        </div>
 
-            <!-- Interactive Destination Command Bar -->
-            <div class="command-composer" aria-label="Interactive Meeting Destination Composer">
-              <div class="composer-label-row">
-                <span>LIVE DESTINATION COMPOSER</span>
-                <span>SYNCS WITH iOS 17 SIMULATOR →</span>
+        <!-- HERO HARDWARE SHOWCASE: TITANIUM iPHONE 15 PRO WITH MAPKIT -->
+        <div class="apple-hero-stage">
+          
+          <div class="apple-iphone-chassis" id="iphoneChassis">
+            <div class="apple-iphone-inner">
+              
+              <!-- Dynamic Island (Interactive Click to Expand) -->
+              <div class="apple-dynamic-island" id="heroDynamicIsland" role="button" tabindex="0" aria-expanded="false" title="Click to toggle Dynamic Island">
+                <div class="di-compact">
+                  <div class="di-compact-left">
+                    <span class="di-icon-pulse" id="diPulseIcon">▲</span>
+                    <span id="diCompactName">Alice</span>
+                  </div>
+                  <span class="di-compact-eta" id="diCompactEta">3m</span>
+                </div>
+
+                <div class="di-expanded">
+                  <div class="di-expanded-header">
+                    <div class="di-expanded-avatar" id="diExpAvatar">A</div>
+                    <div class="di-expanded-info">
+                      <div class="di-expanded-name" id="diExpName">Alice Johnson</div>
+                      <div class="di-expanded-dest" id="diExpDest">Heading to Tartine</div>
+                    </div>
+                    <div class="di-expanded-countdown">
+                      <span id="diExpEta">03m 12s</span>
+                      <small id="diExpDist">0.6 mi away</small>
+                    </div>
+                  </div>
+                  <div class="di-progress-track">
+                    <div class="di-progress-bar" id="diExpFill" style="width: 65%;"></div>
+                  </div>
+                  <div class="di-expanded-footer">
+                    <span>📍 595 Alabama St</span>
+                    <span class="di-live-badge">● Live Sync</span>
+                  </div>
+                </div>
               </div>
 
-              <div class="composer-input-well">
-                <div class="composer-input-row">
-                  <span class="composer-icon" aria-hidden="true">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
-                      <circle cx="12" cy="10" r="3"></circle>
+              <!-- Top Turn-by-Turn Maneuver HUD -->
+              <div class="phone-turn-hud" id="phoneTurnHud">
+                <div class="hud-left">
+                  <span class="hud-maneuver-icon" id="hudManeuverIcon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="9 18 15 12 9 6"></polyline>
                     </svg>
                   </span>
-                  <input
-                    type="text"
-                    id="heroDestInput"
-                    class="composer-input"
-                    value="Tartine Manufactory"
-                    placeholder="Type any meeting spot, cafe, or address..."
-                    aria-label="Meeting destination name"
-                  />
-                  <button type="button" class="btn btn-primary" id="heroCopyBtn">Copy App Clip</button>
+                  <div>
+                    <div class="hud-dist" id="hudDist">In 400 feet</div>
+                    <div class="hud-instruction" id="hudInstruction">Turn right on Market St</div>
+                  </div>
+                </div>
+                <div class="hud-peer-badge" id="hudPeerBadge">Alice</div>
+              </div>
+
+              <!-- MapKit Vector Surface -->
+              <div class="phone-map-viewport">
+                <svg class="phone-map-svg" viewBox="0 0 340 680" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="aliceGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+                      <stop offset="0%" stop-color="#0071e3" />
+                      <stop offset="100%" stop-color="#2bb3c0" />
+                    </linearGradient>
+                    <filter id="routeGlow" x="-20%" y="-20%" width="140%" height="140%">
+                      <feGaussianBlur stdDeviation="4" result="blur" />
+                      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                    </filter>
+                  </defs>
+
+                  <!-- Road Network -->
+                  <g class="map-grid-layer" stroke-linecap="round">
+                    <line x1="-20" y1="160" x2="360" y2="280" />
+                    <line x1="-20" y1="310" x2="360" y2="430" />
+                    <line x1="-20" y1="460" x2="360" y2="580" />
+                    <line x1="80" y1="0" x2="220" y2="680" />
+                    <line x1="210" y1="0" x2="320" y2="680" />
+                  </g>
+
+                  <!-- Real Road Polylines -->
+                  <path id="route-bob" class="map-route-poly" d="M 285,550 Q 240,380 220,200" stroke="#d97757" stroke-width="3" fill="none" opacity="0.5" />
+                  <path id="route-charlie" class="map-route-poly" d="M 70,580 Q 140,410 220,200" stroke="#7c86f7" stroke-width="3" fill="none" opacity="0.5" />
+                  <path id="route-alice" class="map-route-poly focused" d="M 50,420 Q 130,300 220,200" stroke="url(#aliceGrad)" stroke-width="5" fill="none" filter="url(#routeGlow)" />
+
+                  <!-- Destination Pin -->
+                  <g class="map-dest-pin" transform="translate(220, 200)">
+                    <circle r="18" class="dest-pulse" fill="rgba(48,209,88,0.2)" />
+                    <circle r="9" fill="#30d158" stroke="#ffffff" stroke-width="2" />
+                    <rect x="-65" y="-36" width="130" height="22" rx="6" fill="rgba(24,24,27,0.92)" stroke="rgba(255,255,255,0.2)" />
+                    <text id="mapDestPinText" x="0" y="-21" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="600">Tartine</text>
+                  </g>
+
+                  <!-- Peer Markers -->
+                  <g id="mapPeersLayer">
+                    <g id="marker-bob" class="map-marker" transform="translate(270, 480)">
+                      <circle r="13" fill="#18181b" stroke="#d97757" stroke-width="2.5" />
+                      <text text-anchor="middle" dy="4" fill="#ffffff" font-size="12" font-weight="700">B</text>
+                    </g>
+                    <g id="marker-charlie" class="map-marker" transform="translate(100, 510)">
+                      <circle r="13" fill="#18181b" stroke="#7c86f7" stroke-width="2.5" />
+                      <text text-anchor="middle" dy="4" fill="#ffffff" font-size="12" font-weight="700">C</text>
+                    </g>
+                    <g id="marker-alice" class="map-marker focused" transform="translate(110, 335)">
+                      <circle r="15" fill="#18181b" stroke="#2bb3c0" stroke-width="3" />
+                      <text text-anchor="middle" dy="4.5" fill="#ffffff" font-size="12" font-weight="800">A</text>
+                    </g>
+                  </g>
+                </svg>
+              </div>
+
+              <!-- Native UISheetPresentationController Bottom Drawer -->
+              <div class="phone-bottom-sheet" id="phoneBottomSheet">
+                <div class="sheet-grabber" id="sheetGrabber"></div>
+
+                <div class="sheet-header">
+                  <div>
+                    <h4 class="sheet-title" id="sheetDestTitle">Tartine Manufactory</h4>
+                    <span class="sheet-subtitle" id="sheetDestAddress">595 Alabama St, SF · 3 Friends Converging</span>
+                  </div>
+                  <span class="sheet-live-tag">Active</span>
+                </div>
+
+                <div class="sheet-peer-list">
+                  <div class="sheet-peer-row active" data-peer-row="alice" role="button" tabindex="0">
+                    <div class="peer-avatar avatar-alice">A</div>
+                    <div class="peer-info">
+                      <div class="peer-name-row">
+                        <strong>Alice Johnson</strong>
+                        <span class="peer-badge" data-focus-badge="alice">Focused</span>
+                      </div>
+                      <span class="peer-sub" id="aliceSub">400 ft to Market St</span>
+                    </div>
+                    <div class="peer-eta-col">
+                      <strong id="aliceEta">3m</strong>
+                      <small id="aliceDist">0.6 mi</small>
+                    </div>
+                  </div>
+
+                  <div class="sheet-peer-row" data-peer-row="bob" role="button" tabindex="0">
+                    <div class="peer-avatar avatar-bob">B</div>
+                    <div class="peer-info">
+                      <div class="peer-name-row">
+                        <strong>Bob Martinez</strong>
+                        <span class="peer-badge" data-focus-badge="bob" style="display:none;">Focused</span>
+                      </div>
+                      <span class="peer-sub" id="bobSub">On Bryant St</span>
+                    </div>
+                    <div class="peer-eta-col">
+                      <strong id="bobEta">5m</strong>
+                      <small id="bobDist">1.2 mi</small>
+                    </div>
+                  </div>
+
+                  <div class="sheet-peer-row" data-peer-row="charlie" role="button" tabindex="0">
+                    <div class="peer-avatar avatar-charlie">C</div>
+                    <div class="peer-info">
+                      <div class="peer-name-row">
+                        <strong>Charlie Kim</strong>
+                        <span class="peer-badge" data-focus-badge="charlie" style="display:none;">Focused</span>
+                      </div>
+                      <span class="peer-sub" id="charlieSub">On Folsom St</span>
+                    </div>
+                    <div class="peer-eta-col">
+                      <strong id="charlieEta">5m</strong>
+                      <small id="charlieDist">1.0 mi</small>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              <div class="composer-footer">
-                <div class="preset-Row">
-                  <button type="button" class="preset-chip active" data-dest-preset="Tartine Manufactory" data-dest-addr="595 Alabama St, SF">Tartine Manufactory</button>
-                  <button type="button" class="preset-chip" data-dest-preset="Blue Bottle Ferry Bldg" data-dest-addr="1 Ferry Building, SF">Blue Bottle Ferry</button>
-                  <button type="button" class="preset-chip" data-dest-preset="Dolores Park Overlook" data-dest-addr="19th &amp; Cumberland, SF">Dolores Overlook</button>
-                </div>
-                <span class="composer-link-preview" id="heroLinkPreview">navisync.app/m/tartine-manufactory</span>
-              </div>
-            </div>
-
-            <div class="hero-metrics">
-              <div class="metric-item">
-                <span class="metric-value">&lt; 2.0s</span>
-                <span class="metric-label">App Clip Instant Join</span>
-              </div>
-              <div class="metric-item">
-                <span class="metric-value">0 MB</span>
-                <span class="metric-label">Required App Store Install</span>
-              </div>
-              <div class="metric-item">
-                <span class="metric-value">100%</span>
-                <span class="metric-label">Ephemeral Trip Privacy</span>
-              </div>
-              <div class="metric-item">
-                <span class="metric-value">4 Surfaces</span>
-                <span class="metric-label">Map, Island, Lock &amp; CarPlay</span>
-              </div>
             </div>
           </div>
 
-          <!-- Right Column: Interactive iOS 17 Simulator Stage -->
-          <div class="hero-stage reveal visible">
-            <div class="stage-top-bar">
-              <span>FIG 1.0 — LIVE MULTI-PEER CONVERGENCE SIMULATOR</span>
-              <span>TAP ISLAND TO EXPAND</span>
-            </div>
-
-            <div class="iphone-chassis" id="iphoneChassis">
-              <div class="iphone-screen">
-                <!-- Interactive Dynamic Island -->
-                <div class="dynamic-island-wrap">
-                  <div class="dynamic-island" id="heroDynamicIsland" role="button" tabindex="0" aria-expanded="false" title="Click to toggle Dynamic Island Live Activity">
-                    <div class="di-compact-row">
-                      <div class="di-compact-left">
-                        <span class="di-pulse-icon" id="diPulseIcon">
-                          <svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/></svg>
-                        </span>
-                        <span id="diCompactName">Alice</span>
-                      </div>
-                      <span class="di-compact-eta" id="diCompactEta">3m</span>
-                    </div>
-
-                    <div class="di-expanded-content">
-                      <div class="di-exp-top">
-                        <div class="di-exp-user">
-                          <div class="di-exp-avatar" id="diExpAvatar">A</div>
-                          <div class="di-exp-meta">
-                            <h5 id="diExpName">Alice's Route</h5>
-                            <span id="diExpDestSub">To Tartine Manufactory</span>
-                          </div>
-                        </div>
-                        <div class="di-exp-eta">
-                          <strong id="diExpEta">03m 12s</strong>
-                          <small id="diExpDist">0.6 mi remaining</small>
-                        </div>
-                      </div>
-                      <div class="di-exp-track">
-                        <div class="di-exp-fill" id="diExpFill"></div>
-                      </div>
-                      <div class="di-exp-bottom">
-                        <span id="diExpAddress">595 Alabama St, SF</span>
-                        <span style="color: #34d399;">LIVE SYNC</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- iOS Status Bar -->
-                <div class="ios-statusbar">
-                  <span>9:41</span>
-                  <div class="ios-status-icons">
-                    <span>5G</span>
-                    <span>100%</span>
-                  </div>
-                </div>
-
-                <!-- Vector Street Map & Multi-Peer Polylines -->
-                <div class="phone-map-canvas" aria-hidden="true">
-                  <svg class="phone-map-svg" viewBox="0 0 340 720" preserveAspectRatio="xMidYMid slice">
-                    <rect width="340" height="720" fill="#0b0e13" />
-                    <polygon points="14,195 112,162 146,238 42,272" fill="#101b19" opacity="0.85" />
-                    <polygon points="215,355 326,312 340,425 245,455" fill="#11161f" opacity="0.8" />
-                    <polygon points="24,335 125,295 158,382 54,422" fill="#0f141c" opacity="0.85" />
-
-                    <g stroke="rgba(255,255,255,0.03)" stroke-width="1.5">
-                      <line x1="0" y1="190" x2="340" y2="190" />
-                      <line x1="0" y1="250" x2="340" y2="250" />
-                      <line x1="0" y1="310" x2="340" y2="310" />
-                      <line x1="0" y1="370" x2="340" y2="370" />
-                      <line x1="0" y1="430" x2="340" y2="430" />
-                      <line x1="85" y1="130" x2="85" y2="490" />
-                      <line x1="170" y1="130" x2="170" y2="490" />
-                      <line x1="255" y1="130" x2="255" y2="490" />
-                    </g>
-
-                    <g stroke="rgba(255,255,255,0.065)" stroke-width="8" stroke-linecap="round">
-                      <line x1="-20" y1="175" x2="360" y2="315" />
-                      <line x1="-20" y1="285" x2="360" y2="425" />
-                      <line x1="-20" y1="405" x2="360" y2="515" />
-                      <line x1="55" y1="120" x2="245" y2="520" />
-                      <line x1="165" y1="110" x2="325" y2="480" />
-                      <line x1="15" y1="355" x2="310" y2="165" />
-                      <line x1="45" y1="455" x2="330" y2="245" />
-                    </g>
-
-                    <g fill="rgba(255,255,255,0.22)" font-family="monospace" font-size="6.5" letter-spacing="0.08em">
-                      <text x="32" y="218" transform="rotate(-18 32 218)">MARKET ST</text>
-                      <text x="248" y="294" transform="rotate(20 248 294)">BRYANT ST</text>
-                      <text x="135" y="428">18TH ST CORRIDOR</text>
-                    </g>
-
-                    <!-- Peer Route Polylines -->
-                    <path id="route-alice" d="M 64,295 Q 148,255 232,232" fill="none" stroke="#2bb3c0" stroke-width="4.5" stroke-linecap="round" />
-                    <path id="route-bob" d="M 282,392 Q 245,318 232,232" fill="none" stroke="#d97757" stroke-width="2.5" stroke-linecap="round" />
-                    <path id="route-charlie" d="M 84,405 Q 158,335 232,232" fill="none" stroke="#7c86f7" stroke-width="2.5" stroke-linecap="round" />
-
-                    <!-- Shared Destination Pin -->
-                    <g transform="translate(232, 232)">
-                      <circle r="24" fill="rgba(16, 163, 127, 0.16)" />
-                      <circle r="11" fill="#10a37f" stroke="#f4f4f0" stroke-width="2" />
-                      <circle r="3.5" fill="#f4f4f0" />
-                      <rect x="-66" y="-34" width="132" height="19" rx="6" fill="rgba(12,14,18,0.94)" stroke="rgba(255,255,255,0.18)" />
-                      <text id="mapDestLabel" x="0" y="-21.5" text-anchor="middle" fill="#f4f4f0" font-size="8.5" font-weight="600">Tartine Manufactory</text>
-                    </g>
-
-                    <!-- Peer Live Markers -->
-                    <g id="mapPeersLayer">
-                      <g id="marker-bob" transform="translate(260, 345)">
-                        <circle r="13.5" fill="#0d1014" stroke="#d97757" stroke-width="2.5" />
-                        <text text-anchor="middle" dy="3.5" fill="#f4f4f0" font-size="9.5" font-weight="700">B</text>
-                        <rect x="-21" y="-27" width="42" height="12.5" rx="4" fill="#d97757" />
-                        <text id="pin-dist-bob" x="0" y="-18.5" text-anchor="middle" fill="#140906" font-size="7.8" font-weight="700">1.2 mi</text>
-                      </g>
-
-                      <g id="marker-charlie" transform="translate(132, 362)">
-                        <circle r="13.5" fill="#0d1014" stroke="#7c86f7" stroke-width="2.5" />
-                        <text text-anchor="middle" dy="3.5" fill="#f4f4f0" font-size="9.5" font-weight="700">C</text>
-                        <rect x="-21" y="-27" width="42" height="12.5" rx="4" fill="#7c86f7" />
-                        <text id="pin-dist-charlie" x="0" y="-18.5" text-anchor="middle" fill="#080917" font-size="7.8" font-weight="700">1.0 mi</text>
-                      </g>
-
-                      <g id="marker-alice" transform="translate(118, 268)">
-                        <circle r="13.5" fill="#0d1014" stroke="#2bb3c0" stroke-width="2.5" />
-                        <text text-anchor="middle" dy="3.5" fill="#f4f4f0" font-size="9.5" font-weight="700">A</text>
-                        <rect x="-21" y="-27" width="42" height="12.5" rx="4" fill="#2bb3c0" />
-                        <text id="pin-dist-alice" x="0" y="-18.5" text-anchor="middle" fill="#061012" font-size="7.8" font-weight="700">0.8 mi</text>
-                      </g>
-                    </g>
-                  </svg>
-                </div>
-
-                <!-- Top HUD -->
-                <div class="phone-top-hud">
-                  <div class="sharing-active-pill">
-                    <span class="status-dot"></span>
-                    <span>TELEMETRY ACTIVE · 3 PEERS</span>
-                  </div>
-
-                  <div class="maneuver-hud-card">
-                    <div class="maneuver-icon" id="hudManeuverIcon">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <path d="M9 18V9a3 3 0 0 1 3-3h7"></path>
-                        <polyline points="15 2 19 6 15 10"></polyline>
-                      </svg>
-                    </div>
-                    <div class="maneuver-text">
-                      <small id="hudManeuverDist">Alice · IN 500 FT</small>
-                      <strong id="hudManeuverText">Turn right onto Market St</strong>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- In-Phone Check-in Toast -->
-                <div class="phone-toast" id="phoneToast" role="status" aria-live="polite">
-                  Check-in sent to Bob — "Parking now, 2 min away."
-                </div>
-
-                <!-- Bottom Sheet -->
-                <div class="phone-bottom-sheet">
-                  <div class="sheet-grabber"></div>
-                  <div class="sheet-header">
-                    <div class="sheet-title-group">
-                      <h4 id="sheetDestTitle">Heading to Tartine Manufactory</h4>
-                      <p id="sheetDestAddress">595 Alabama St, SF · 3 Peers Active</p>
-                    </div>
-                    <span class="sheet-sim-badge" id="toggleSimBtn" role="button" tabindex="0">Pause</span>
-                  </div>
-
-                  <div class="participant-list">
-                    <div class="participant-row active" data-select-peer="alice" role="button" tabindex="0">
-                      <div class="participant-info">
-                        <div class="participant-avatar" style="background: #2bb3c0;">A</div>
-                        <div class="participant-meta">
-                          <strong>Alice Johnson</strong>
-                          <span id="row-sub-alice">0.8 mi · 4 min</span>
-                        </div>
-                      </div>
-                      <span class="status-tag-mini" data-focus-badge="alice">Focused</span>
-                      <button type="button" class="nudge-btn" data-nudge-peer="Alice" style="display:none;">Ping</button>
-                    </div>
-
-                    <div class="participant-row" data-select-peer="bob" role="button" tabindex="0">
-                      <div class="participant-info">
-                        <div class="participant-avatar" style="background: #d97757;">B</div>
-                        <div class="participant-meta">
-                          <strong>Bob Martinez</strong>
-                          <span id="row-sub-bob">1.2 mi · 6 min</span>
-                        </div>
-                      </div>
-                      <span class="status-tag-mini" data-focus-badge="bob" style="display:none;">Focused</span>
-                      <button type="button" class="nudge-btn" data-nudge-peer="Bob">Ping</button>
-                    </div>
-
-                    <div class="participant-row" data-select-peer="charlie" role="button" tabindex="0">
-                      <div class="participant-info">
-                        <div class="participant-avatar" style="background: #7c86f7;">C</div>
-                        <div class="participant-meta">
-                          <strong>Charlie Kim</strong>
-                          <span id="row-sub-charlie">1.0 mi · 5 min</span>
-                        </div>
-                      </div>
-                      <span class="status-tag-mini" data-focus-badge="charlie" style="display:none;">Focused</span>
-                      <button type="button" class="nudge-btn" data-nudge-peer="Charlie">Ping</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Stage Controls Below Phone -->
-            <div class="stage-controls">
-              <div class="stage-controls-top">
-                <span>JOURNEY TIMELINE SCRUBBER</span>
-                <strong id="simProgressLabel">42% En Route</strong>
+          <!-- Stage Telemetry Controls -->
+          <div class="apple-stage-controls">
+            <div class="apple-scrubber-row">
+              <div class="apple-scrubber-meta">
+                <span class="meta-label">LIVE JOURNEY REPLAY</span>
+                <span class="meta-status" id="simProgressPct">45% En Route</span>
               </div>
               <input
                 type="range"
                 min="0"
                 max="100"
-                value="42"
-                class="timeline-slider"
+                value="45"
+                class="apple-slider"
                 id="heroSimSlider"
                 aria-label="Scrub Live Group Journey Progress"
               />
-              <div class="stage-helper-chips">
-                <button type="button" class="chip-btn active" data-select-peer="alice">Focus Alice</button>
-                <button type="button" class="chip-btn" data-select-peer="bob">Focus Bob</button>
-                <button type="button" class="chip-btn" data-select-peer="charlie">Focus Charlie</button>
-              </div>
+            </div>
+
+            <div class="apple-peer-switches">
+              <button type="button" class="apple-chip-btn active" data-select-peer="alice">Alice</button>
+              <button type="button" class="apple-chip-btn" data-select-peer="bob">Bob</button>
+              <button type="button" class="apple-chip-btn" data-select-peer="charlie">Charlie</button>
             </div>
           </div>
+
         </div>
+
       </div>
     </section>
 
     <!-- ====================================================================
-         SECTION 01: WHAT PROBLEM IT SOLVES & WHY IT IS NECESSARY
+         SECTION 01: THE CRISIS & WHY IT IS NECESSARY (Visual Split)
          ==================================================================== -->
-    <section class="section" id="the-problem">
-      <div class="container">
-        <div class="section-meta">
-          <span>01 / THE PROBLEM &amp; WHY NAVISYNC IS NECESSARY</span>
-          <span>ELIMINATING LAST-MILE CONVERGENCE FAILURE</span>
-        </div>
-
-        <div class="apple-section-intro reveal">
-          <span class="apple-eyebrow">Why NaviSync Is Necessary</span>
-          <h2 class="apple-headline">
-            Getting there is solved.<br />
-            <em class="serif-italic">Arriving together</em> is completely broken.
+    <section class="apple-section" id="the-problem">
+      <div class="apple-container">
+        
+        <div class="apple-section-header">
+          <span class="apple-eyebrow">01 · Why It Is Necessary</span>
+          <h2 class="apple-section-title">
+            Getting there was solved.<br />
+            <span class="apple-dim-text">Arriving together was completely broken.</span>
           </h2>
-          <p class="apple-lead">
-            Every day, millions of groups coordinate a shared meetup—dinner, a road-trip convoy, a client walkthrough, or a curbside pickup—only to collapse into a storm of distracted texts, staggered arrivals, and app-download friction during the final 15 minutes.
+          <p class="apple-section-lead">
+            The final 15 minutes of any group meetup shouldn’t devolve into distracted driving, missed highway exits, and anxious messages.
           </p>
         </div>
 
-        <div class="problem-bento-grid reveal">
-          <!-- Problem 1 -->
-          <article class="apple-card">
-            <div>
-              <span class="apple-card-badge badge-red">01 · Driver Distraction Hazard</span>
-              <h3>The “Where Are You?” Texting Loop at 65 MPH.</h3>
-              <p>
-                Without shared route visibility, drivers are forced to read and reply to iMessage and WhatsApp threads while merging onto highways or hunting for parking—trading road safety for basic arrival coordination.
-              </p>
-            </div>
-            <div class="apple-card-stat">
-              <strong>Zero Texts</strong>
-              <span>Hands-free Dynamic Island &amp; CarPlay</span>
-            </div>
-          </article>
-
-          <!-- Problem 2 -->
-          <article class="apple-card">
-            <div>
-              <span class="apple-card-badge badge-amber">02 · Blind Staggered Arrivals</span>
-              <h3>Static Pins Hide Real Traffic &amp; Street Corridors.</h3>
-              <p>
-                Seeing a friend’s static dot 2 miles away tells you nothing about whether they are on an expressway arriving in 3 minutes or gridlocked behind a bridge closure for 25 minutes. Reservations expire and hosts wait in the dark.
-              </p>
-            </div>
-            <div class="apple-card-stat">
-              <strong>Live Polylines</strong>
-              <span>Real MKDirections road geometry</span>
-            </div>
-          </article>
-
-          <!-- Problem 3 -->
-          <article class="apple-card">
-            <div>
-              <span class="apple-card-badge badge-blue">03 · Onboarding Drop-Off Wall</span>
-              <h3>Nobody Downloads a 150 MB App for a 20-Minute Meetup.</h3>
-              <p>
-                Asking 4 friends to visit the App Store, register accounts, verify phone numbers, and grant 24/7 background tracking just to meet for coffee results in an 80%+ drop-off before anyone leaves home.
-              </p>
-            </div>
-            <div class="apple-card-stat">
-              <strong>&lt; 2.0 Sec</strong>
-              <span>Zero-install iOS App Clip join</span>
-            </div>
-          </article>
-        </div>
-
-        <!-- Interactive Before vs. After Convergence Diagnostic -->
-        <div class="convergence-Interactive-card reveal">
-          <div class="convergence-top-bar">
-            <div>
-              <span style="font-family:var(--font-mono);font-size:0.7rem;color:var(--accent-blue);text-transform:uppercase;font-weight:600;">Interactive Convergence Diagnostic</span>
-              <h3 style="font-size:1.3rem;font-weight:700;margin-top:2px;">Compare Group Arrival With &amp; Without NaviSync</h3>
-            </div>
-            <div class="segmented-control" role="tablist" aria-label="Convergence Comparison Mode">
-              <button type="button" class="segment-btn" data-convergence-mode="chaos" role="tab" aria-selected="false">
-                Without NaviSync (Legacy Chaos)
-              </button>
-              <button type="button" class="segment-btn active" data-convergence-mode="synced" role="tab" aria-selected="true">
-                With NaviSync (Synchronized Arrival)
-              </button>
+        <!-- Before vs. After Interactive Visual Comparison -->
+        <div class="apple-comparison-card">
+          <div class="comparison-switch-row">
+            <span class="comparison-tag">INTERACTIVE COMPARISON</span>
+            <div class="apple-segmented-pill">
+              <button type="button" class="seg-btn" data-mode="chaos">Without NaviSync (The Chaos)</button>
+              <button type="button" class="seg-btn active" data-mode="sync">With NaviSync (The Calm)</button>
             </div>
           </div>
 
-          <div class="convergence-stage-grid" id="convergenceDiagnosticStage">
-            <div>
-              <span class="apple-card-badge badge-green" id="convBadge">Synchronized Multi-Peer Telemetry Active</span>
-              <h4 id="convHeadline" style="font-size:1.45rem;font-weight:700;margin:12px 0 8px;">
-                One universal link unites every driver on a live Apple Map.
-              </h4>
-              <p id="convDescription" style="font-size:0.95rem;color:var(--text-secondary);line-height:1.6;">
-                Invitees tap <code>navisync.app/m/...</code> in iMessage. An iOS App Clip launches in under 2 seconds, rendering everyone’s real street polyline, turn-by-turn maneuver, and synchronized ETA across MapKit, Dynamic Island, and CarPlay—then automatically shuts off the moment everyone arrives.
-              </p>
-            </div>
-
-            <div class="convergence-metrics-list">
-              <div class="conv-metric-box">
-                <small>INVITEE ONBOARDING</small>
-                <strong id="convMetricInstall">0 Installs · 1-Tap App Clip</strong>
-              </div>
-              <div class="conv-metric-box">
-                <small>SPATIAL VISIBILITY</small>
-                <strong id="convMetricSpatial">Live 3D Route Polylines + ETA</strong>
-              </div>
-              <div class="conv-metric-box">
-                <small>IN-VEHICLE SAFETY</small>
-                <strong id="convMetricSafety">Hands-Free CarPlay &amp; Island</strong>
-              </div>
-              <div class="conv-metric-box">
-                <small>PRIVACY LIFECYCLE</small>
-                <strong id="convMetricPrivacy">Auto-Terminates on Arrival</strong>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ====================================================================
-         SECTION 02: WHY THIS PROBLEM OCCURRED IN THE FIRST PLACE (Dark Cinema)
-         ==================================================================== -->
-    <section class="section section-dark" id="root-causes">
-      <div class="container">
-        <div class="section-meta" style="border-color:rgba(255,255,255,0.12);">
-          <span style="color:#2997ff;">02 / ROOT CAUSE ANALYSIS</span>
-          <span style="color:#86868b;">WHY LEGACY MAPS, CHATS &amp; TRACKERS FAILED</span>
-        </div>
-
-        <div class="apple-section-intro reveal">
-          <span class="apple-eyebrow" style="color:#2997ff;">Why This Problem Occurred in the First Place</span>
-          <h2 class="apple-headline" style="color:#f5f5f7;">
-            Three architectural blind spots created the group arrival gap.
-          </h2>
-          <p class="apple-lead" style="color:#a1a1a6;">
-            Group convergence didn’t fail by accident. It failed because the three categories of apps on your iPhone—navigation engines, group messengers, and family trackers—were architected for fundamentally different problems.
-          </p>
-        </div>
-
-        <div class="root-cause-grid reveal">
-          <!-- Root Cause 1 -->
-          <article class="root-cause-card">
-            <div>
-              <span class="root-cause-num">BLIND SPOT 01 · SINGLE-AGENT ROUTING</span>
-              <h3>Legacy Maps Were Built for 1 Origin → 1 Destination.</h3>
-              <p>
-                Apple Maps, Google Maps, and Waze were engineered in the 2000s as single-driver cockpit utilities. Their routing graphs calculate one private polyline for one vehicle and have zero architectural concept of a multi-party session where 4 separate origins converge on a shared destination pin.
-              </p>
-            </div>
-            <div class="root-cause-diagram">
-              <div style="color:#86868b;margin-bottom:4px;">LEGACY GRAPH TOPOLOGY</div>
-              <div><code>[User A] ──► [Destination]</code> (Isolated)</div>
-              <div style="color:#2997ff;margin-top:6px;"><code>[Peers A+B+C] ══► [Shared Pin]</code> (NaviSync)</div>
-            </div>
-          </article>
-
-          <!-- Root Cause 2 -->
-          <article class="root-cause-card">
-            <div>
-              <span class="root-cause-num">BLIND SPOT 02 · SPATIAL FRAGMENTATION</span>
-              <h3>Group Chats Compress 3D Roads into Stale Text Bubbles.</h3>
-              <p>
-                Because maps couldn’t coordinate groups, people fell back to iMessage and WhatsApp. But chat threads strip away road geometry, turn complexity, and live velocity—forcing drivers to manually type <em>“5 mins away”</em> while their actual ETA silently slips due to traffic.
-              </p>
-            </div>
-            <div class="root-cause-diagram">
-              <div style="color:#86868b;margin-bottom:4px;">INFORMATION LOSS IN CHAT</div>
-              <div><code>"On my way!"</code> → 0% Route / Turn Telemetry</div>
-              <div style="color:#30d158;margin-top:6px;"><code>ActivityKit</code> → Continuous 60Hz Countdown</div>
-            </div>
-          </article>
-
-          <!-- Root Cause 3 -->
-          <article class="root-cause-card">
-            <div>
-              <span class="root-cause-num">BLIND SPOT 03 · THE SURVEILLANCE WALL</span>
-              <h3>Location Apps Assumed Permanent 24/7 Tracking Circles.</h3>
-              <p>
-                Apps like Life360 and Find My were built around persistent social graphs—requiring either permanent family circles, heavy account creation, or Apple ID contact exchanges. Nobody wanted to surrender 24/7 background location privacy just to coordinate a 30-minute dinner meetup.
-              </p>
-            </div>
-            <div class="root-cause-diagram">
-              <div style="color:#86868b;margin-bottom:4px;">PERMISSION MODEL MISMATCH</div>
-              <div><code>24/7 Circle Surveillance</code> → High Privacy Friction</div>
-              <div style="color:#2997ff;margin-top:6px;"><code>Ephemeral App Clip</code> → Scoped to 1 Meetup</div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ====================================================================
-         SECTION 03: WHO NAVISYNC CATERS TO (Interactive Audience Bento)
-         ==================================================================== -->
-    <section class="section" id="who-its-for">
-      <div class="container">
-        <div class="section-meta">
-          <span>03 / WHO NAVISYNC CATERS TO</span>
-          <span>DESIGNED FOR EVERY MULTI-PERSON CONVERGENCE SCENARIO</span>
-        </div>
-
-        <div class="apple-section-intro reveal">
-          <span class="apple-eyebrow">Who It’s For</span>
-          <h2 class="apple-headline">
-            Built for everyone converging on <em class="serif-italic">a shared pin.</em>
-          </h2>
-          <p class="apple-lead">
-            Whether you’re meeting three friends for dinner, leading a multi-car highway convoy, timing an airport curbside pickup, or coordinating a field crew, NaviSync adapts its native iOS 17 surfaces to your exact workflow.
-          </p>
-        </div>
-
-        <!-- Interactive Persona Selector Tabs -->
-        <div class="persona-tabs-row reveal" role="tablist" aria-label="Target Audience Personas">
-          <button type="button" class="persona-tab-btn active" data-persona-select="friends">01 · Friends &amp; Social Meetups</button>
-          <button type="button" class="persona-tab-btn" data-persona-select="convoy">02 · Road-Trip Convoys &amp; Carpools</button>
-          <button type="button" class="persona-tab-btn" data-persona-select="family">03 · Families, Hosts &amp; Pickups</button>
-          <button type="button" class="persona-tab-btn" data-persona-select="teams">04 · Field &amp; Client Operations</button>
-        </div>
-
-        <!-- 4 Apple HomeView Bento Audience Cards -->
-        <div class="audience-bento-grid reveal">
-          <article class="audience-card active" data-persona-card="friends" role="button" tabindex="0">
-            <div>
-              <span class="apple-card-badge badge-blue">Friends &amp; Social Gatherings</span>
-              <h3 style="font-size:1.38rem;font-weight:700;margin:10px 0 8px;">Dinners, Concerts &amp; Weekend Meetups.</h3>
-              <p style="font-size:0.94rem;color:var(--text-secondary);line-height:1.6;">
-                Stop holding tables while texting four different friends to ask if they’ve found parking. Drop one link into your group chat—even friends who don’t have NaviSync installed join in 2 seconds via the iOS App Clip, and location sharing vanishes the instant everyone sits down.
-              </p>
-            </div>
-            <div class="audience-meta-pills">
-              <span class="audience-pill">Zero-Install App Clip</span>
-              <span class="audience-pill">iMessage &amp; WhatsApp Ready</span>
-              <span class="audience-pill">Auto-Expires at Venue</span>
-            </div>
-          </article>
-
-          <article class="audience-card" data-persona-card="convoy" role="button" tabindex="0">
-            <div>
-              <span class="apple-card-badge badge-green">Road-Trip Convoys &amp; Carpools</span>
-              <h3 style="font-size:1.38rem;font-weight:700;margin:10px 0 8px;">Multi-Vehicle Highway Synchronization.</h3>
-              <p style="font-size:0.94rem;color:var(--text-secondary);line-height:1.6;">
-                When two to six cars drive together to a national park, ski resort, or weekend getaway, red lights and highway merges inevitably split the pack. NaviSync’s CarPlay cockpit (<code>CPMapTemplate</code>) and CoreML <code>RouteScorer</code> keep every vehicle’s polyline and ETA locked on the dash.
-              </p>
-            </div>
-            <div class="audience-meta-pills">
-              <span class="audience-pill">CarPlay 3D Cockpit</span>
-              <span class="audience-pill">CoreML Corridor Scoring</span>
-              <span class="audience-pill">SharePlay Voice Check-Ins</span>
-            </div>
-          </article>
-
-          <article class="audience-card" data-persona-card="family" role="button" tabindex="0">
-            <div>
-              <span class="apple-card-badge badge-amber">Families, Hosts &amp; Curbside Pickups</span>
-              <h3 style="font-size:1.38rem;font-weight:700;margin:10px 0 8px;">Airport Runs, School Pickups &amp; Holiday Hosting.</h3>
-              <p style="font-size:0.94rem;color:var(--text-secondary);line-height:1.6;">
-                Know the exact second to walk out to the terminal curb or take dinner out of the oven. ActivityKit pins a live multi-person progress bar and countdown timer directly to your Lock Screen and Dynamic Island—no phone unlocking required.
-              </p>
-            </div>
-            <div class="audience-meta-pills">
-              <span class="audience-pill">Lock Screen Live Activity</span>
-              <span class="audience-pill">Dynamic Island Glance</span>
-              <span class="audience-pill">Sub-Minute Arrival Precision</span>
-            </div>
-          </article>
-
-          <article class="audience-card" data-persona-card="teams" role="button" tabindex="0">
-            <div>
-              <span class="apple-card-badge badge-indigo">Field Teams &amp; Client Operations</span>
-              <h3 style="font-size:1.38rem;font-weight:700;margin:10px 0 8px;">Real Estate Showings, Film Crews &amp; On-Site Service.</h3>
-              <p style="font-size:0.94rem;color:var(--text-secondary);line-height:1.6;">
-                Coordinate external clients, contractors, or production crews converging on a job site without asking anyone to join a permanent corporate tracker or exchange personal Apple IDs. Every link is scoped strictly to that single appointment.
-              </p>
-            </div>
-            <div class="audience-meta-pills">
-              <span class="audience-pill">Guest Link Access</span>
-              <span class="audience-pill">No Account Required</span>
-              <span class="audience-pill">Zero Background Tracking</span>
-            </div>
-          </article>
-        </div>
-
-        <!-- Dynamic Persona Configuration Spotlight Bar -->
-        <div class="persona-spotlight-bar reveal" id="personaSpotlightBar">
-          <div>
-            <span style="font-family:var(--font-mono);font-size:0.7rem;color:var(--accent-blue);text-transform:uppercase;font-weight:600;" id="personaSpotTag">ACTIVE PERSONA · FRIENDS &amp; SOCIAL MEETUPS</span>
-            <h4 style="font-size:1.12rem;font-weight:700;margin-top:3px;" id="personaSpotTitle">
-              Recommended Setup: Universal iMessage Link → Instant App Clip → Auto-Expire on Arrival
-            </h4>
-          </div>
-          <div style="font-family:var(--font-mono);font-size:0.78rem;color:var(--text-secondary);" id="personaSpotSpecs">
-            Surface Priority: <code>App Clip + Dynamic Island</code> · Privacy: <code>Ephemeral Session</code>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ====================================================================
-         SECTION 04: WHY USE NAVISYNC OVER LIFE360 & APPLE FIND MY
-         ==================================================================== -->
-    <section class="section" id="comparison">
-      <div class="container">
-        <div class="section-meta">
-          <span>04 / COMPETITIVE ADVANTAGE</span>
-          <span>NAVISYNC VS. LIFE360 VS. APPLE FIND MY</span>
-        </div>
-
-        <div class="apple-section-intro reveal">
-          <span class="apple-eyebrow">Why People Switch to NaviSync</span>
-          <h2 class="apple-headline">
-            Why use NaviSync instead of <em class="serif-italic">Life360</em> or <em class="serif-italic">Apple Find My?</em>
-          </h2>
-          <p class="apple-lead">
-            Life360 is an always-on surveillance tracker that requires heavy app installs and permanent circles. Apple Find My is a passive static dot with zero route awareness. <strong>NaviSync is purpose-built for active, privacy-first group arrival.</strong>
-          </p>
-        </div>
-
-        <!-- 2 Head-to-Head Deep-Dive Contrast Cards -->
-        <div class="vs-cards-grid reveal">
-          <!-- Card 1: Why NaviSync over Life360 -->
-          <article class="vs-contrast-card">
-            <div class="vs-header-row">
-              <div>
-                <span class="apple-card-badge badge-blue">Head-to-Head · Privacy &amp; Friction</span>
-                <h3 style="font-size:1.38rem;font-weight:700;margin-top:8px;">Why NaviSync Over Life360</h3>
-              </div>
-              <span class="nav-badge">Ephemeral vs. 24/7 Surveillance</span>
-            </div>
-
-            <ul class="vs-points-list">
-              <li>
-                <span style="color:var(--accent-green);font-weight:700;">✓</span>
-                <div>
-                  <strong>Session-Scoped Privacy, Not 24/7 Surveillance:</strong> Life360 continuously monitors your background location 24 hours a day, logs driving history, and locks users into permanent “Circles.” NaviSync only shares your route while you are actively heading to the meeting pin and <strong>automatically terminates the second you arrive</strong>.
-                </div>
-              </li>
-              <li>
-                <span style="color:var(--accent-green);font-weight:700;">✓</span>
-                <div>
-                  <strong>Zero-Install iOS App Clip vs. Heavy Account Wall:</strong> You cannot use Life360 for a spontaneous dinner with friends or a client meeting because invitees refuse to download a 150 MB app, create accounts, and surrender permanent location permissions. NaviSync opens in <strong>&lt; 2 seconds via an iOS App Clip</strong> with zero install.
-                </div>
-              </li>
-              <li>
-                <span style="color:var(--accent-green);font-weight:700;">✓</span>
-                <div>
-                  <strong>100% On-Device CoreML vs. Commercial Telemetry:</strong> NaviSync scores routes locally on the Apple Neural Engine (<code>RouteScorer.mlpackage</code>) with zero ad-tech SDKs or location data monetization.
-                </div>
-              </li>
-            </ul>
-          </article>
-
-          <!-- Card 2: Why NaviSync over Apple Find My -->
-          <article class="vs-contrast-card">
-            <div class="vs-header-row">
-              <div>
-                <span class="apple-card-badge badge-green">Head-to-Head · Routing &amp; Surfaces</span>
-                <h3 style="font-size:1.38rem;font-weight:700;margin-top:8px;">Why NaviSync Over Apple Find My</h3>
-              </div>
-              <span class="nav-badge">Active Polylines vs. Static Pins</span>
-            </div>
-
-            <ul class="vs-points-list">
-              <li>
-                <span style="color:var(--accent-green);font-weight:700;">✓</span>
-                <div>
-                  <strong>Real Road Polylines &amp; Turn HUD vs. Static Floating Dots:</strong> Apple Find My only shows a passive avatar pin on a map. It cannot show which highway corridor a friend is taking, their next street maneuver, or a synchronized group ETA countdown. NaviSync renders live <code>MKDirections</code> polylines and turn-by-turn telemetry for every peer.
-                </div>
-              </li>
-              <li>
-                <span style="color:var(--accent-green);font-weight:700;">✓</span>
-                <div>
-                  <strong>Shared Destination Pin + Dynamic Island &amp; CarPlay:</strong> Find My has no shared meeting destination, no multi-person arrival progress bar on the Lock Screen or Dynamic Island (<code>ActivityKit</code>), and no multi-peer 3D CarPlay cockpit (<code>CPMapTemplate</code>).
-                </div>
-              </li>
-              <li>
-                <span style="color:var(--accent-green);font-weight:700;">✓</span>
-                <div>
-                  <strong>Instant Link Sharing Beyond Personal Contacts:</strong> Find My requires mutually sharing Apple IDs through Contacts and manually remembering to stop sharing later. NaviSync works via a single ephemeral URL for any group.
-                </div>
-              </li>
-            </ul>
-          </article>
-        </div>
-
-        <!-- Interactive 10-Dimension Comparison Matrix -->
-        <div class="comparison-matrix-card reveal">
-          <div class="matrix-toolbar">
-            <div>
-              <span style="font-family:var(--font-mono);font-size:0.7rem;color:var(--accent-blue);text-transform:uppercase;font-weight:600;">Interactive Feature Matrix</span>
-              <h3 style="font-size:1.22rem;font-weight:700;margin-top:2px;">Side-by-Side Architecture Comparison</h3>
-            </div>
-            <div class="matrix-filter-group" role="tablist" aria-label="Filter Comparison Matrix">
-              <button type="button" class="chip-btn active" data-compare-filter="all">All 10 Capabilities</button>
-              <button type="button" class="chip-btn" data-compare-filter="privacy">Privacy &amp; Onboarding</button>
-              <button type="button" class="chip-btn" data-compare-filter="routing">Routing, Dynamic Island &amp; CarPlay</button>
-            </div>
-          </div>
-
-          <div class="matrix-table-wrap">
-            <table class="comparison-table" aria-label="Comparison between NaviSync, Life360, and Apple Find My">
-              <thead>
-                <tr>
-                  <th style="width: 24%;">Capability / Dimension</th>
-                  <th class="col-navisync" style="width: 28%;">NaviSync (iOS 17+)</th>
-                  <th style="width: 24%;">Life360</th>
-                  <th style="width: 24%;">Apple Find My</th>
-                </tr>
-              </thead>
-              <tbody id="comparisonTableBody">
-                <tr data-compare-cat="privacy">
-                  <td><strong>01 · Tracking Lifecycle &amp; Privacy</strong></td>
-                  <td class="col-navisync">
-                    <span class="cell-badge-win">Ephemeral Session</span><br />
-                    Starts only on meetup acceptance; <strong>auto-terminates on arrival</strong>.
-                  </td>
-                  <td>
-                    <span class="cell-badge-miss">24/7 Surveillance</span><br />
-                    Always-on background tracking &amp; persistent location history logs.
-                  </td>
-                  <td>
-                    <span class="cell-badge-warn">Manual Contact Share</span><br />
-                    1hr / EOD / Indefinite; not scoped to a trip arrival event.
-                  </td>
-                </tr>
-
-                <tr data-compare-cat="privacy">
-                  <td><strong>02 · Invitee Onboarding Friction</strong></td>
-                  <td class="col-navisync">
-                    <span class="cell-badge-win">&lt; 2.0s iOS App Clip</span><br />
-                    Zero App Store install or account required (<code>KeyFight.NaviSync.Clip</code>).
-                  </td>
-                  <td>
-                    <span class="cell-badge-miss">Heavy Account Wall</span><br />
-                    Requires full app download, account signup &amp; Circle code for every peer.
-                  </td>
-                  <td>
-                    <span class="cell-badge-warn">Apple Contacts Only</span><br />
-                    Requires exchanging Apple IDs / phone numbers in iOS Contacts.
-                  </td>
-                </tr>
-
-                <tr data-compare-cat="routing">
-                  <td><strong>03 · Multi-Peer Road Polylines</strong></td>
-                  <td class="col-navisync">
-                    <span class="cell-badge-win">Live MKPolyline Vectors</span><br />
-                    Renders every participant’s exact street corridor &amp; remaining mileage.
-                  </td>
-                  <td>
-                    <span class="cell-badge-miss">No Live Route Corridors</span><br />
-                    Shows avatar pins and past driving breadcrumbs, not active road polylines.
-                  </td>
-                  <td>
-                    <span class="cell-badge-miss">Static Floating Dot</span><br />
-                    Displays a passive location pin with zero road trajectory context.
-                  </td>
-                </tr>
-
-                <tr data-compare-cat="routing">
-                  <td><strong>04 · Peer Turn-by-Turn Telemetry</strong></td>
-                  <td class="col-navisync">
-                    <span class="cell-badge-win">Live Maneuver HUD</span><br />
-                    Inspect each friend’s next turn instruction &amp; approach distance in real time.
-                  </td>
-                  <td>
-                    <span class="cell-badge-miss">Not Supported</span><br />
-                    No visibility into upcoming street turns or active navigation guidance.
-                  </td>
-                  <td>
-                    <span class="cell-badge-miss">Not Supported</span><br />
-                    No turn-by-turn telemetry or street corridor inspection.
-                  </td>
-                </tr>
-
-                <tr data-compare-cat="routing">
-                  <td><strong>05 · Shared Destination Convergence</strong></td>
-                  <td class="col-navisync">
-                    <span class="cell-badge-win">Synchronized Shared Pin</span><br />
-                    All peers route toward one unified meeting anchor with live group ETAs.
-                  </td>
-                  <td>
-                    <span class="cell-badge-warn">Geofence Places Only</span><br />
-                    Alerts when a family member enters a saved zone; no joint routing.
-                  </td>
-                  <td>
-                    <span class="cell-badge-miss">Single-Agent Only</span><br />
-                    Clicking “Directions” opens solo Apple Maps for 1 driver only.
-                  </td>
-                </tr>
-
-                <tr data-compare-cat="routing">
-                  <td><strong>06 · Dynamic Island &amp; Lock Screen</strong></td>
-                  <td class="col-navisync">
-                    <span class="cell-badge-win">Native ActivityKit Track</span><br />
-                    Live multi-peer progress bar, callout bubble &amp; ETA countdown on Lock Screen.
-                  </td>
-                  <td>
-                    <span class="cell-badge-miss">Standard Push Alerts</span><br />
-                    Text notifications for arrivals; no live multi-peer route progress bar.
-                  </td>
-                  <td>
-                    <span class="cell-badge-miss">No Live Activity</span><br />
-                    Must unlock iPhone and open Find My app to check static pin positions.
-                  </td>
-                </tr>
-
-                <tr data-compare-cat="routing">
-                  <td><strong>07 · Automotive CarPlay Cockpit</strong></td>
-                  <td class="col-navisync">
-                    <span class="cell-badge-win">Multi-Peer CPMapTemplate</span><br />
-                    Hands-free 3D dashboard showing all converging peers &amp; voice check-ins.
-                  </td>
-                  <td>
-                    <span class="cell-badge-miss">No CarPlay Map App</span><br />
-                    Phone-only interface; unsafe to inspect while driving.
-                  </td>
-                  <td>
-                    <span class="cell-badge-warn">Voice / Solo Map Only</span><br />
-                    Cannot visualize multiple converging friends on a CarPlay map.
-                  </td>
-                </tr>
-
-                <tr data-compare-cat="routing">
-                  <td><strong>08 · On-Device CoreML Route Scoring</strong></td>
-                  <td class="col-navisync">
-                    <span class="cell-badge-win">RouteScorer.mlpackage</span><br />
-                    50-tree RandomForest ensemble scores corridors out of 10 in 0.4ms on ANE.
-                  </td>
-                  <td>
-                    <span class="cell-badge-miss">Post-Trip Crash/Speed Logs</span><br />
-                    Grades driver behavior after trips rather than optimizing route convergence.
-                  </td>
-                  <td>
-                    <span class="cell-badge-miss">None</span><br />
-                    No route scoring or corridor evaluation engine.
-                  </td>
-                </tr>
-
-                <tr data-compare-cat="privacy">
-                  <td><strong>09 · Spontaneous Guest &amp; Group Fit</strong></td>
-                  <td class="col-navisync">
-                    <span class="cell-badge-win">Universal Deep Link</span><br />
-                    Works for friends, convoys, families, or one-time client appointments.
-                  </td>
-                  <td>
-                    <span class="cell-badge-miss">Closed Family Circles</span><br />
-                    Awkward and invasive for casual friends, coworkers, or one-off events.
-                  </td>
-                  <td>
-                    <span class="cell-badge-warn">Close Contacts Only</span><br />
-                    Impractical for mixed groups or temporary event participants.
-                  </td>
-                </tr>
-
-                <tr data-compare-cat="privacy">
-                  <td><strong>10 · Business &amp; Data Privacy Model</strong></td>
-                  <td class="col-navisync">
-                    <span class="cell-badge-win">Zero Data Broker Telemetry</span><br />
-                    Open-source SwiftUI architecture with ephemeral session tokens.
-                  </td>
-                  <td>
-                    <span class="cell-badge-miss">Commercial Subscription &amp; Ads</span><br />
-                    Monetizes persistent background telemetry and upsell tiers.
-                  </td>
-                  <td>
-                    <span class="cell-badge-win">Apple iCloud Privacy</span><br />
-                    Private, but lacks active multi-party navigation capabilities.
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ====================================================================
-         SECTION 05: 4-STEP SYNCHRONIZATION ARCHITECTURE WALKTHROUGH
-         ==================================================================== -->
-    <section class="section" id="how-it-works">
-      <div class="container">
-        <div class="section-meta">
-          <span>05 / COORDINATION ARCHITECTURE</span>
-          <span>ASSOCIATED DOMAINS · MKDIRECTIONS · ACTIVITYKIT</span>
-        </div>
-
-        <div class="section-header-split reveal">
-          <h2 class="section-title">
-            One link turns solo drives into a <em class="serif-italic">synchronized arrival.</em>
-          </h2>
-          <p class="section-subtitle">
-            Designed with the restraint of a native Apple system utility. Even invitees without NaviSync installed can join your live map in under two seconds via an iOS App Clip.
-          </p>
-        </div>
-
-        <div class="walkthrough-grid reveal">
-          <div class="steps-column">
-            <div class="step-card active" data-walkthrough-step="1" role="button" tabindex="0">
-              <span class="step-num">01 / CREATE &amp; SHARE</span>
-              <h3>Drop a meeting pin. Send one link.</h3>
-              <p>Select any cafe, landmark, or coordinate. NaviSync encodes a compact universal deep link ready for iMessage, WhatsApp, or AirDrop.</p>
-            </div>
-
-            <div class="step-card" data-walkthrough-step="2" role="button" tabindex="0">
-              <span class="step-num">02 / ZERO-INSTALL APP CLIP</span>
-              <h3>Friends join instantly via iOS App Clip.</h3>
-              <p>No App Store friction. Opening <code>navisync.app/m/...</code> presents a native App Clip card where invitees tap <strong>Accept</strong> to stream their route.</p>
-            </div>
-
-            <div class="step-card" data-walkthrough-step="3" role="button" tabindex="0">
-              <span class="step-num">03 / MULTI-MAP TELEMETRY</span>
-              <h3>Real road polylines &amp; turn guidance.</h3>
-              <p>Inspect every participant’s street corridor, remaining mileage badge, and live turn-by-turn instruction inside a decluttered bottom sheet.</p>
-            </div>
-
-            <div class="step-card" data-walkthrough-step="4" role="button" tabindex="0">
-              <span class="step-num">04 / AMBIENT CONTINUITY</span>
-              <h3>Persists to Dynamic Island &amp; CarPlay.</h3>
-              <p>Lock your iPhone or start your vehicle. ActivityKit and CarPlay keep everyone’s progress bar and arrival countdown one glance away.</p>
-            </div>
-          </div>
-
-          <div class="walkthrough-preview-box">
-            <div class="walkthrough-preview-header">
-              <span>INTERACTIVE FLOW INSPECTOR</span>
-              <span>SELECT A STEP ON THE LEFT</span>
-            </div>
-
-            <div class="preview-stage-content" id="walkthroughStageContainer">
-              <div class="appclip-card-demo">
-                <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:14px;">
-                  <span class="nav-badge">01 · Host Session</span>
-                  <span style="font-size:0.72rem;color:var(--text-muted);font-family:var(--font-mono);">CreateMeetingView.swift</span>
-                </div>
-                <h4 style="font-size:1.15rem;font-weight:600;margin-bottom:4px;">Tartine Manufactory</h4>
-                <p style="font-size:0.82rem;color:var(--text-secondary);margin-bottom:16px;">595 Alabama St, San Francisco · Target Arrival 18:30</p>
-                <div style="padding:12px 14px;border-radius:10px;background:var(--bg-page);border:1px solid var(--border-hairline);margin-bottom:14px;">
-                  <div style="font-size:0.68rem;color:var(--text-muted);font-family:var(--font-mono);text-transform:uppercase;margin-bottom:4px;">Universal Deep Link Payload</div>
-                  <div style="font-family:var(--font-mono);font-size:0.8rem;color:var(--accent-blue);word-break:break-all;">https://navisync.app/m/tartine-manufactory</div>
-                </div>
-                <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:14px;font-family:var(--font-mono);font-size:0.7rem;">
-                  <div style="padding:8px 10px;border-radius:8px;background:var(--bg-page);border:1px solid var(--border-hairline);">
-                    <span style="color:var(--text-muted);display:block;font-size:0.62rem;">COORDINATE ANCHOR</span>
-                    <strong style="color:var(--text-primary);">37.7614° N, 122.4119° W</strong>
-                  </div>
-                  <div style="padding:8px 10px;border-radius:8px;background:var(--bg-page);border:1px solid var(--border-hairline);">
-                    <span style="color:var(--text-muted);display:block;font-size:0.62rem;">SHARE CHANNELS</span>
-                    <strong style="color:var(--accent-blue);">iMessage · AirDrop · QR</strong>
+          <div class="comparison-body" id="comparisonBody">
+            <div class="comparison-col comparison-visual">
+              <div class="mock-card-display" id="mockCardDisplay">
+                <!-- Dynamically swapped via JS -->
+                <div class="visual-sync-box">
+                  <div class="sync-icon">✓</div>
+                  <div class="sync-text">
+                    <strong>Synchronized Arrival</strong>
+                    <span>Everyone converges within a 3-minute window. Zero texts sent.</span>
                   </div>
                 </div>
-                <div style="display:flex;gap:8px;flex-wrap:wrap;font-family:var(--font-mono);font-size:0.7rem;color:var(--text-secondary);">
-                  <span style="padding:4px 9px;border-radius:4px;background:var(--bg-page);border:1px solid var(--border-hairline);">MKLocalSearchCompleter</span>
-                  <span style="padding:4px 9px;border-radius:4px;background:var(--bg-page);border:1px solid var(--border-hairline);">DeepLinkManager.swift</span>
-                </div>
               </div>
             </div>
 
-            <div class="walkthrough-meta-footer">
-              <span>Associated Domains: <code>appclips:navisync.app</code></span>
-              <span>Target: <code>KeyFight.NaviSync.Clip</code></span>
+            <div class="comparison-col comparison-details">
+              <h3 class="comparison-headline" id="compHeadline">
+                One link replaces twenty chaotic texts.
+              </h3>
+              <p class="comparison-copy" id="compCopy">
+                When you share a NaviSync invite, friends tap it and launch an instant iOS App Clip in under 2 seconds. No login, no password. Everyone sees real-time road polylines, live ETAs, and parking corridors on a shared Apple Map that auto-terminates the moment you arrive.
+              </p>
+              
+              <div class="comparison-metrics-grid">
+                <div class="comp-metric-item">
+                  <span class="comp-metric-num" id="compMetricTexts">0 Texts</span>
+                  <span class="comp-metric-lbl">Driver Distraction</span>
+                </div>
+                <div class="comp-metric-item">
+                  <span class="comp-metric-num" id="compMetricInstall">&lt; 2s</span>
+                  <span class="comp-metric-lbl">App Clip Join</span>
+                </div>
+                <div class="comp-metric-item">
+                  <span class="comp-metric-num" id="compMetricWindow">3.2m</span>
+                  <span class="comp-metric-lbl">Arrival Spread</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+
       </div>
     </section>
 
     <!-- ====================================================================
-         SECTION 06: SYSTEM SURFACES & ON-DEVICE COREML INTELLIGENCE
+         SECTION 02: ROOT CAUSE (Why It Happened in the First Place)
          ==================================================================== -->
-    <section class="section" id="features">
-      <div class="container">
-        <div class="section-meta">
-          <span>06 / SYSTEM SURFACES &amp; COREML</span>
-          <span>ACTIVITYKIT · COREML · CARPLAY · VECTOR LAYERS</span>
-        </div>
-
-        <div class="section-header-split reveal">
-          <h2 class="section-title">
-            Native Apple craft meets <em class="serif-italic">on-device intelligence.</em>
+    <section class="apple-section apple-section-dark" id="why-it-happened">
+      <div class="apple-container">
+        
+        <div class="apple-section-header">
+          <span class="apple-eyebrow text-blue">02 · Root Cause Analysis</span>
+          <h2 class="apple-section-title text-white">
+            Built for one vehicle.<br />
+            <span class="text-neutral-500">Not for multi-agent convergence.</span>
           </h2>
-          <p class="section-subtitle">
-            Every interactive figure below mirrors the underlying SwiftUI, ActivityKit, CarPlay, and CoreML implementation inside the NaviSync codebase.
+          <p class="apple-section-lead text-neutral-400">
+            Three deep architectural blind spots in consumer mobile technology created this problem.
           </p>
         </div>
 
-        <div class="architectural-grid">
-          <!-- CELL 1: ActivityKit Lock Screen Live Activity -->
-          <div class="arch-cell reveal">
-            <div>
-              <div class="arch-tag">
-                <span>FIG 2.1 · ACTIVITYKIT</span>
-                <span>NaviSyncLiveActivity.swift</span>
+        <div class="apple-trio-grid">
+          
+          <div class="apple-trio-card">
+            <div class="trio-icon-box">01</div>
+            <h3 class="trio-title">Single-Agent Isolation</h3>
+            <p class="trio-text">
+              Legacy maps (Google Maps, Apple Maps, Waze) were designed in the 2000s for a single driver moving from Point A to Point B. Their routing engines have zero concept of multiple distinct journeys converging toward a shared focal point.
+            </p>
+            <div class="trio-diagram">
+              <code>[Car A] ➔ [Pin]</code><br />
+              <span class="text-blue"><code>[A + B + C] ═► [Shared Pin]</code></span>
+            </div>
+          </div>
+
+          <div class="apple-trio-card">
+            <div class="trio-icon-box">02</div>
+            <h3 class="trio-title">The Spatial-to-Text Gap</h3>
+            <p class="trio-text">
+              Because maps couldn’t coordinate groups, people fell back to iMessage and WhatsApp. But text bubbles strip away 3D road geometry, turn complexity, and velocity—forcing drivers to guess ETAs while driving.
+            </p>
+            <div class="trio-diagram">
+              <code>"5 mins away!"</code> ➔ Stale Guess<br />
+              <span class="text-emerald"><code>Dynamic Island</code> ➔ 60Hz Live Sync</span>
+            </div>
+          </div>
+
+          <div class="apple-trio-card">
+            <div class="trio-icon-box">03</div>
+            <h3 class="trio-title">The Surveillance Trap</h3>
+            <p class="trio-text">
+              Family trackers assumed people wanted 24/7 continuous background surveillance. But friends meeting for coffee don’t want to share their battery, driving speed, and lifetime whereabouts—they just want to coordinate arrival.
+            </p>
+            <div class="trio-diagram">
+              <code>24/7 Stalking</code> ➔ Intrusive<br />
+              <span class="text-blue"><code>Ephemeral Session</code> ➔ Privacy-First</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 03: WHO IT IS CATERING FOR (Visual Persona Showcase)
+         ==================================================================== -->
+    <section class="apple-section" id="who-its-for">
+      <div class="apple-container">
+        
+        <div class="apple-section-header">
+          <span class="apple-eyebrow">03 · Who It's For</span>
+          <h2 class="apple-section-title">
+            One link.<br />
+            <span class="apple-dim-text">Every shared arrival.</span>
+          </h2>
+          <p class="apple-section-lead">
+            NaviSync is crafted for every scenario where people need to arrive at the same place at the same time.
+          </p>
+        </div>
+
+        <div class="apple-quad-grid">
+          
+          <div class="apple-quad-card">
+            <span class="quad-badge">Social Gatherings</span>
+            <h3 class="quad-title">Friends &amp; Dinners</h3>
+            <p class="quad-text">
+              Stop holding tables while texting friends to ask if they’ve parked. Send one link in iMessage. Friends join in 2 seconds via App Clip—no account, no install.
+            </p>
+            <div class="quad-footer">
+              <span>Zero-Install App Clip</span>
+              <span>Auto-Terminates</span>
+            </div>
+          </div>
+
+          <div class="apple-quad-card">
+            <span class="quad-badge badge-emerald">Road Trips</span>
+            <h3 class="quad-title">Highway Convoys</h3>
+            <p class="quad-text">
+              Multiple cars driving together to ski cabins, camping sites, or national parks. Keep all vehicles visual on your CarPlay cockpit without radio chatter.
+            </p>
+            <div class="quad-footer">
+              <span>CarPlay CPMapTemplate</span>
+              <span>CoreML Corridor</span>
+            </div>
+          </div>
+
+          <div class="apple-quad-card">
+            <span class="quad-badge badge-amber">Families</span>
+            <h3 class="quad-title">Pickups &amp; Hosts</h3>
+            <p class="quad-text">
+              Know the exact minute to walk to the curbside terminal or pull dinner out of the oven. ActivityKit pins live arrival countdowns to your Dynamic Island and Lock Screen.
+            </p>
+            <div class="quad-footer">
+              <span>Live Activities</span>
+              <span>Dynamic Island</span>
+            </div>
+          </div>
+
+          <div class="apple-quad-card">
+            <span class="quad-badge badge-indigo">Operations</span>
+            <h3 class="quad-title">Field &amp; Client Teams</h3>
+            <p class="quad-text">
+              Coordinate real estate showings, film crews, and client appointments without asking anyone to join a permanent corporate tracker or share private Apple IDs.
+            </p>
+            <div class="quad-footer">
+              <span>Guest Link Access</span>
+              <span>Ephemeral Privacy</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 04: WHY USE NAVISYNC OVER LIFE360 AND APPLE FIND MY
+         ==================================================================== -->
+    <section class="apple-section" id="comparison">
+      <div class="apple-container">
+        
+        <div class="apple-section-header">
+          <span class="apple-eyebrow">04 · Deep Comparison</span>
+          <h2 class="apple-section-title">
+            Why NaviSync beats<br />
+            <span class="apple-dim-text">Life360 and Apple Find My.</span>
+          </h2>
+          <p class="apple-section-lead">
+            Old apps either spy on you 24/7 or give you a useless static pin. NaviSync was built for active, private, real-time arrival.
+          </p>
+        </div>
+
+        <!-- 3-Way Interactive Selector Card -->
+        <div class="apple-vs-wrapper">
+          <div class="vs-selector-bar">
+            <button type="button" class="vs-select-btn active" data-vs-app="navisync">
+              <span class="vs-btn-dot dot-green"></span>
+              <strong>NaviSync (iOS 17+)</strong>
+              <small>Ephemeral &amp; Active</small>
+            </button>
+
+            <button type="button" class="vs-select-btn" data-vs-app="life360">
+              <span class="vs-btn-dot dot-red"></span>
+              <strong>Life360</strong>
+              <small>24/7 Surveillance</small>
+            </button>
+
+            <button type="button" class="vs-select-btn" data-vs-app="findmy">
+              <span class="vs-btn-dot dot-gray"></span>
+              <strong>Apple Find My</strong>
+              <small>Passive Static Pin</small>
+            </button>
+          </div>
+
+          <!-- Dynamic Comparison Showcase Card -->
+          <div class="vs-display-card" id="vsDisplayCard">
+            <div class="vs-display-header">
+              <div class="vs-display-title-group">
+                <span class="vs-display-tag" id="vsTag">NAVISYNC ARCHITECTURE</span>
+                <h3 class="vs-display-title" id="vsTitle">Purpose-built for arrival. Zero 24/7 tracking.</h3>
               </div>
-              <h3>Lock Screen &amp; Dynamic Island</h3>
-              <p>
-                Monitor group progress without unlocking your iPhone. Includes edge-clamped callout pins (<code>RouteTimelineTrack</code>), Host/Guest role switching, and automatic arrival states.
+              <span class="vs-display-badge" id="vsBadge">Privacy-First</span>
+            </div>
+
+            <div class="vs-display-grid">
+              <div class="vs-pillar">
+                <strong class="pillar-label">ONBOARDING SPEED</strong>
+                <div class="pillar-val" id="vsOnboarding">&lt; 2 Seconds (App Clip)</div>
+                <p class="pillar-desc" id="vsOnboardingDesc">Invitees tap one link. No account creation, no password, no 140MB App Store download.</p>
+              </div>
+
+              <div class="vs-pillar">
+                <strong class="pillar-label">PRIVACY MODEL</strong>
+                <div class="pillar-val" id="vsPrivacy">Ephemeral Session</div>
+                <p class="pillar-desc" id="vsPrivacyDesc">Tracks only while traveling to the destination pin. Auto-terminates the second you arrive.</p>
+              </div>
+
+              <div class="vs-pillar">
+                <strong class="pillar-label">NAVIGATION GUIDANCE</strong>
+                <div class="pillar-val" id="vsGuidance">Active 3D Polylines + ETAs</div>
+                <p class="pillar-desc" id="vsGuidanceDesc">Real MKDirections road geometry, turn maneuvers, and synchronized arrival countdowns.</p>
+              </div>
+
+              <div class="vs-pillar">
+                <strong class="pillar-label">CARPLAY &amp; AMBIENT UI</strong>
+                <div class="pillar-val" id="vsSurfaces">CarPlay + Dynamic Island</div>
+                <p class="pillar-desc" id="vsSurfacesDesc">Glanceable heads-up display right on your dashboard and Lock Screen.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 05: APPLE ECOSYSTEM & CARPLAY (Dark Theater)
+         ==================================================================== -->
+    <section class="apple-section apple-section-dark" id="ecosystem">
+      <div class="apple-container">
+        
+        <div class="apple-section-header">
+          <span class="apple-eyebrow text-blue">05 · System Surfaces</span>
+          <h2 class="apple-section-title text-white">
+            Engineered for every<br />
+            <span class="text-neutral-500">Apple surface you interact with.</span>
+          </h2>
+          <p class="apple-section-lead text-neutral-400">
+            From the Dynamic Island on your iPhone 15 Pro to your car dashboard with CarPlay.
+          </p>
+        </div>
+
+        <div class="apple-duo-grid">
+          
+          <!-- CarPlay Showcase -->
+          <div class="apple-duo-card">
+            <div class="duo-header">
+              <span class="duo-tag">CARPLAY READY</span>
+              <h3 class="duo-title">Hands-free on the dash.</h3>
+              <p class="duo-copy">
+                NaviSync connects with Apple CarPlay via <code>CPMapTemplate</code>, keeping all converging friends on your dashboard so you never glance at your phone while driving.
               </p>
             </div>
 
-            <div class="live-activity-widget">
-              <div class="la-header">
-                <div class="la-title-wrap">
-                  <div class="la-car-badge" aria-hidden="true">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                      <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
-                    </svg>
-                  </div>
+            <div class="carplay-screen-mock">
+              <div class="carplay-dock">
+                <div class="cp-icon active">🧭</div>
+                <div class="cp-icon">🎵</div>
+                <div class="cp-icon">💬</div>
+              </div>
+              <div class="carplay-map-view">
+                <div class="cp-hud-banner">
                   <div>
-                    <div style="display:flex;align-items:center;gap:6px;">
-                      <strong style="font-size:0.86rem;color:#f4f4f0;font-weight:600;">Joint Navigation</strong>
-                    </div>
-                    <span id="laDestSub" style="font-size:0.72rem;color:#8e9299;">Tartine Manufactory · 3 Peers</span>
+                    <strong id="cpBannerTitle">Alice: 3 min away</strong>
+                    <small id="cpBannerSub">Converging on Tartine</small>
                   </div>
+                  <span class="cp-badge">60 FPS</span>
                 </div>
-                <span class="la-status-pill" id="laStatusPill">En Route</span>
-              </div>
-
-              <div class="la-track-container">
-                <div class="la-callout-bubble" id="laCalloutBubble" style="left: 65%;">Eve · 03.4 km</div>
-                <div class="la-bar-bg"></div>
-                <div class="la-bar-fill" id="laBarFill" style="width: 65%;"></div>
-                <div class="la-pin-node" id="laPinNode" style="left: 65%;"></div>
-              </div>
-
-              <div class="la-metrics-row">
-                <div class="la-metric-col">
-                  <small id="laRoleLabel">DRIVER ETA (HOST MODE)</small>
-                  <strong id="laEtaValue">5 min · 2.8 km</strong>
+                <div class="cp-road-graphic">
+                  <div class="cp-node-a">A</div>
+                  <div class="cp-node-b">B</div>
+                  <div class="cp-dest-pin">📍</div>
                 </div>
-                <div class="la-metric-col" style="text-align:right;">
-                  <small>TARGET ARRIVAL</small>
-                  <strong>18:50</strong>
-                </div>
-              </div>
-
-              <div style="margin-top:16px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
-                <label for="laProgressSlider" style="font-size:0.72rem;color:#8e9299;font-family:var(--font-mono);">PROGRESS</label>
-                <input type="range" id="laProgressSlider" min="5" max="100" value="65" class="timeline-slider" style="flex:1;min-width:100px;" />
-                <button type="button" class="chip-btn" id="laModeToggleBtn" style="flex:0 0 auto;">Switch to Guest Mode</button>
               </div>
             </div>
           </div>
 
-          <!-- CELL 2: CoreML RouteScorer Playground -->
-          <div class="arch-cell reveal" id="carplay-ml">
-            <div>
-              <div class="arch-tag">
-                <span>FIG 2.2 · COREML ENGINE</span>
-                <span>RouteScorer.mlpackage</span>
-              </div>
-              <h3>On-Device ML Route Scoring</h3>
-              <p>
-                Trained with a 50-estimator <code>RandomForestRegressor</code> converted to CoreML. Evaluates candidate corridors out of 10 by penalizing turn complexity and delay ratios.
+          <!-- On-Device CoreML RouteScorer -->
+          <div class="apple-duo-card">
+            <div class="duo-header">
+              <span class="duo-tag text-emerald">APPLE NEURAL ENGINE</span>
+              <h3 class="duo-title">On-Device Route Intelligence.</h3>
+              <p class="duo-copy">
+                Our lightweight 50-tree Random Forest CoreML model (<code>RouteScorer.mlpackage</code>) scores routes locally, penalizing stressful turns and prioritizing arrival synchrony.
               </p>
             </div>
 
-            <div class="ml-playground">
-              <div class="ml-score-display">
+            <div class="ml-interactive-box">
+              <div class="ml-score-row">
                 <div>
-                  <span style="font-size:0.68rem;font-family:var(--font-mono);text-transform:uppercase;color:var(--text-muted);display:block;margin-bottom:2px;">PREDICTED CORRIDOR QUALITY</span>
-                  <strong id="mlVerdictBadge" style="font-size:0.86rem;color:var(--accent-blue);font-weight:600;">Optimal Corridor</strong>
+                  <span class="ml-sub">SCORE PREDICTION</span>
+                  <div class="ml-verdict" id="mlVerdict">Optimal Route</div>
                 </div>
-                <div class="ml-score-number" id="mlScoreOutput">8.2 / 10</div>
+                <div class="ml-score-val" id="mlScoreVal">8.4 / 10</div>
               </div>
 
               <div class="ml-sliders">
-                <div class="ml-slider-row">
-                  <div class="ml-slider-label">
-                    <span>Route Distance</span>
-                    <strong id="mlDistVal">8 km</strong>
+                <div>
+                  <div class="slider-meta">
+                    <span>DISTANCE</span>
+                    <span id="mlDistVal">8 km</span>
                   </div>
-                  <input type="range" id="mlDistanceInput" min="1" max="50" value="8" class="timeline-slider" />
+                  <input type="range" id="mlDistSlider" min="1" max="50" value="8" class="apple-slider" />
                 </div>
-
-                <div class="ml-slider-row">
-                  <div class="ml-slider-label">
-                    <span>Expected Travel Time</span>
-                    <strong id="mlTimeVal">14 min</strong>
+                <div>
+                  <div class="slider-meta">
+                    <span>TURNS</span>
+                    <span id="mlTurnsVal">6 turns</span>
                   </div>
-                  <input type="range" id="mlTimeInput" min="3" max="60" value="14" class="timeline-slider" />
+                  <input type="range" id="mlTurnsSlider" min="1" max="40" value="6" class="apple-slider" />
                 </div>
-
-                <div class="ml-slider-row">
-                  <div class="ml-slider-label">
-                    <span>Intersection Turn Count</span>
-                    <strong id="mlTurnsVal">6 turns</strong>
+                <div>
+                  <div class="slider-meta">
+                    <span>TRAVEL TIME</span>
+                    <span id="mlTimeVal">14 min</span>
                   </div>
-                  <input type="range" id="mlTurnsInput" min="1" max="45" value="6" class="timeline-slider" />
-                </div>
-              </div>
-
-              <div class="ml-breakdown-grid">
-                <div class="ml-penalty-pill">
-                  <span>TIME PENALTY</span>
-                  <strong id="mlPenaltyTime">-1.17 pt</strong>
-                </div>
-                <div class="ml-penalty-pill">
-                  <span>TURN PENALTY</span>
-                  <strong id="mlPenaltyTurns">-0.36 pt</strong>
-                </div>
-                <div class="ml-penalty-pill">
-                  <span>DIST PENALTY</span>
-                  <strong id="mlPenaltyDist">-0.32 pt</strong>
+                  <input type="range" id="mlTimeSlider" min="3" max="60" value="14" class="apple-slider" />
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- CELL 3: CarPlay Automotive Cockpit -->
-          <div class="arch-cell reveal">
-            <div>
-              <div class="arch-tag">
-                <span>FIG 2.3 · CARPLAY FRAMEWORK</span>
-                <span>CarPlaySimulatorView.swift</span>
-              </div>
-              <h3>Automotive CarPlay Cockpit</h3>
-              <p>
-                Built with <code>CPMapTemplate</code> and an in-app <code>CarPlaySimulatorView</code> instrument display. Toggle between 3D cockpit perspective and north-up overview hands-free.
-              </p>
-            </div>
-
-            <div class="carplay-frame">
-              <div class="carplay-dock">
-                <div style="font-size:0.68rem;font-family:var(--font-mono);color:#a3a39c;">9:41</div>
-                <div class="carplay-dock-icons">
-                  <div class="cp-app-icon active" data-cp-app="nav" role="button" tabindex="0" title="NaviSync Navigation">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"></polygon></svg>
-                  </div>
-                  <div class="cp-app-icon" data-cp-app="music" role="button" tabindex="0" title="SharePlay Group Audio">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
-                  </div>
-                  <div class="cp-app-icon" data-cp-app="messages" role="button" tabindex="0" title="Voice Check-in">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-                  </div>
-                </div>
-                <div style="color:#6e6e68;display:flex;align-items:center;justify-content:center;" aria-hidden="true">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
-                    <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
-                    <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
-                    <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
-                  </svg>
-                </div>
-              </div>
-
-              <div class="carplay-screen">
-                <div id="cpMapStage" style="position:absolute;inset:0;transition:transform 0.45s var(--ease-out);transform:perspective(600px) rotateX(22deg) scale(1.06);pointer-events:none;opacity:0.7;">
-                  <svg width="100%" height="100%" viewBox="0 0 500 300" preserveAspectRatio="none">
-                    <polygon points="0,0 500,0 500,300 0,300" fill="#0d1117" />
-                    <g stroke="rgba(255,255,255,0.07)" stroke-width="1.5">
-                      <line x1="0" y1="60" x2="500" y2="60" />
-                      <line x1="0" y1="125" x2="500" y2="125" />
-                      <line x1="0" y1="190" x2="500" y2="190" />
-                      <line x1="0" y1="255" x2="500" y2="255" />
-                      <line x1="95" y1="0" x2="25" y2="300" />
-                      <line x1="250" y1="0" x2="250" y2="300" />
-                      <line x1="405" y1="0" x2="475" y2="300" />
-                    </g>
-                    <path d="M 110,245 Q 250,165 375,82" fill="none" stroke="#2bb3c0" stroke-width="5.5" stroke-linecap="round" />
-                    <path d="M 415,240 Q 335,175 375,82" fill="none" stroke="#d97757" stroke-width="3.5" stroke-linecap="round" />
-                    <path d="M 190,255 Q 290,190 375,82" fill="none" stroke="#7c86f7" stroke-width="3" stroke-linecap="round" opacity="0.75" />
-                    <circle cx="375" cy="82" r="14" fill="rgba(16,163,127,0.22)" />
-                    <circle cx="375" cy="82" r="7.5" fill="#10a37f" stroke="#f4f4f0" stroke-width="2" />
-                  </svg>
-                </div>
-
-                <div style="position:relative;z-index:2;display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap;">
-                  <div style="background:rgba(12,14,18,0.92);border:1px solid rgba(255,255,255,0.12);padding:10px 14px;border-radius:10px;max-width:265px;">
-                    <div id="cpBannerSub" style="font-size:0.65rem;font-family:var(--font-mono);color:#2bb3c0;text-transform:uppercase;">IN 400 FT · ALABAMA ST</div>
-                    <div id="cpBannerTitle" style="font-size:0.86rem;font-weight:600;color:#f4f4f0;">Arrive at Tartine Manufactory</div>
-                  </div>
-
-                  <button type="button" class="chip-btn active" id="cpCameraToggle" style="flex:0 0 auto;">
-                    3D Perspective
-                  </button>
-                </div>
-
-                <div style="position:relative;z-index:2;background:rgba(12,14,18,0.92);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:9px 12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;font-family:var(--font-mono);font-size:0.68rem;">
-                  <span style="color:#f4f4f0;">3 PEERS CONVERGING</span>
-                  <span style="color:#a3a39c;">Alice 3m · Bob 5m · Charlie 6m</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- CELL 4: 4-Plane Vector Icon Deconstructor -->
-          <div class="arch-cell reveal">
-            <div>
-              <div class="arch-tag">
-                <span>FIG 2.4 · ICON COMPOSER</span>
-                <span>4 Vector Planes</span>
-              </div>
-              <h3>Orthographic Icon Architecture</h3>
-              <p>
-                Constructed from four separate SVG planes: Carbon Backing, Polar Telemetry Grid, Dual Converging Routes, and Directional Specular Vector.
-              </p>
-            </div>
-
-            <div class="layer-stack-stage">
-              <div class="layer-stack-split">
-                <div class="layer-stack-viewport exploded" id="layerStackViewport">
-                  <div class="icon-layer layer-1">
-                    <img src="Logo/IconComposerLayers/01_Background.svg" alt="Plane 1: Backing Canvas" />
-                  </div>
-                  <div class="icon-layer layer-2">
-                    <img src="Logo/IconComposerLayers/02_RadarGrid.svg" alt="Plane 2: Telemetry Radar Grid" />
-                  </div>
-                  <div class="icon-layer layer-3">
-                    <img src="Logo/IconComposerLayers/03_RoutesAndNodes.svg" alt="Plane 3: Converging Route Vectors" />
-                  </div>
-                  <div class="icon-layer layer-4">
-                    <img src="Logo/IconComposerLayers/04_LiquidGlassElements.svg" alt="Plane 4: Navigation Arrow" />
-                  </div>
-                </div>
-
-                <div class="layer-legend-list">
-                  <div class="layer-legend-item">
-                    <span>PLANE 04</span>
-                    <strong>Liquid Glass Specular Vector</strong>
-                  </div>
-                  <div class="layer-legend-item">
-                    <span>PLANE 03</span>
-                    <strong>Dual Converging Route Nodes</strong>
-                  </div>
-                  <div class="layer-legend-item">
-                    <span>PLANE 02</span>
-                    <strong>Polar Telemetry Radar Grid</strong>
-                  </div>
-                  <div class="layer-legend-item">
-                    <span>PLANE 01</span>
-                    <strong>Carbon Obsidian Backing</strong>
-                  </div>
-                </div>
-              </div>
-
-              <button type="button" class="btn btn-secondary" id="toggleExplodeLayersBtn" style="width:100%;">
-                Collapse to Composite Icon
-              </button>
-            </div>
-          </div>
         </div>
+
       </div>
     </section>
 
     <!-- ====================================================================
-         SECTION 07: AUTHENTIC iOS 17 INTERFACE GALLERY & PLATFORMS
+         SECTION 06: QUICKSTART & APP CLIP GENERATOR
          ==================================================================== -->
-    <section class="section" id="screenshots">
-      <div class="container">
-        <div class="section-meta">
-          <span>07 / NATIVE INTERFACE GALLERY</span>
-          <span>UISHEETPRESENTATIONCONTROLLER · MKPOLYLINE</span>
-        </div>
-
-        <div class="section-header-split reveal">
-          <h2 class="section-title">
-            Indistinguishable from <em class="serif-italic">Apple Maps.</em>
-          </h2>
-          <p class="section-subtitle">
-            Inspect the native iOS 17 views, bottom-sheet detents, and peer telemetry cards captured directly from the simulator.
-          </p>
-        </div>
-
-        <div class="screenshots-showcase reveal">
-          <article
-            class="screenshot-card"
-            role="button"
-            tabindex="0"
-            data-lightbox-src="website/screens/fig-3-1-multimap.png"
-            data-lightbox-title="Fig 3.1 — Multi-Peer 3D Map & Bottom Drawer"
-            data-lightbox-desc="Real-time avatar annotations, route polylines, and UISheetPresentationController drawer."
-          >
-            <div class="screenshot-img-wrap">
-              <img src="website/screens/fig-3-1-multimap.png" alt="NaviSync Multi-Peer Map Preview" loading="lazy" />
-            </div>
-            <div class="screenshot-caption">
-              <span class="fig-num">FIG 3.1</span>
-              <h4>Synchronized Multi-Map</h4>
-              <p>Live avatar annotations and route polylines converging on a shared pin.</p>
-            </div>
-          </article>
-
-          <article
-            class="screenshot-card"
-            role="button"
-            tabindex="0"
-            data-lightbox-src="website/screens/fig-3-2-turn-hud.png"
-            data-lightbox-title="Fig 3.2 — Decluttered Street Telemetry"
-            data-lightbox-desc="Focused street-level navigation with active sharing status and turn corridor."
-          >
-            <div class="screenshot-img-wrap">
-              <img src="website/screens/fig-3-2-turn-hud.png" alt="NaviSync Focused Map View" loading="lazy" />
-            </div>
-            <div class="screenshot-caption">
-              <span class="fig-num">FIG 3.2</span>
-              <h4>Street-Level Telemetry</h4>
-              <p>Compact ETA sheet with one-tap peer focus and 3D map camera pitch.</p>
-            </div>
-          </article>
-
-          <article
-            class="screenshot-card"
-            role="button"
-            tabindex="0"
-            data-lightbox-src="website/screens/fig-3-3-roster-sheet.png"
-            data-lightbox-title="Fig 3.3 — Participant Roster & Check-in"
-            data-lightbox-desc="Translucent system material sheet showing live participant status and quick check-in triggers."
-          >
-            <div class="screenshot-img-wrap">
-              <img src="website/screens/fig-3-3-roster-sheet.png" alt="NaviSync Invited Friends Sheet" loading="lazy" />
-            </div>
-            <div class="screenshot-caption">
-              <span class="fig-num">FIG 3.3</span>
-              <h4>Participant Roster Sheet</h4>
-              <p>Translucent system sheet with live mileage and instant check-in actions.</p>
-            </div>
-          </article>
-
-          <article
-            class="screenshot-card"
-            role="button"
-            tabindex="0"
-            data-lightbox-src="website/screens/fig-3-4-peer-telemetry.png"
-            data-lightbox-title="Fig 3.4 — Peer Distance Inspector"
-            data-lightbox-desc="Detailed readout of a participant's live distance, route status, and destination."
-          >
-            <div class="screenshot-img-wrap">
-              <img src="website/screens/fig-3-4-peer-telemetry.png" alt="NaviSync Participant Detail View" loading="lazy" />
-            </div>
-            <div class="screenshot-caption">
-              <span class="fig-num">FIG 3.4</span>
-              <h4>Peer Telemetry Detail</h4>
-              <p>High-contrast distance readout with direct camera focus and route metadata.</p>
-            </div>
-          </article>
-        </div>
-
-        <!-- Apple Platform Suite -->
-        <div class="platform-icons-grid reveal">
-          <div class="platform-card">
-            <img src="Logo/Platforms/AppIcon-iOS-iPadOS.png" alt="NaviSync for iOS and iPadOS" loading="lazy" />
-            <div>
-              <strong style="display:block;font-size:0.88rem;font-weight:600;">iOS &amp; iPadOS 17+</strong>
-              <span style="font-size:0.75rem;color:var(--text-secondary);">MapKit, ActivityKit &amp; Clips</span>
-            </div>
-          </div>
-
-          <div class="platform-card">
-            <img src="Logo/Platforms/AppIcon-watchOS.png" alt="NaviSync for watchOS" loading="lazy" />
-            <div>
-              <strong style="display:block;font-size:0.88rem;font-weight:600;">watchOS Companion</strong>
-              <span style="font-size:0.75rem;color:var(--text-secondary);">Wrist Haptics &amp; ETA Glance</span>
-            </div>
-          </div>
-
-          <div class="platform-card">
-            <img src="Logo/Platforms/AppIcon-visionOS.png" alt="NaviSync for visionOS" loading="lazy" />
-            <div>
-              <strong style="display:block;font-size:0.88rem;font-weight:600;">visionOS Spatial</strong>
-              <span style="font-size:0.75rem;color:var(--text-secondary);">3D Volumetric Route Table</span>
-            </div>
-          </div>
-
-          <div class="platform-card">
-            <img src="Logo/Platforms/AppIcon-macOS.png" alt="NaviSync for macOS" loading="lazy" />
-            <div>
-              <strong style="display:block;font-size:0.88rem;font-weight:600;">macOS Sonoma+</strong>
-              <span style="font-size:0.75rem;color:var(--text-secondary);">Desktop Planner &amp; Handoff</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ====================================================================
-         SECTION 08: APP CLIP SANDBOX & DEVELOPER QUICKSTART
-         ==================================================================== -->
-    <section class="section" id="try-invite">
-      <div class="container">
-        <div class="section-meta">
-          <span>08 / DEPLOYMENT &amp; SANDBOX</span>
-          <span>XCODE 15.0+ · SWIFT 5.9 · ZERO EXTERNAL DEPENDENCIES</span>
-        </div>
-
-        <div class="invite-generator-box reveal">
-          <div>
-            <h2 class="section-title" style="font-size:clamp(1.85rem,3vw,2.5rem);margin-bottom:12px;">
-              Test the universal link encoding or <em class="serif-italic">build from source.</em>
+    <section class="apple-section" id="try-invite">
+      <div class="apple-container">
+        
+        <div class="apple-cta-card">
+          <div class="cta-inner">
+            <span class="apple-pill-tag">Instant Experience</span>
+            <h2 class="cta-title">
+              Drop a link.<br />
+              <span class="apple-gradient-text">Arrive together.</span>
             </h2>
-            <p class="section-subtitle" style="font-size:0.96rem;">
-              Enter any destination below to preview how NaviSync formats Associated Domain URLs for Apple App Clips, and see the live simulator update in real time.
+            <p class="cta-copy">
+              Test the exact universal link flow that your friends will receive. Enter your meeting details and generate an instant iOS App Clip URL.
             </p>
 
-            <div class="invite-form-group">
-              <label for="inviteDestInput" style="font-size:0.76rem;font-family:var(--font-mono);color:var(--text-muted);text-transform:uppercase;">
-                MEETING DESTINATION
-              </label>
-              <div class="input-row">
-                <input
-                  type="text"
-                  id="inviteDestInput"
-                  class="glass-input"
-                  value="Tartine Manufactory"
-                  placeholder="Enter a cafe, park, or address..."
-                />
-                <button type="button" class="btn btn-primary" id="copyInviteLinkBtn">
-                  Copy Invite Link
-                </button>
+            <div class="cta-composer">
+              <div class="cta-input-group">
+                <input type="text" id="sandboxTitle" class="cta-input" value="Sunset Dinner 🍕" placeholder="Meeting Title" />
+                <input type="text" id="sandboxHost" class="cta-input" value="Sarah" placeholder="Host Name" />
+                <button type="button" class="apple-btn-primary" id="sandboxGenerateBtn">Generate Link</button>
               </div>
 
-              <div class="generated-link-pill">
-                <span id="generatedLinkText">https://navisync.app/m/tartine-manufactory</span>
-                <span style="font-size:0.7rem;color:var(--accent-green);font-weight:700;">APP CLIP READY</span>
+              <div class="cta-output-box">
+                <div class="cta-url-display" id="sandboxUrlDisplay">https://navisync.app/m/sunset-dinner</div>
+                <button type="button" class="cta-copy-btn" id="sandboxCopyBtn">Copy</button>
               </div>
             </div>
-          </div>
 
-          <div class="quickstart-terminal">
-            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,0.08);">
-              <span style="color:#8e9299;font-size:0.7rem;">TERMINAL — XCODE BUILD</span>
-              <span style="color:#8e9299;font-size:0.7rem;">iOS 17.0+</span>
+            <div class="cta-specs-row">
+              <span>App Clip: <code>KeyFight.NaviSync.Clip</code></span>
+              <span>·</span>
+              <span>Universal Link: <code>https://navisync.app/m/*</code></span>
+              <span>·</span>
+              <span>iOS 17+ Native</span>
             </div>
-
-            <div style="color:#6e6e68;"># 1. Clone the repository</div>
-            <div style="color:#f4f4f0;margin-bottom:10px;">$ git clone https://github.com/mrinalrajl/MultipleMap.git</div>
-
-            <div style="color:#6e6e68;"># 2. Open native SwiftUI project in Xcode</div>
-            <div style="color:#2bb3c0;margin-bottom:10px;">$ open NaviSync.xcodeproj</div>
-
-            <div style="color:#6e6e68;"># 3. Build targets for Simulator</div>
-            <div style="color:#10a37f;">Targets: NaviSync · NaviSyncWidget · NaviSyncClip</div>
           </div>
         </div>
+
       </div>
     </section>
+
   </main>
 
-  <!-- Lightbox Modal -->
-  <div class="modal-backdrop" id="screenshotModal" role="dialog" aria-modal="true" aria-labelledby="modalPreviewTitle">
-    <div class="modal-card">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:16px;">
-        <div>
-          <h4 id="modalPreviewTitle" style="font-size:1.05rem;font-weight:600;">NaviSync iOS Interface</h4>
-          <p id="modalPreviewDesc" style="font-size:0.82rem;color:var(--text-secondary);margin-top:2px;"></p>
+  <!-- ====================================================================
+       APPLE MINIMAL FOOTER
+       ==================================================================== -->
+  <footer class="apple-footer">
+    <div class="apple-container footer-inner">
+      <div class="footer-brand-row">
+        <div class="footer-logo">
+          <img src="Logo/NaviSync-AppIcon-1024.png" alt="NaviSync Logo" />
+          <span>NaviSync</span>
         </div>
-        <button type="button" class="btn btn-secondary" id="closeModalBtn">Close</button>
+        <p class="footer-tagline">
+          Synchronized multi-agent spatial convergence for iOS 17+. Privacy-first. Ephemeral. Built with Apple MapKit, ActivityKit, CarPlay &amp; CoreML.
+        </p>
       </div>
-      <div style="border-radius:12px;overflow:hidden;max-height:70vh;display:flex;justify-content:center;background:#080a0e;border:1px solid var(--border-hairline);">
-        <img id="modalPreviewImg" src="website/screens/fig-3-1-multimap.png" alt="Expanded iOS Screenshot" style="max-height:70vh;width:auto;max-width:100%;object-fit:contain;" />
-      </div>
-    </div>
-  </div>
 
-  <!-- Apple-Style Product Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-row">
-        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-          <img src="Logo/NaviSync-AppIcon-1024.png" alt="NaviSync" style="width:22px;height:22px;border-radius:5px;border:1px solid var(--border-hairline);" />
-          <strong style="color:var(--text-primary);font-weight:700;">NaviSync</strong>
-          <span>— Ephemeral, Zero-Install Synchronized Group Navigation for iOS 17, Dynamic Island &amp; CarPlay.</span>
-        </div>
-        <div style="font-family:var(--font-mono);font-size:0.75rem;">
-          <span>SwiftUI · MapKit · App Clips · ActivityKit · CoreML</span>
+      <div class="footer-bottom-row">
+        <span>© 2026 NaviSync. All rights reserved. Designed for Apple Platforms.</span>
+        <div class="footer-links">
+          <a href="#overview">Overview</a>
+          <a href="#the-problem">The Crisis</a>
+          <a href="#comparison">Comparison</a>
+          <a href="https://github.com/mrinalrajl/MultipleMap" target="_blank" rel="noopener">GitHub</a>
         </div>
       </div>
     </div>
