@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NaviSync — Apple HomeView Product Architecture</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+</head>
+<body class="bg-transparent text-[var(--foreground)] antialiased p-3">
+  <!-- Apple HomeView Container Card -->
+  <div class="bg-[var(--card)] text-[var(--foreground)] border border-[var(--border)] rounded-2xl p-5 shadow-lg max-w-5xl mx-auto overflow-hidden">
+    
+    <!-- Apple HomeView Sub-Nav Header -->
+    <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-[var(--border)]">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-xl bg-[var(--foreground)] text-[var(--background)] flex items-center justify-center font-bold text-sm tracking-tight shadow-sm">
+          NS
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-mono uppercase tracking-widest text-[var(--muted-foreground)]">Apple HomeView Format</span>
+            <span class="w-1.5 h-1.5 rounded-full" style="background:#10a37f;"></span>
+            <span class="text-xs text-[var(--muted-foreground)]">iOS 17+ Ecosystem</span>
+          </div>
+          <h1 class="text-lg font-semibold tracking-tight text-[var(--foreground)]">NaviSync · Product Architecture &amp; Why It Exists</h1>
+        </div>
+      </div>
+
+      <!-- Segmented View Controller -->
+      <div class="flex items-center gap-1 bg-[var(--background)] p-1 rounded-xl border border-[var(--border)]" role="tablist" aria-label="Product Sections">
+        <button type="button" data-tab="problem" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-[var(--card)] text-[var(--foreground)] shadow-sm transition">01 · The Problem</button>
+        <button type="button" data-tab="cause" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-medium text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition">02 · Root Cause</button>
+        <button type="button" data-tab="audience" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-medium text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition">03 · Who It's For</button>
+        <button type="button" data-tab="compare" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-medium text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition">04 · vs. Life360 &amp; Find My</button>
+        <button type="button" data-tab="telemetry" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-medium text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition">05 · Live Telemetry</button>
+      </div>
+    </div>
+
+    <!-- TAB 1: WHAT PROBLEM DOES IT SOLVE & WHY IT IS NECESSARY -->
+    <div id="view-problem" class="tab-view pt-4">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
+        <div class="md:col-span-7 flex flex-col gap-3">
+          <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-[var(--background)] border border-[var(--border)] w-fit text-xs font-mono text-[var(--muted-foreground)]">
+            <span class="text-rose-500 font-bold">CRITICAL ISSUE</span>
+            <span>Last-Mile Convergence Failure</span>
+          </div>
+          <h2 class="text-xl font-bold tracking-tight text-[var(--foreground)]">
+            Texting "Where are you?" at 65 MPH is dangerous, anxious, and broken.
+          </h2>
+          <p class="text-xs text-[var(--muted-foreground)] leading-relaxed">
+            Every day, millions of people coordinate meetups. The moment friends depart, coordination degrades into fragmented group chats. Drivers take their eyes off the road to text ETA updates, people understate delays due to <em>ETA optimism bias</em>, and the first arrivals wait 25+ minutes alone while restaurants cancel group reservations.
+          </p>
+
+          <div class="grid grid-cols-3 gap-2.5 pt-2">
+            <div class="bg-[var(--background)] p-3 rounded-xl border border-[var(--border)]">
+              <span class="text-xs font-mono uppercase text-rose-500 font-semibold block mb-1">01. Cognitive Hazard</span>
+              <p class="text-xs text-[var(--muted-foreground)]">In-transit texting is dangerous and distracted driving. Drivers need ambient, hands-free telemetry.</p>
+            </div>
+            <div class="bg-[var(--background)] p-3 rounded-xl border border-[var(--border)]">
+              <span class="text-xs font-mono uppercase text-amber-500 font-semibold block mb-1">02. Staggered Delays</span>
+              <p class="text-xs text-[var(--muted-foreground)]">People arrive 30 minutes apart because static departure times ignore real-time corridor congestion.</p>
+            </div>
+            <div class="bg-[var(--background)] p-3 rounded-xl border border-[var(--border)]">
+              <span class="text-xs font-mono uppercase text-teal-500 font-semibold block mb-1">03. Install Fatigue</span>
+              <p class="text-xs text-[var(--muted-foreground)]">Nobody wants to download a 120 MB app and create a login just to join a 20-minute coffee meetup.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="md:col-span-5 bg-[var(--background)] rounded-xl border border-[var(--border)] p-4 flex flex-col gap-3">
+          <div class="flex items-center justify-between border-b border-[var(--border)] pb-2">
+            <span class="text-xs font-mono uppercase text-[var(--muted-foreground)]">Arrival Convergence Shift</span>
+            <span class="text-xs font-mono font-semibold" style="color:#10a37f;">73% ETA Sync</span>
+          </div>
+          <div class="space-y-2 text-xs">
+            <div class="p-2.5 rounded-lg bg-[var(--card)] border border-[var(--border)] flex justify-between items-center">
+              <div>
+                <span class="font-semibold block text-[var(--foreground)]">Traditional Group Chat</span>
+                <span class="text-[var(--muted-foreground)]">14 texts sent · 28 min arrival spread</span>
+              </div>
+              <span class="text-rose-500 font-mono font-bold">CHAOTIC</span>
+            </div>
+            <div class="p-2.5 rounded-lg bg-[var(--card)] border border-[var(--border)] flex justify-between items-center" style="border-left: 3px solid #10a37f;">
+              <div>
+                <span class="font-semibold block text-[var(--foreground)]">NaviSync App Clip Sync</span>
+                <span class="text-[var(--muted-foreground)]">0 texts sent · 3.2 min arrival spread</span>
+              </div>
+              <span class="font-mono font-bold" style="color:#10a37f;">SYNCHRONIZED</span>
+            </div>
+          </div>
+          <div class="text-xs text-[var(--muted-foreground)] bg-[var(--card)] p-2.5 rounded-lg border border-[var(--border)] font-mono">
+            "NaviSync transforms multi-person arrival from an active messaging chore into a passive, glanceable spatial display."
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: WHY THIS PROBLEM OCCURRED IN THE INITIAL PLACE -->
+    <div id="view-cause" class="tab-view hidden pt-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="bg-[var(--background)] rounded-xl border border-[var(--border)] p-4 flex flex-col justify-between">
+          <div>
+            <div class="w-7 h-7 rounded-lg bg-indigo-500/10 text-indigo-500 flex items-center justify-center font-bold text-xs font-mono mb-2">01</div>
+            <h3 class="text-sm font-semibold text-[var(--foreground)] mb-1">Single-Agent Map Architecture</h3>
+            <p class="text-xs text-[var(--muted-foreground)] leading-relaxed">
+              Google Maps, Apple Maps, and Waze were engineered in the 2000s for a single vehicle driving from Point A to Point B. Their core routing engines and UI viewports isolate the driver in an ego-centric bubble, incapable of natively representing multi-agent convergence toward a common coordinate.
+            </p>
+          </div>
+          <span class="text-xs font-mono text-[var(--muted-foreground)] pt-3 border-t border-[var(--border)] mt-3">Architectural Blindspot</span>
+        </div>
+
+        <div class="bg-[var(--background)] rounded-xl border border-[var(--border)] p-4 flex flex-col justify-between">
+          <div>
+            <div class="w-7 h-7 rounded-lg bg-amber-500/10 text-amber-500 flex items-center justify-center font-bold text-xs font-mono mb-2">02</div>
+            <h3 class="text-sm font-semibold text-[var(--foreground)] mb-1">The Spatial-to-Text Mismatch</h3>
+            <p class="text-xs text-[var(--muted-foreground)] leading-relaxed">
+              Human travelers intuitively attempt to solve dynamic spatial velocity problems through sequential text messaging threads (SMS, WhatsApp). Text is static and uncalibrated; it cannot communicate highway speed variations, missed highway exits, or parking search latency.
+            </p>
+          </div>
+          <span class="text-xs font-mono text-[var(--muted-foreground)] pt-3 border-t border-[var(--border)] mt-3">Medium Mismatch</span>
+        </div>
+
+        <div class="bg-[var(--background)] rounded-xl border border-[var(--border)] p-4 flex flex-col justify-between">
+          <div>
+            <div class="w-7 h-7 rounded-lg bg-rose-500/10 text-rose-500 flex items-center justify-center font-bold text-xs font-mono mb-2">03</div>
+            <h3 class="text-sm font-semibold text-[var(--foreground)] mb-1">The N-Party App Install Wall</h3>
+            <p class="text-xs text-[var(--muted-foreground)] leading-relaxed">
+              In any group of $N$ people, asking everyone to download a 100+ MB app, enter credit card or profile info, and accept permanent tracking guarantees high drop-off. If just one person opts out, the entire group is forced back to texting.
+            </p>
+          </div>
+          <span class="text-xs font-mono text-[var(--muted-foreground)] pt-3 border-t border-[var(--border)] mt-3">Adoption Threshold</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: WHO IS IT CATERING FOR -->
+    <div id="view-audience" class="tab-view hidden pt-4">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div class="bg-[var(--background)] rounded-xl border border-[var(--border)] p-3.5">
+          <div class="text-teal-500 font-mono text-xs font-semibold mb-1">PERSONA 01</div>
+          <h4 class="text-xs font-bold text-[var(--foreground)] mb-1">Social Meetups &amp; Dining</h4>
+          <p class="text-xs text-[var(--muted-foreground)] leading-relaxed mb-3">Friends heading to restaurants, concerts, festivals, or weekend dinners without texting "are you here yet?".</p>
+          <div class="text-xs font-mono bg-[var(--card)] p-2 rounded border border-[var(--border)] text-[var(--foreground)]">
+            Key: Zero-install App Clip join via iMessage.
+          </div>
+        </div>
+
+        <div class="bg-[var(--background)] rounded-xl border border-[var(--border)] p-3.5">
+          <div class="text-amber-500 font-mono text-xs font-semibold mb-1">PERSONA 02</div>
+          <h4 class="text-xs font-bold text-[var(--foreground)] mb-1">Road Trips &amp; Convoys</h4>
+          <p class="text-xs text-[var(--muted-foreground)] leading-relaxed mb-3">Multiple cars traveling together to national parks, cabins, or ski resorts that need to stay synchronized.</p>
+          <div class="text-xs font-mono bg-[var(--card)] p-2 rounded border border-[var(--border)] text-[var(--foreground)]">
+            Key: CarPlay multi-vehicle HUD.
+          </div>
+        </div>
+
+        <div class="bg-[var(--background)] rounded-xl border border-[var(--border)] p-3.5">
+          <div class="text-indigo-500 font-mono text-xs font-semibold mb-1">PERSONA 03</div>
+          <h4 class="text-xs font-bold text-[var(--foreground)] mb-1">Families &amp; Event Hosts</h4>
+          <p class="text-xs text-[var(--muted-foreground)] leading-relaxed mb-3">Parents coordinating airport pickups, school runs, or holiday hosting who need to time hot meals perfectly.</p>
+          <div class="text-xs font-mono bg-[var(--card)] p-2 rounded border border-[var(--border)] text-[var(--foreground)]">
+            Key: Dynamic Island live countdown.
+          </div>
+        </div>
+
+        <div class="bg-[var(--background)] rounded-xl border border-[var(--border)] p-3.5">
+          <div class="text-emerald-500 font-mono text-xs font-semibold mb-1">PERSONA 04</div>
+          <h4 class="text-xs font-bold text-[var(--foreground)] mb-1">Field Dispatch &amp; Client Ops</h4>
+          <p class="text-xs text-[var(--muted-foreground)] leading-relaxed mb-3">Film crews, real estate agents, event staff, and mobile service teams meeting clients at specific job coordinates.</p>
+          <div class="text-xs font-mono bg-[var(--card)] p-2 rounded border border-[var(--border)] text-[var(--foreground)]">
+            Key: Ephemeral session auto-expiry.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 4: WHY USE NAVISYNC OVER LIFE360 AND APPLE FIND MY -->
+    <div id="view-compare" class="tab-view hidden pt-4">
+      <div class="overflow-x-auto rounded-xl border border-[var(--border)] bg-[var(--background)]">
+        <table class="w-full text-left border-collapse text-xs">
+          <thead>
+            <tr class="border-b border-[var(--border)] bg-[var(--card)]">
+              <th class="p-3 font-semibold text-[var(--foreground)]">Architecture Vector</th>
+              <th class="p-3 font-semibold text-rose-500">Life360</th>
+              <th class="p-3 font-semibold text-neutral-400">Apple Find My</th>
+              <th class="p-3 font-semibold text-teal-400 font-mono">NaviSync (iOS 17+)</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-[var(--border)] text-[var(--muted-foreground)]">
+            <tr>
+              <td class="p-3 font-medium text-[var(--foreground)]">Tracking Lifecycle</td>
+              <td class="p-3">24/7 Invasive Surveillance (speed, battery, history).</td>
+              <td class="p-3">Always-On Peer Tracking (permanent contact link).</td>
+              <td class="p-3 font-semibold text-[var(--foreground)]">Ephemeral: Starts on accept, auto-terminates on arrival.</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-medium text-[var(--foreground)]">Onboarding Barrier</td>
+              <td class="p-3">High: Mandatory 140 MB app, account, family circle.</td>
+              <td class="p-3">Medium: Pre-existing Apple ID contact approvals.</td>
+              <td class="p-3 font-semibold text-[var(--foreground)]">&lt; 2s Instant Join: Zero-install App Clip from single link.</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-medium text-[var(--foreground)]">In-Transit Spatial Guidance</td>
+              <td class="p-3">None: Raw coordinate dots on a blank map.</td>
+              <td class="p-3">Passive: Single static blue dot. No destination ETA.</td>
+              <td class="p-3 font-semibold text-[var(--foreground)]">Active MapKit: Real road polylines, maneuvers, live ETAs.</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-medium text-[var(--foreground)]">In-Car &amp; Ambient UI</td>
+              <td class="p-3">None: Phone screen app only.</td>
+              <td class="p-3">None: No CarPlay multi-peer HUD.</td>
+              <td class="p-3 font-semibold text-[var(--foreground)]">CarPlay CPMapTemplate + Dynamic Island Live Activity.</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-medium text-[var(--foreground)]">Route Intelligence</td>
+              <td class="p-3">None: Closed proprietary tracking.</td>
+              <td class="p-3">None: Generic Apple Maps point-to-point.</td>
+              <td class="p-3 font-semibold text-[var(--foreground)]">CoreML RouteScorer: Balances turns, stress, &amp; convergence.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="mt-3 p-3 rounded-xl bg-[var(--background)] border border-[var(--border)] flex items-center justify-between text-xs">
+        <span class="text-[var(--muted-foreground)]">
+          <strong>The Privacy Distinction:</strong> NaviSync is built on the belief that friends want to coordinate an arrival, not spy on each other’s lives.
+        </span>
+        <span class="font-mono text-xs px-2 py-1 rounded bg-[var(--card)] border border-[var(--border)] text-[var(--foreground)] shrink-0">
+          Zero Data Brokerage
+        </span>
+      </div>
+    </div>
+
+    <!-- TAB 5: LIVE TELEMETRY STAGE -->
+    <div id="view-telemetry" class="tab-view hidden pt-4">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+        <!-- Interactive Controls -->
+        <div class="md:col-span-5 flex flex-col gap-3">
+          <div class="bg-[var(--background)] border border-[var(--border)] rounded-xl p-3">
+            <span class="block text-xs font-mono uppercase text-[var(--muted-foreground)] mb-1">Active Destination</span>
+            <div class="flex items-center gap-2">
+              <input id="demoDest" type="text" value="Tartine Manufactory" class="w-full bg-transparent text-xs font-bold text-[var(--foreground)] focus:outline-none" />
+              <span class="text-xs font-mono text-[var(--muted-foreground)] shrink-0">595 Alabama St</span>
+            </div>
+          </div>
+
+          <!-- Peer Focus Switcher -->
+          <div class="space-y-1.5">
+            <button type="button" data-demo-peer="alice" class="demo-peer-btn w-full p-2 rounded-lg bg-[var(--background)] border border-[var(--border)] flex items-center justify-between text-xs transition">
+              <div class="flex items-center gap-2">
+                <span class="w-5 h-5 rounded-full flex items-center justify-center font-bold text-xs" style="background:#2bb3c0;color:#081012;">A</span>
+                <span class="font-semibold text-[var(--foreground)]">Alice (Market St)</span>
+              </div>
+              <span id="demoEtaAlice" class="font-mono text-[var(--muted-foreground)]">0.8 mi · 4m</span>
+            </button>
+            <button type="button" data-demo-peer="bob" class="demo-peer-btn w-full p-2 rounded-lg border border-transparent hover:border-[var(--border)] flex items-center justify-between text-xs transition">
+              <div class="flex items-center gap-2">
+                <span class="w-5 h-5 rounded-full flex items-center justify-center font-bold text-xs" style="background:#d97757;color:#140906;">B</span>
+                <span class="font-semibold text-[var(--foreground)]">Bob (Bryant St)</span>
+              </div>
+              <span id="demoEtaBob" class="font-mono text-[var(--muted-foreground)]">1.2 mi · 5m</span>
+            </button>
+            <button type="button" data-demo-peer="charlie" class="demo-peer-btn w-full p-2 rounded-lg border border-transparent hover:border-[var(--border)] flex items-center justify-between text-xs transition">
+              <div class="flex items-center gap-2">
+                <span class="w-5 h-5 rounded-full flex items-center justify-center font-bold text-xs" style="background:#7c86f7;color:#080917;">C</span>
+                <span class="font-semibold text-[var(--foreground)]">Charlie (Folsom St)</span>
+              </div>
+              <span id="demoEtaCharlie" class="font-mono text-[var(--muted-foreground)]">1.0 mi · 5m</span>
+            </button>
+          </div>
+
+          <!-- Scrub Bar -->
+          <div class="pt-1">
+            <div class="flex justify-between text-xs font-mono text-[var(--muted-foreground)] mb-1">
+              <span>CONVERGENCE SCRUBBER</span>
+              <span id="demoProgressLabel" class="text-[var(--foreground)] font-semibold">45% En Route</span>
+            </div>
+            <input id="demoSlider" type="range" min="0" max="100" value="45" class="w-full cursor-pointer" style="accent-color:#2bb3c0;" />
+          </div>
+        </div>
+
+        <!-- Mini Visual Map Canvas -->
+        <div class="md:col-span-7 rounded-xl border border-[var(--border)] bg-[#0c0f14] relative h-60 overflow-hidden">
+          <svg viewBox="0 0 420 240" class="w-full h-full block">
+            <!-- Road Grid -->
+            <g stroke="rgba(255,255,255,0.06)" stroke-width="6" stroke-linecap="round">
+              <line x1="0" y1="45" x2="420" y2="160" />
+              <line x1="0" y1="140" x2="420" y2="210" />
+              <line x1="80" y1="0" x2="230" y2="240" />
+              <line x1="250" y1="0" x2="350" y2="240" />
+            </g>
+
+            <!-- Dynamic Polylines -->
+            <path id="demoRouteAlice" d="M 65,165 Q 175,120 295,80" fill="none" stroke="#2bb3c0" stroke-width="3.5" stroke-linecap="round" />
+            <path id="demoRouteBob" d="M 350,205 Q 285,145 295,80" fill="none" stroke="#d97757" stroke-width="2.5" stroke-linecap="round" opacity="0.5" />
+            <path id="demoRouteCharlie" d="M 90,215 Q 195,170 295,80" fill="none" stroke="#7c86f7" stroke-width="2.5" stroke-linecap="round" opacity="0.5" />
+
+            <!-- Target Destination -->
+            <g transform="translate(295, 80)">
+              <circle r="14" fill="rgba(16,163,127,0.2)" />
+              <circle r="7" fill="#10a37f" stroke="#ffffff" stroke-width="2" />
+              <rect x="-65" y="-30" width="130" height="20" rx="5" fill="rgba(12,15,20,0.92)" stroke="rgba(255,255,255,0.2)" />
+              <text id="demoDestLabel" x="0" y="-16" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="600">Tartine</text>
+            </g>
+
+            <!-- Moving Peer Nodes (Strictly >= 12px text floor) -->
+            <g id="demoPeers">
+              <g id="demoNodeBob" transform="translate(315, 155)">
+                <circle r="11" fill="#0c0f14" stroke="#d97757" stroke-width="2" />
+                <text text-anchor="middle" dy="4" fill="#ffffff" font-size="12" font-weight="bold">B</text>
+              </g>
+              <g id="demoNodeCharlie" transform="translate(170, 180)">
+                <circle r="11" fill="#0c0f14" stroke="#7c86f7" stroke-width="2" />
+                <text text-anchor="middle" dy="4" fill="#ffffff" font-size="12" font-weight="bold">C</text>
+              </g>
+              <g id="demoNodeAlice" transform="translate(145, 130)">
+                <circle r="11" fill="#0c0f14" stroke="#2bb3c0" stroke-width="2" />
+                <text text-anchor="middle" dy="4" fill="#ffffff" font-size="12" font-weight="bold">A</text>
+              </g>
+            </g>
+          </svg>
+
+          <!-- Top Overlay HUD -->
+          <div class="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between pointer-events-none">
+            <div class="px-2.5 py-1 rounded-md bg-[var(--card)]/90 backdrop-blur border border-[var(--border)] text-xs font-mono text-[var(--foreground)] shadow-sm">
+              <span id="demoHudPeer" class="font-bold" style="color:#2bb3c0;">Alice</span> · <span id="demoHudManeuver">Turn right on Market</span>
+            </div>
+            <div class="px-2 py-0.5 rounded-full bg-[var(--card)]/90 backdrop-blur border border-[var(--border)] text-xs font-mono text-[var(--foreground)]">
+              ActivityKit Live
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Apple Footer Bar -->
+    <div class="mt-4 pt-3 border-t border-[var(--border)] flex flex-wrap items-center justify-between text-xs text-[var(--muted-foreground)] gap-2">
+      <div class="flex items-center gap-2">
+        <span class="font-semibold text-[var(--foreground)]">NaviSync</span>
+        <span>·</span>
+        <span>Built natively with Swift, MapKit, ActivityKit &amp; CoreML</span>
+      </div>
+      <div class="flex items-center gap-3 font-mono text-xs">
+        <span>App Clip: KeyFight.NaviSync.Clip</span>
+        <span>·</span>
+        <span>CarPlay CPMapTemplate</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      // Tab switcher
+      const tabs = document.querySelectorAll(".tab-btn");
+      const views = document.querySelectorAll(".tab-view");
+
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          const target = tab.getAttribute("data-tab");
+          views.forEach((v) => v.classList.add("hidden"));
+          const targetView = document.getElementById("view-" + target);
+          if (targetView) targetView.classList.remove("hidden");
+
+          tabs.forEach((t) => {
+            const active = t === tab;
+            t.classList.toggle("bg-[var(--card)]", active);
+            t.classList.toggle("text-[var(--foreground)]", active);
+            t.classList.toggle("shadow-sm", active);
+            t.classList.toggle("text-[var(--muted-foreground)]", !active);
+          });
+        });
+      });
+
+      // Telemetry demo logic
+      const peers = {
+        alice: { name: "Alice", p0: [65, 165], p1: [175, 120], p2: [295, 80], color: "#2bb3c0", dist: 1.4, min: 6, turn: "Turn right on Market" },
+        bob: { name: "Bob", p0: [350, 205], p1: [285, 145], p2: [295, 80], color: "#d97757", dist: 2.1, min: 9, turn: "Merge onto Bryant" },
+        charlie: { name: "Charlie", p0: [90, 215], p1: [195, 170], p2: [295, 80], color: "#7c86f7", dist: 1.8, min: 8, turn: "Continue on Folsom" }
+      };
+      let activePeer = "alice";
+      let progress = 0.45;
+
+      function bezier(p0, p1, p2, t) {
+        const u = 1 - t;
+        return [
+          u * u * p0[0] + 2 * u * t * p1[0] + t * t * p2[0],
+          u * u * p0[1] + 2 * u * t * p1[1] + t * t * p2[1]
+        ];
+      }
+
+      function updateTelemetry() {
+        const arrived = progress >= 0.96;
+        const pct = Math.round(progress * 100);
+        document.getElementById("demoProgressLabel").textContent = arrived ? "100% · Arrived" : pct + "% En Route";
+
+        const cur = peers[activePeer];
+        const rem = Math.max(0, 1 - progress);
+
+        Object.keys(peers).forEach((k) => {
+          const p = peers[k];
+          const [x, y] = bezier(p.p0, p.p1, p.p2, progress);
+          const node = document.getElementById("demoNode" + k.charAt(0).toUpperCase() + k.slice(1));
+          if (node) {
+            node.setAttribute("transform", "translate(" + x.toFixed(1) + "," + y.toFixed(1) + ")");
+            if (k === activePeer && node.parentNode) node.parentNode.appendChild(node);
+          }
+          const route = document.getElementById("demoRoute" + k.charAt(0).toUpperCase() + k.slice(1));
+          if (route) {
+            const ctrlX = (1 - progress) * p.p1[0] + progress * p.p2[0];
+            const ctrlY = (1 - progress) * p.p1[1] + progress * p.p2[1];
+            route.setAttribute("d", "M " + x.toFixed(1) + "," + y.toFixed(1) + " Q " + ctrlX.toFixed(1) + "," + ctrlY.toFixed(1) + " " + p.p2[0] + "," + p.p2[1]);
+            route.setAttribute("opacity", k === activePeer ? "1" : "0.4");
+            route.setAttribute("stroke-width", k === activePeer ? "3.5" : "2");
+          }
+          const etaEl = document.getElementById("demoEta" + k.charAt(0).toUpperCase() + k.slice(1));
+          if (etaEl) {
+            etaEl.textContent = arrived ? "Arrived" : (p.dist * rem).toFixed(1) + " mi · " + Math.ceil(p.min * rem) + "m";
+          }
+        });
+
+        const hudPeer = document.getElementById("demoHudPeer");
+        hudPeer.textContent = cur.name;
+        hudPeer.style.color = cur.color;
+        document.getElementById("demoHudManeuver").textContent = arrived ? "Arrived at destination" : cur.turn;
+      }
+
+      const slider = document.getElementById("demoSlider");
+      if (slider) {
+        slider.addEventListener("input", (e) => {
+          progress = Number(e.target.value) / 100;
+          updateTelemetry();
+        });
+      }
+
+      document.querySelectorAll(".demo-peer-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          activePeer = btn.getAttribute("data-demo-peer");
+          document.querySelectorAll(".demo-peer-btn").forEach((b) => {
+            const active = b === btn;
+            b.classList.toggle("bg-[var(--background)]", active);
+            b.classList.toggle("border-[var(--border)]", active);
+            b.classList.toggle("border-transparent", !active);
+          });
+          updateTelemetry();
+        });
+      });
+
+      const destInput = document.getElementById("demoDest");
+      if (destInput) {
+        destInput.addEventListener("input", (e) => {
+          const val = (e.target.value || "Tartine").trim().split(",")[0].slice(0, 14);
+          document.getElementById("demoDestLabel").textContent = val;
+        });
+      }
+
+      updateTelemetry();
+    })();
+  </script>
+</body>
+</html>
