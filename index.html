@@ -114,26 +114,336 @@
       </div>
     </section>
 
-    <!-- WHO -->
-    <section class="section" id="who">
-      <h2 class="headline reveal">Made for every meetup.</h2>
-      <div class="who-grid">
-        <div class="tile reveal"><span class="tile-emoji">🍕</span>
-          <h3>Dinners</h3>
-          <p>Nobody holds the table alone.</p>
-        </div>
-        <div class="tile reveal"><span class="tile-emoji">🚗</span>
-          <h3>Road trips</h3>
-          <p>Every car in the convoy on one map.</p>
-        </div>
-        <div class="tile reveal"><span class="tile-emoji">✈️</span>
-          <h3>Pickups</h3>
-          <p>Head to the curb at the right minute.</p>
-        </div>
-        <div class="tile reveal"><span class="tile-emoji">🏢</span>
-          <h3>Teams</h3>
-          <p>Coordinate on-site visits without a permanent tracker.</p>
-        </div>
+    <!-- WHO: STORYTELLING THEATER -->
+    <section class="section story-theater" id="who">
+      <div class="story-header">
+        <span class="story-tag reveal">Real-Life Meetups</span>
+        <h2 class="headline reveal">Made for the final 15 minutes.</h2>
+        <p class="lead reveal">Tap a scenario to see how synchronized convergence changes the story.</p>
+      </div>
+
+      <!-- Interactive Scenario Selector Tabs -->
+      <div class="story-tabs-bar reveal" role="tablist" aria-label="Meetup scenarios">
+        <button type="button" class="story-tab active" data-scenario="dinners" role="tab" aria-selected="true" aria-controls="story-dinners">
+          <span class="story-tab-icon">🍕</span>
+          <span class="story-tab-label">Group Dinners</span>
+          <span class="story-tab-progress"><span class="story-tab-fill"></span></span>
+        </button>
+        <button type="button" class="story-tab" data-scenario="convoys" role="tab" aria-selected="false" aria-controls="story-convoys">
+          <span class="story-tab-icon">🚗</span>
+          <span class="story-tab-label">Highway Convoys</span>
+          <span class="story-tab-progress"><span class="story-tab-fill"></span></span>
+        </button>
+        <button type="button" class="story-tab" data-scenario="pickups" role="tab" aria-selected="false" aria-controls="story-pickups">
+          <span class="story-tab-icon">✈️</span>
+          <span class="story-tab-label">Curbside Pickups</span>
+          <span class="story-tab-progress"><span class="story-tab-fill"></span></span>
+        </button>
+        <button type="button" class="story-tab" data-scenario="teams" role="tab" aria-selected="false" aria-controls="story-teams">
+          <span class="story-tab-icon">🏢</span>
+          <span class="story-tab-label">Client Showings</span>
+          <span class="story-tab-progress"><span class="story-tab-fill"></span></span>
+        </button>
+      </div>
+
+      <!-- Story Stage Container -->
+      <div class="story-stage reveal" id="storyStage">
+
+        <!-- 1. Group Dinners -->
+        <article class="story-panel active" id="story-dinners" data-panel="dinners" role="tabpanel">
+          <div class="story-narrative">
+            <div class="story-meta-pill">
+              <span class="story-scenario-badge badge-amber">Social Meetup · 7:30 PM</span>
+              <span class="story-location">Tartine Manufactory</span>
+            </div>
+            <h3 class="story-title">Nobody awkwardly holds a table alone.</h3>
+
+            <div class="story-dialogue">
+              <div class="bubble bubble-in">
+                <span class="bubble-sender">Hostess at Door</span>
+                "Table is ready in 3 minutes! Is your whole party here??"
+              </div>
+              <div class="bubble bubble-out">
+                <span class="bubble-sender">You (NaviSync Live Activity)</span>
+                "Bob just parked, Alice is 400 ft away. Seating now!"
+              </div>
+            </div>
+
+            <p class="story-body">
+              Instead of one person waiting awkwardly at the front door while appetizers get cold, everyone joins via one iMessage link. Friends see the exact parking corridor, and the host tracks the arrival window right from their Lock Screen.
+            </p>
+
+            <div class="story-outcome">
+              <span class="outcome-icon">✓</span>
+              <span>All 3 friends converge within 90 seconds. Zero cold food.</span>
+            </div>
+          </div>
+
+          <div class="story-visual">
+            <div class="live-activity-card">
+              <div class="la-header">
+                <div class="la-brand">
+                  <img src="website/Logo/NaviSync-AppIcon-1024.png" alt="" />
+                  <span>NaviSync Live Activity</span>
+                </div>
+                <span class="la-live-badge"><span class="la-pulse"></span>Live Convergence</span>
+              </div>
+
+              <div class="la-destination">
+                <div>
+                  <h4 class="la-dest-title">Tartine Manufactory Dinner</h4>
+                  <span class="la-dest-sub">595 Alabama St, SF · 3 Friends En Route</span>
+                </div>
+                <div class="la-countdown">
+                  <span class="la-time">02m 15s</span>
+                  <span class="la-label">Arrival Window</span>
+                </div>
+              </div>
+
+              <div class="la-progress-bar">
+                <div class="la-progress-fill" style="width: 78%;"></div>
+              </div>
+
+              <div class="la-roster">
+                <div class="la-peer">
+                  <div class="la-avatar avatar-alice">A</div>
+                  <div class="la-peer-info">
+                    <strong>Alice Johnson</strong>
+                    <span>Parked on Alabama St · Walking in</span>
+                  </div>
+                  <span class="la-peer-status status-parked">Parked</span>
+                </div>
+                <div class="la-peer">
+                  <div class="la-avatar avatar-bob">B</div>
+                  <div class="la-peer-info">
+                    <strong>Bob Martinez</strong>
+                    <span>400 ft away · Turning corner</span>
+                  </div>
+                  <span class="la-peer-status">1m</span>
+                </div>
+                <div class="la-peer">
+                  <div class="la-avatar avatar-charlie">C</div>
+                  <div class="la-peer-info">
+                    <strong>Charlie Kim</strong>
+                    <span>Cruising Folsom St corridor</span>
+                  </div>
+                  <span class="la-peer-status">2m</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2. Highway Convoys -->
+        <article class="story-panel" id="story-convoys" data-panel="convoys" role="tabpanel">
+          <div class="story-narrative">
+            <div class="story-meta-pill">
+              <span class="story-scenario-badge badge-blue">Highway Convoy · Tahoe Road Trip</span>
+              <span class="story-location">I-80 Eastbound</span>
+            </div>
+            <h3 class="story-title">Three cars. Zero missed exits.</h3>
+
+            <div class="story-dialogue">
+              <div class="bubble bubble-in">
+                <span class="bubble-sender">Car 2 (Bob)</span>
+                "Did you guys take exit 186B?? I'm stuck behind a semi truck!"
+              </div>
+              <div class="bubble bubble-out">
+                <span class="bubble-sender">Lead Car (CarPlay)</span>
+                "Stay center! CarPlay shows you're 400 ft back. We exit together."
+              </div>
+            </div>
+
+            <p class="story-body">
+              Multi-car road trips usually mean dangerous phone calls at 70 mph or pulling over at random rest stops. With NaviSync’s native CarPlay template, every vehicle in the convoy renders right on your dashboard cockpit in real time.
+            </p>
+
+            <div class="story-outcome">
+              <span class="outcome-icon">✓</span>
+              <span>Hands-free tandem navigation on CarPlay. No radio chatter needed.</span>
+            </div>
+          </div>
+
+          <div class="story-visual">
+            <div class="carplay-card">
+              <div class="cp-top-bar">
+                <span class="cp-status">12:44 · 5G</span>
+                <span class="cp-title">CPMapTemplate · Convoy Mode</span>
+                <span class="cp-speed">65 MPH</span>
+              </div>
+
+              <div class="cp-maneuver-box">
+                <div class="cp-turn-icon">↱</div>
+                <div class="cp-turn-text">
+                  <strong>In 2.4 miles · Exit 186B</strong>
+                  <span>Convoy synchronized · Stay in right two lanes</span>
+                </div>
+              </div>
+
+              <div class="cp-convoy-grid">
+                <div class="cp-vehicle active">
+                  <span class="cp-v-tag">Lead Car</span>
+                  <strong>You</strong>
+                  <span>65 mph · On Pace</span>
+                </div>
+                <div class="cp-vehicle">
+                  <span class="cp-v-tag">Car 2</span>
+                  <strong>Bob</strong>
+                  <span>450 ft back · In Lane</span>
+                </div>
+                <div class="cp-vehicle">
+                  <span class="cp-v-tag">Car 3</span>
+                  <strong>Charlie</strong>
+                  <span>0.8 mi back · Merging</span>
+                </div>
+              </div>
+
+              <div class="cp-footer-note">
+                <span>🛣️ I-80 Tahoe Corridor · Core ML High-Reliability Route</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 3. Curbside Pickups -->
+        <article class="story-panel" id="story-pickups" data-panel="pickups" role="tabpanel">
+          <div class="story-narrative">
+            <div class="story-meta-pill">
+              <span class="story-scenario-badge badge-green">Airport Pickup · SFO Terminal 2</span>
+              <span class="story-location">Delta Flight 412</span>
+            </div>
+            <h3 class="story-title">Pull up to the curb the second they step out.</h3>
+
+            <div class="story-dialogue">
+              <div class="bubble bubble-in">
+                <span class="bubble-sender">Passenger at Carousel</span>
+                "Just grabbed my suitcase, walking toward Door 4!"
+              </div>
+              <div class="bubble bubble-out">
+                <span class="bubble-sender">Driver in Waiting Lot</span>
+                "Dynamic Island says 2 min walk. Pulling up to curb 4 now."
+              </div>
+            </div>
+
+            <p class="story-body">
+              Airport pickups usually mean circling departure loops burning fuel or getting chased away by airport police. NaviSync links the traveler’s walking progress to your driving ETA so you arrive at Door 4 the exact second they step outside.
+            </p>
+
+            <div class="story-outcome">
+              <span class="outcome-icon">✓</span>
+              <span>Zero circling loops. Zero parking tickets. Arrival timed down to the second.</span>
+            </div>
+          </div>
+
+          <div class="story-visual">
+            <div class="dynamic-island-card">
+              <div class="di-notch">
+                <div class="di-notch-inner">
+                  <span class="di-dot-green"></span>
+                  <span class="di-label">SFO Terminal 2 Curbside</span>
+                  <span class="di-timer">01m 45s</span>
+                </div>
+              </div>
+
+              <div class="di-sync-graphic">
+                <div class="di-actor">
+                  <span class="di-actor-icon">🧳</span>
+                  <div class="di-actor-text">
+                    <strong>Passenger (Walking)</strong>
+                    <span>Passing Baggage Door 4</span>
+                  </div>
+                </div>
+                <div class="di-vector-arrow">
+                  <span>Converging</span>
+                  <div class="di-arrow-line"></div>
+                </div>
+                <div class="di-actor">
+                  <span class="di-actor-icon">🚘</span>
+                  <div class="di-actor-text">
+                    <strong>Driver (Departing)</strong>
+                    <span>Leaving Cell Phone Lot</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="di-card-footer">
+                <span class="di-sync-status">● Live ActivityKit Countdown Active on Lock Screen</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 4. Client Showings -->
+        <article class="story-panel" id="story-teams" data-panel="teams" role="tabpanel">
+          <div class="story-narrative">
+            <div class="story-meta-pill">
+              <span class="story-scenario-badge badge-purple">Field Operations · Client Showing</span>
+              <span class="story-location">450 Bryant St, SF</span>
+            </div>
+            <h3 class="story-title">Coordinate on-site visits with zero friction.</h3>
+
+            <div class="story-dialogue">
+              <div class="bubble bubble-in">
+                <span class="bubble-sender">Prospective Client</span>
+                "Do I need to download an app or create an account to meet?"
+              </div>
+              <div class="bubble bubble-out">
+                <span class="bubble-sender">Real Estate Agent</span>
+                "No, just tap the link. App Clip opens in 2s and auto-deletes when we meet."
+              </div>
+            </div>
+
+            <p class="story-body">
+              Real-estate agents, film crews, and field contractors need to coordinate exact arrivals with clients who don't want to install permanent tracking apps or exchange private personal Apple IDs. NaviSync provides temporary, self-destructing group convergence.
+            </p>
+
+            <div class="story-outcome">
+              <span class="outcome-icon">✓</span>
+              <span>Zero account creation. Tracking automatically self-destructs upon arrival.</span>
+            </div>
+          </div>
+
+          <div class="story-visual">
+            <div class="ephemeral-card">
+              <div class="eph-header">
+                <div class="eph-shield">🔒</div>
+                <div>
+                  <h4 class="eph-title">Ephemeral Session Architecture</h4>
+                  <span class="eph-sub">KeyFight.NaviSync.Clip Guest Protocol</span>
+                </div>
+              </div>
+
+              <div class="eph-checklist">
+                <div class="eph-item">
+                  <span class="eph-check">✓</span>
+                  <div>
+                    <strong>Instant App Clip Launch</strong>
+                    <span>&lt; 2.0 second onboarding with zero App Store download</span>
+                  </div>
+                </div>
+                <div class="eph-item">
+                  <span class="eph-check">✓</span>
+                  <div>
+                    <strong>Zero Personal Account Required</strong>
+                    <span>No Apple ID exchange, no passwords, no phone number sharing</span>
+                  </div>
+                </div>
+                <div class="eph-item">
+                  <span class="eph-check">✓</span>
+                  <div>
+                    <strong>Auto-Destructs on Arrival</strong>
+                    <span>Session cryptographic token vanishes once all parties reach the pin</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="eph-footer">
+                <span>0 Bytes of Location History Retained on Any Server</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
       </div>
     </section>
 

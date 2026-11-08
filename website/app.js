@@ -110,4 +110,60 @@
     }, { rootMargin: "-25% 0px -65% 0px" });
     sections.forEach(function (sec) { spyIo.observe(sec); });
   }
+
+  // Storytelling Scenario Theater Switcher
+  var storyTabs = document.querySelectorAll(".story-tab");
+  var storyPanels = document.querySelectorAll(".story-panel");
+  var storySection = document.getElementById("who");
+  var currentStoryIndex = 0;
+  var storyDuration = 6500;
+  var storyStartTime = performance.now();
+  var isStoryHovered = false;
+
+  function switchScenario(index) {
+    if (index < 0 || index >= storyTabs.length) return;
+    currentStoryIndex = index;
+    storyTabs.forEach(function (tab, i) {
+      var isTarget = i === index;
+      tab.classList.toggle("active", isTarget);
+      tab.setAttribute("aria-selected", isTarget ? "true" : "false");
+      var fill = tab.querySelector(".story-tab-fill");
+      if (fill) fill.style.width = "0%";
+    });
+    storyPanels.forEach(function (panel, i) {
+      panel.classList.toggle("active", i === index);
+    });
+    storyStartTime = performance.now();
+  }
+
+  storyTabs.forEach(function (tab, index) {
+    tab.addEventListener("click", function () {
+      switchScenario(index);
+    });
+  });
+
+  if (storySection) {
+    storySection.addEventListener("mouseenter", function () { isStoryHovered = true; });
+    storySection.addEventListener("mouseleave", function () { isStoryHovered = false; storyStartTime = performance.now(); });
+  }
+
+  // Animation loop for story progress bar & auto-cycle
+  if (!reduce && storyTabs.length > 0) {
+    function storyTick(now) {
+      if (!isStoryHovered) {
+        var elapsed = now - storyStartTime;
+        var pct = Math.min(100, (elapsed / storyDuration) * 100);
+        var activeTab = storyTabs[currentStoryIndex];
+        if (activeTab) {
+          var fill = activeTab.querySelector(".story-tab-fill");
+          if (fill) fill.style.width = pct + "%";
+        }
+        if (elapsed >= storyDuration) {
+          switchScenario((currentStoryIndex + 1) % storyTabs.length);
+        }
+      }
+      requestAnimationFrame(storyTick);
+    }
+    requestAnimationFrame(storyTick);
+  }
 })();
