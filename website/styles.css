@@ -387,8 +387,8 @@ a { color: inherit; text-decoration: none; }
   object-fit: cover;
   object-position: center 42%;
   transform: translate(-50%, -50%) perspective(900px) rotateX(22deg) scale(1.12);
-  opacity: 0.28;
-  filter: saturate(1.3) contrast(1.15) blur(1.5px);
+  opacity: 0.34;
+  filter: saturate(1.25) contrast(1.1) blur(10px);
 }
 
 .privacy-routes-svg {
@@ -396,7 +396,8 @@ a { color: inherit; text-decoration: none; }
   inset: 0;
   width: 100%;
   height: 100%;
-  opacity: 0.85;
+  opacity: 0.72;
+  filter: blur(2.5px);
 }
 
 .dissolve-route {
@@ -429,8 +430,10 @@ a { color: inherit; text-decoration: none; }
 .privacy-vignette {
   position: absolute;
   inset: 0;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   background:
-    radial-gradient(ellipse 65% 58% at 50% 50%, rgba(4, 6, 10, 0.25) 0%, rgba(4, 6, 10, 0.88) 72%, #04060a 100%),
+    radial-gradient(ellipse 52% 46% at 50% 50%, rgba(4, 6, 10, 0.62) 0%, rgba(4, 6, 10, 0.86) 72%, #04060a 100%),
     linear-gradient(180deg, #04060a 0%, transparent 22%, transparent 78%, #04060a 100%);
 }
 
@@ -441,25 +444,13 @@ a { color: inherit; text-decoration: none; }
   margin: 0 auto;
 }
 
-.privacy-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 14px;
-  border-radius: 980px;
-  background: rgba(48, 209, 88, 0.12);
-  border: 1px solid rgba(48, 209, 88, 0.28);
-  color: #30d158;
-  font-size: 0.82rem;
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  margin-bottom: 20px;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+.privacy .display {
+  text-shadow: 0 8px 32px rgba(0, 0, 0, 0.85);
 }
 
 .privacy .hero-sub {
-  color: #b4b4bc;
+  color: #d2d2d7;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.85);
 }
 
 /* ---------- CTA ---------- */
