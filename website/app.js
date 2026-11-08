@@ -61,8 +61,16 @@
       if (n) countUp(n);
       io.unobserve(en.target);
     });
-  }, { threshold: 0.2, rootMargin: "0px 0px -60px 0px" });
-  document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
+  }, { threshold: 0.05 });
+  document.querySelectorAll(".reveal").forEach(function (el) {
+    if (el.getBoundingClientRect().top < window.innerHeight) {
+      el.classList.add("visible");
+      var n = el.querySelector("[data-count]");
+      if (n) countUp(n);
+    } else {
+      io.observe(el);
+    }
+  });
 
   // Sticky showcase steps
   var stepIo = new IntersectionObserver(function (entries) {
