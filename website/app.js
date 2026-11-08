@@ -111,59 +111,34 @@
     sections.forEach(function (sec) { spyIo.observe(sec); });
   }
 
-  // Storytelling Scenario Theater Switcher
-  var storyTabs = document.querySelectorAll(".story-tab");
-  var storyPanels = document.querySelectorAll(".story-panel");
-  var storySection = document.getElementById("who");
-  var currentStoryIndex = 0;
-  var storyDuration = 6500;
-  var storyStartTime = performance.now();
-  var isStoryHovered = false;
+  // Apple Horizontal Gallery Carousel Controls
+  var galleryTrack = document.getElementById("galleryTrack");
+  var galleryPrev = document.getElementById("galleryPrev");
+  var galleryNext = document.getElementById("galleryNext");
 
-  function switchScenario(index) {
-    if (index < 0 || index >= storyTabs.length) return;
-    currentStoryIndex = index;
-    storyTabs.forEach(function (tab, i) {
-      var isTarget = i === index;
-      tab.classList.toggle("active", isTarget);
-      tab.setAttribute("aria-selected", isTarget ? "true" : "false");
-      var fill = tab.querySelector(".story-tab-fill");
-      if (fill) fill.style.width = "0%";
-    });
-    storyPanels.forEach(function (panel, i) {
-      panel.classList.toggle("active", i === index);
-    });
-    storyStartTime = performance.now();
+  function updateGalleryButtons() {
+    if (!galleryTrack || !galleryPrev || !galleryNext) return;
+    var sl = galleryTrack.scrollLeft;
+    var maxScroll = galleryTrack.scrollWidth - galleryTrack.clientWidth - 4;
+    galleryPrev.disabled = sl <= 4;
+    galleryNext.disabled = sl >= maxScroll;
   }
 
-  storyTabs.forEach(function (tab, index) {
-    tab.addEventListener("click", function () {
-      switchScenario(index);
-    });
-  });
-
-  if (storySection) {
-    storySection.addEventListener("mouseenter", function () { isStoryHovered = true; });
-    storySection.addEventListener("mouseleave", function () { isStoryHovered = false; storyStartTime = performance.now(); });
+  function getGalleryStep() {
+    if (!galleryTrack) return 520;
+    var firstItem = galleryTrack.querySelector(".gallery-item");
+    return firstItem ? firstItem.offsetWidth + 24 : 520;
   }
 
-  // Animation loop for story progress bar & auto-cycle
-  if (!reduce && storyTabs.length > 0) {
-    function storyTick(now) {
-      if (!isStoryHovered) {
-        var elapsed = now - storyStartTime;
-        var pct = Math.min(100, (elapsed / storyDuration) * 100);
-        var activeTab = storyTabs[currentStoryIndex];
-        if (activeTab) {
-          var fill = activeTab.querySelector(".story-tab-fill");
-          if (fill) fill.style.width = pct + "%";
-        }
-        if (elapsed >= storyDuration) {
-          switchScenario((currentStoryIndex + 1) % storyTabs.length);
-        }
-      }
-      requestAnimationFrame(storyTick);
-    }
-    requestAnimationFrame(storyTick);
+  if (galleryTrack && galleryPrev && galleryNext) {
+    galleryPrev.addEventListener("click", function () {
+      galleryTrack.scrollBy({ left: -getGalleryStep(), behavior: "smooth" });
+    });
+    galleryNext.addEventListener("click", function () {
+      galleryTrack.scrollBy({ left: getGalleryStep(), behavior: "smooth" });
+    });
+    galleryTrack.addEventListener("scroll", updateGalleryButtons, { passive: true });
+    window.addEventListener("resize", updateGalleryButtons);
+    updateGalleryButtons();
   }
 })();
