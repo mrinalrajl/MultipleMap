@@ -73,8 +73,17 @@
   });
 
   // Sticky showcase steps
+  var showcaseImgs = document.querySelectorAll("[data-showcase-img]");
   var stepIo = new IntersectionObserver(function (entries) {
-    entries.forEach(function (en) { en.target.classList.toggle("active", en.isIntersecting); });
+    entries.forEach(function (en) {
+      en.target.classList.toggle("active", en.isIntersecting);
+      if (en.isIntersecting && showcaseImgs.length) {
+        var idx = en.target.getAttribute("data-step");
+        showcaseImgs.forEach(function (img) {
+          img.classList.toggle("active", img.getAttribute("data-showcase-img") === idx);
+        });
+      }
+    });
   }, { rootMargin: "-40% 0px -40% 0px" });
   document.querySelectorAll("[data-step]").forEach(function (el) { stepIo.observe(el); });
 
