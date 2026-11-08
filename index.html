@@ -88,84 +88,102 @@
 
     <!-- APP CLIP: ZERO STORAGE BLOAT -->
     <section class="section appclip-section" id="app-clip">
-      <p class="eyebrow center reveal">No App Store Download Needed</p>
-      <h2 class="headline reveal">Your friends don’t even<br />have to install the app.</h2>
-      <p class="lead reveal">Nobody wants to download a 200 MB app, use up their iPhone storage, and make a new account just to meet for coffee. With NaviSync, they just tap your text link—and they’re in.</p>
+      <p class="eyebrow center reveal">No App Store Download</p>
+      <h2 class="headline reveal">Tap the text.<br />Not the App Store.</h2>
+      <p class="lead reveal">Only one person needs the app. Everyone else just taps your link in iMessage—opening a lightweight card in two seconds that vanishes when the meetup ends.</p>
 
-      <div class="appclip-grid">
-        <!-- Card 1: Storage Footprint Comparison -->
-        <div class="appclip-card storage-card reveal">
-          <div class="appclip-card-head">
-            <span class="appclip-tag">Saves Your Phone Storage</span>
-            <h3>Skip the chunky download.</h3>
-            <p>Most location apps force all your friends to download a huge app that sits on their phone forever. NaviSync uses a built-in iPhone feature called an <strong>App Clip</strong>—a tiny pop-up card that opens in 2 seconds and disappears automatically after you meet up.</p>
+      <div class="appclip-bento">
+        <!-- Visual Card 1: Animated iPhone Storage Bar -->
+        <article class="bento-card reveal">
+          <div class="bento-copy">
+            <span class="bento-eyebrow">Zero Storage Used</span>
+            <h3>Keep your gigabytes.</h3>
+            <p>Skip the 220 MB tracker download. NaviSync opens as a temporary iPhone card and cleans itself up automatically.</p>
           </div>
-          <div class="storage-bars">
-            <div class="storage-row">
-              <div class="storage-meta">
-                <strong>NaviSync Instant Card</strong>
-                <span class="storage-val good">0 MB kept · Disappears after meetup</span>
-              </div>
-              <div class="storage-track">
-                <div class="storage-fill good" style="width: 5%"></div>
-              </div>
-            </div>
-            <div class="storage-row">
-              <div class="storage-meta">
-                <span>Typical Tracking Apps</span>
-                <span class="storage-val bad">220+ MB · Stays on your phone forever</span>
-              </div>
-              <div class="storage-track">
-                <div class="storage-fill bad" style="width: 92%"></div>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <!-- Card 2: Instant iOS App Clip Sheet Visual -->
-        <div class="appclip-card sheet-card reveal">
-          <div class="appclip-card-head">
-            <span class="appclip-tag">So Easy Anyone Can Join</span>
-            <h3>Pops up right over iMessage.</h3>
-            <p>When a friend taps your link, a simple card slides up from the bottom of their screen. No waiting for the App Store, no passwords to type, and no extra app icon cluttering their Home Screen.</p>
-          </div>
-          <div class="ios-clip-mockup" aria-label="iOS App Clip card preview">
-            <div class="ios-clip-handle"></div>
-            <div class="ios-clip-top">
-              <img src="website/Logo/NaviSync-AppIcon-1024.png" alt="" class="ios-clip-icon" />
-              <div class="ios-clip-titles">
-                <span class="ios-clip-badge">OPENS INSTANTLY · NO INSTALL</span>
-                <h4>Weekend Team Sync &amp; Coffee</h4>
-                <p>Alex Rivera invited you · Overstreet Mall Coffee Plaza</p>
+          <div class="storage-stage" aria-label="iPhone Storage comparison">
+            <!-- Bloated Tracker Pill -->
+            <div class="storage-pill bloated">
+              <div class="storage-pill-head">
+                <span class="storage-pill-title">Other Tracker Apps</span>
+                <span class="storage-pill-badge bad">220 MB kept forever</span>
+              </div>
+              <div class="storage-meter">
+                <span class="meter-seg s1"></span>
+                <span class="meter-seg s2"></span>
+                <span class="meter-seg s3"></span>
+              </div>
+              <div class="storage-legend">
+                <span><i class="dot d1"></i>App Binary</span>
+                <span><i class="dot d2"></i>24/7 Trackers</span>
+                <span><i class="dot d3"></i>Cached Maps</span>
               </div>
             </div>
-            <div class="ios-clip-pills">
-              <span>✓ No download</span>
-              <span>✓ No sign-up</span>
-              <span>✓ Zero storage used</span>
-            </div>
-            <div class="ios-clip-btn">Tap to Join &amp; Share ETA</div>
-          </div>
-        </div>
-      </div>
 
-      <!-- 3-Step Flow -->
-      <div class="appclip-steps">
-        <div class="appclip-step reveal">
-          <span class="why-num">1 · Text the link</span>
-          <h4>Send one link in iMessage</h4>
-          <p>Only one person needs the NaviSync app to pick the meeting spot and text the link to the group chat.</p>
-        </div>
-        <div class="appclip-step reveal">
-          <span class="why-num">2 · Tap once to join</span>
-          <h4>A mini card pops up in 2 seconds</h4>
-          <p>Friends tap the link, see where everyone is meeting on the map, and tap <strong>Join</strong>. No accounts or passwords.</p>
-        </div>
-        <div class="appclip-step reveal">
-          <span class="why-num">3 · Nothing left behind</span>
-          <h4>Automatically cleans itself up</h4>
-          <p>Once everyone arrives, sharing stops and your iPhone automatically clears the temporary card—leaving zero clutter behind.</p>
-        </div>
+            <!-- NaviSync Instant Card Pill -->
+            <div class="storage-pill feather">
+              <div class="storage-pill-head">
+                <div class="feather-brand">
+                  <img src="website/Logo/NaviSync-AppIcon-1024.png" alt="" />
+                  <strong>NaviSync Instant Card</strong>
+                </div>
+                <span class="storage-pill-badge good">0 MB kept</span>
+              </div>
+              <div class="storage-meter clean">
+                <span class="meter-pulse"></span>
+              </div>
+              <div class="storage-legend clean-note">
+                <span class="spark-dot"></span> Streams in 2 seconds · Auto-clears on arrival
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Visual Card 2: Animated iMessage -> Pop-up Sheet Stage -->
+        <article class="bento-card reveal">
+          <div class="bento-copy">
+            <span class="bento-eyebrow">Instant iMessage Card</span>
+            <h3>One tap and you’re in.</h3>
+            <p>Tapping the link slides a live card right over your chat. No App Store redirect, no sign-up, and no new icon on your Home Screen.</p>
+          </div>
+
+          <div class="imessage-stage" aria-label="Animated iMessage link opening instant card">
+            <div class="iphone-top-frame">
+              <div class="iphone-island"></div>
+              <!-- Simulated iMessage Bubble -->
+              <div class="imsg-chat">
+                <span class="imsg-sender">Alex Rivera · iMessage</span>
+                <div class="imsg-bubble">
+                  <span class="imsg-text">Meet us at Coffee Plaza! Tap to see everyone’s live ETA:</span>
+                  <div class="imsg-link-card">
+                    <img src="website/Logo/NaviSync-AppIcon-1024.png" alt="" />
+                    <div>
+                      <strong>navisync.app/m/coffee</strong>
+                      <span>Tap to open instant map</span>
+                    </div>
+                  </div>
+                  <span class="tap-ripple" aria-hidden="true"></span>
+                </div>
+              </div>
+
+              <!-- Sliding Native Bottom Sheet -->
+              <div class="clip-sheet-anim">
+                <div class="clip-sheet-grabber"></div>
+                <div class="clip-sheet-row">
+                  <img src="website/Logo/NaviSync-AppIcon-1024.png" alt="" class="clip-sheet-logo" />
+                  <div class="clip-sheet-meta">
+                    <span>INSTANT CARD · NO INSTALL</span>
+                    <h4>Weekend Coffee Sync</h4>
+                    <p>3 friends on the way · 4 min ETA</p>
+                  </div>
+                </div>
+                <div class="clip-sheet-cta">
+                  <span>Join &amp; Share My Route</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
       </div>
     </section>
 
