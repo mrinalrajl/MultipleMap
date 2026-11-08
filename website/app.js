@@ -18,7 +18,7 @@
 
   function onScroll() {
     var y = window.scrollY, vh = window.innerHeight;
-    nav.classList.toggle("scrolled", y > 8);
+    if (nav) nav.classList.toggle("scrolled", y > 24);
     if (reduce) return;
 
     // Hero image scales up as you scroll past the headline
@@ -84,4 +84,22 @@
     if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText("https://" + linkText.textContent).then(done, done);
     else done();
   });
+
+  // Active section scrollspy
+  var navLinks = document.querySelectorAll(".nav-link");
+  var sections = document.querySelectorAll("section[id]");
+  if ("IntersectionObserver" in window && sections.length > 0) {
+    var spyIo = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          var id = entry.target.getAttribute("id");
+          navLinks.forEach(function (link) {
+            var href = link.getAttribute("href");
+            link.classList.toggle("active", href === "#" + id);
+          });
+        }
+      });
+    }, { rootMargin: "-25% 0px -65% 0px" });
+    sections.forEach(function (sec) { spyIo.observe(sec); });
+  }
 })();
