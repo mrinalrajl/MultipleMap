@@ -95,7 +95,6 @@ a { color: inherit; text-decoration: none; }
   will-change: transform;
 }
 /* Clip the render to the phone itself so its off-white backdrop disappears */
-.hero-media { filter: drop-shadow(0 40px 60px rgba(0, 0, 0, 0.18)); }
 .hero-media img {
   clip-path: inset(4.1% 28.3% 3.5% 28.3% round 7.2% / 7.2%);
   margin: -3.5% auto -3% ; /* reclaim empty space around the clipped phone */
