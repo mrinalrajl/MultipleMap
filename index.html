@@ -57,32 +57,30 @@
     </section>
 
     <section class="stats">
-      <div class="stat reveal"><span class="stat-num" data-count="20">0</span><span class="stat-label">texts per meetup,
-          sent while driving</span></div>
-      <div class="stat reveal"><span class="stat-num" data-count="15" data-suffix=" min">0</span><span
-          class="stat-label">lost waiting on the last arrival</span></div>
-      <div class="stat reveal"><span class="stat-num" data-count="0">0</span><span class="stat-label">texts with
-          NaviSync</span></div>
+      <div class="stat reveal"><span class="stat-num" data-prefix="&lt;" data-count="2" data-suffix="s">0</span><span class="stat-label">App Clip launch from iMessage—no install</span></div>
+      <div class="stat reveal"><span class="stat-num" data-count="3" data-suffix="D">0</span><span
+          class="stat-label">Multi-Map with live street polylines &amp; turn-by-turn HUD</span></div>
+      <div class="stat reveal"><span class="stat-num" data-count="0">0</span><span class="stat-label">location tracking once your meetup arrives</span></div>
     </section>
 
     <!-- WHY IT HAPPENED -->
     <section class="section" id="why">
-      <h2 class="headline reveal">Why does this keep happening?</h2>
+      <h2 class="headline reveal">Why group meetups fall apart.</h2>
       <div class="why-grid">
         <div class="why reveal">
           <span class="why-num">01</span>
-          <h3>Maps are built for one driver.</h3>
-          <p>They route you from A to B. They don't know your friends are heading to the same place.</p>
+          <h3>Standard maps route one driver.</h3>
+          <p>Apple Maps and Google Maps navigate you from A to B, but leave you blind to where the rest of your group is on the road.</p>
         </div>
         <div class="why reveal">
           <span class="why-num">02</span>
-          <h3>So we fall back to texting.</h3>
-          <p>“5 min away” is a guess, and it's out of date as soon as you send it.</p>
+          <h3>Static pins don’t show road routes.</h3>
+          <p>Find My only drops a floating dot on a map—without street polylines, turn-by-turn maneuvers, or a shared meetup destination.</p>
         </div>
         <div class="why reveal">
           <span class="why-num">03</span>
-          <h3>Trackers never turn off.</h3>
-          <p>Nobody wants to be tracked around the clock just to meet for dinner.</p>
+          <h3>Family trackers require accounts &amp; run 24/7.</h3>
+          <p>Life360 forces everyone to install an app, create an account, and join a permanent circle just to meet for coffee or dinner.</p>
         </div>
       </div>
     </section>
@@ -102,19 +100,19 @@
         </div>
         <div class="sticky-steps">
           <div class="step" data-step="0">
-            <span class="step-kicker">01 · Instant App Clip &amp; Roster</span>
+            <span class="step-kicker">01 · Instant App Clip &amp; RSVP Roster</span>
             <h3>Send one link. Everyone’s in.</h3>
-            <p>Drop a destination and share a single link in iMessage. Friends tap to join via an iOS App Clip in under two seconds—no App Store download or account creation required. See who is <strong>En Route</strong>, who is <strong>Pending</strong>, and send a one-tap reminder right from the live sheet.</p>
+            <p>Drop a destination and share a single invite link in iMessage. Friends tap to open the native iOS App Clip in under two seconds—no App Store download or sign-up required. Track <strong>En Route</strong>, <strong>Pending</strong>, and <strong>Declined</strong> status chips in the glass drawer and send one-tap SMS reminders.</p>
           </div>
           <div class="step" data-step="1">
-            <span class="step-kicker">02 · 3D Multi-Map &amp; Core ML ETAs</span>
+            <span class="step-kicker">02 · 2D/3D Multi-Map &amp; Turn-by-Turn HUD</span>
             <h3>Every route. Synchronized.</h3>
-            <p>Watch everyone’s real-time street polyline, live distance, and turn-by-turn guidance on a shared 2D or 3D MapKit canvas. An on-device Core ML arrival model continuously blends speed, route geometry, and traffic to keep every participant’s countdown accurate to the second.</p>
+            <p>See every accepted friend’s color-coded MapKit street polyline, live road distance badge, and next turn maneuver on one unified 2D or 62°-pitch 3D camera—with a one-tap handoff to Apple Maps.</p>
           </div>
           <div class="step" data-step="2">
-            <span class="step-kicker">03 · Live Activities, Dynamic Island &amp; CarPlay</span>
+            <span class="step-kicker">03 · ActivityKit, Dynamic Island &amp; CarPlay</span>
             <h3>Glanceable from Lock Screen to dashboard.</h3>
-            <p>Never text while driving. ActivityKit pins a live joint progress bar to your Lock Screen and Dynamic Island, while CarPlay puts group ETAs on your dashboard—and automatically ends the session the moment everyone arrives.</p>
+            <p>ActivityKit pins a live joint progress bar to your Lock Screen and Dynamic Island, while the native CarPlay dashboard puts attendee distances, live routes, and arrival times right on your vehicle’s screen.</p>
           </div>
         </div>
       </div>
@@ -199,22 +197,53 @@
     <!-- COMPARE -->
     <section class="section alt" id="compare">
       <h2 class="headline reveal">Not another tracker.</h2>
-      <p class="lead reveal">Life360 shares your location all the time. Find My only shows a dot. NaviSync is built for
-        getting everyone to the same place.</p>
+      <p class="lead reveal">Life360 requires accounts and tracks your circle 24/7. Find My only drops a static pin. NaviSync is purpose-built for synchronizing a live group meetup.</p>
       <div class="compare reveal">
         <div class="compare-row head">
-          <span></span><span class="us">NaviSync</span><span>Life360</span><span>Find My</span>
+          <span>Capability</span><span class="us">NaviSync</span><span>Life360</span><span>Find My</span>
         </div>
-        <div class="compare-row"><span>Join without installing</span><span class="us yes">✓</span><span
-            class="no">–</span><span class="no">–</span></div>
-        <div class="compare-row"><span>Live road routes</span><span class="us yes">✓</span><span
-            class="no">–</span><span class="no">–</span></div>
-        <div class="compare-row"><span>Shared arrival ETAs</span><span class="us yes">✓</span><span
-            class="no">–</span><span class="no">–</span></div>
-        <div class="compare-row"><span>Ends when you arrive</span><span class="us yes">✓</span><span
-            class="no">–</span><span class="no">–</span></div>
-        <div class="compare-row"><span>CarPlay + Dynamic Island</span><span class="us yes">✓</span><span
-            class="no">–</span><span class="no">–</span></div>
+        <div class="compare-row">
+          <div class="compare-feat">
+            <strong>Instant App Clip invite link</strong>
+            <span>Friends join from iMessage in &lt;2s with no install or account</span>
+          </div>
+          <span class="us yes">✓</span><span class="no">–</span><span class="no">–</span>
+        </div>
+        <div class="compare-row">
+          <div class="compare-feat">
+            <strong>Multi-Map 2D/3D street polylines &amp; turn-by-turn HUD</strong>
+            <span>Every accepted driver’s live road path and next maneuver on one map</span>
+          </div>
+          <span class="us yes">✓</span><span class="no">–</span><span class="no">–</span>
+        </div>
+        <div class="compare-row">
+          <div class="compare-feat">
+            <strong>RSVP roster with En Route, Pending &amp; 1-tap Remind</strong>
+            <span>Track who accepted, who is pending, and ping latecomers via SMS</span>
+          </div>
+          <span class="us yes">✓</span><span class="no">–</span><span class="no">–</span>
+        </div>
+        <div class="compare-row">
+          <div class="compare-feat">
+            <strong>Lock Screen Live Activity &amp; Dynamic Island progress bar</strong>
+            <span>Real-time arrival progress bar and ETA badge powered by ActivityKit</span>
+          </div>
+          <span class="us yes">✓</span><span class="partial" title="Check-in notifications only">Alerts only</span><span class="no">–</span>
+        </div>
+        <div class="compare-row">
+          <div class="compare-feat">
+            <strong>Native CarPlay cockpit &amp; 1-tap Apple Maps handoff</strong>
+            <span>Dashboard map template with attendee distances and route overview</span>
+          </div>
+          <span class="us yes">✓</span><span class="no">–</span><span class="no">–</span>
+        </div>
+        <div class="compare-row">
+          <div class="compare-feat">
+            <strong>Session-only sharing that ends on arrival</strong>
+            <span>Zero 24/7 background tracking—location sharing stops at the destination</span>
+          </div>
+          <span class="us yes">✓</span><span class="no">Always on</span><span class="partial">Manual timer</span>
+        </div>
       </div>
     </section>
 
@@ -240,7 +269,7 @@
   </main>
 
   <footer class="footer">
-    <span>© 2026 NaviSync. Built with MapKit, ActivityKit, CarPlay and Core ML.</span>
+    <span>© 2026 NaviSync. Built natively for iOS 17+ with SwiftUI, MapKit, ActivityKit, WidgetKit, and CarPlay.</span>
     <a href="https://github.com/mrinalrajl/MultipleMap" target="_blank" rel="noopener">GitHub</a>
   </footer>
 

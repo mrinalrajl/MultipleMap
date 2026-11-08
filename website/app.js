@@ -43,12 +43,14 @@
 
   // Reveal-on-enter + count-up stats
   function countUp(el) {
-    var target = +el.getAttribute("data-count"), suffix = el.getAttribute("data-suffix") || "";
-    if (reduce || target === 0) { el.textContent = target + suffix; return; }
+    var target = +el.getAttribute("data-count"),
+        prefix = el.getAttribute("data-prefix") || "",
+        suffix = el.getAttribute("data-suffix") || "";
+    if (reduce || target === 0) { el.textContent = prefix + target + suffix; return; }
     var start = performance.now(), dur = 1200;
     (function tick(t) {
       var k = Math.min(1, (t - start) / dur), e = 1 - Math.pow(1 - k, 3);
-      el.textContent = Math.round(target * e) + suffix;
+      el.textContent = prefix + Math.round(target * e) + suffix;
       if (k < 1) requestAnimationFrame(tick);
     })(start);
   }
