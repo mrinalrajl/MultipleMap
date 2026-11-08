@@ -249,9 +249,57 @@
 
     <!-- PRIVACY -->
     <section class="privacy" id="privacy">
-      <div class="privacy-orb" aria-hidden="true"></div>
-      <h2 class="display reveal">Gone on arrival.</h2>
-      <p class="hero-sub reveal">Sharing stops the moment you get there.<br />No history. Nothing kept.</p>
+      <div class="privacy-backdrop" aria-hidden="true">
+        <img src="website/Screenshots/real-app-3d-map.png" alt="" class="privacy-map-bg" />
+        <svg class="privacy-routes-svg" viewBox="0 0 1440 720" preserveAspectRatio="xMidYMid slice" fill="none">
+          <defs>
+            <linearGradient id="routeBlue" x1="0%" y1="100%" x2="50%" y2="50%">
+              <stop offset="0%" stop-color="#0071e3" stop-opacity="0" />
+              <stop offset="65%" stop-color="#00c7be" stop-opacity="0.85" />
+              <stop offset="100%" stop-color="#30d158" stop-opacity="1" />
+            </linearGradient>
+            <linearGradient id="routeOrange" x1="100%" y1="100%" x2="50%" y2="50%">
+              <stop offset="0%" stop-color="#ff9500" stop-opacity="0" />
+              <stop offset="65%" stop-color="#ff9f0a" stop-opacity="0.8" />
+              <stop offset="100%" stop-color="#30d158" stop-opacity="1" />
+            </linearGradient>
+            <linearGradient id="routePurple" x1="20%" y1="0%" x2="50%" y2="50%">
+              <stop offset="0%" stop-color="#af52de" stop-opacity="0" />
+              <stop offset="65%" stop-color="#5e5ce6" stop-opacity="0.8" />
+              <stop offset="100%" stop-color="#30d158" stop-opacity="1" />
+            </linearGradient>
+          </defs>
+          <!-- Subtle street grid lines -->
+          <g stroke="rgba(255,255,255,0.05)" stroke-width="1">
+            <path d="M0 180 L1440 540" />
+            <path d="M0 540 L1440 180" />
+            <path d="M240 0 L1200 720" />
+            <path d="M1200 0 L240 720" />
+            <circle cx="720" cy="360" r="160" stroke="rgba(255,255,255,0.06)" stroke-dasharray="4 6" />
+            <circle cx="720" cy="360" r="310" stroke="rgba(255,255,255,0.04)" stroke-dasharray="4 8" />
+          </g>
+          <!-- Converging & dissolving route polylines -->
+          <path class="dissolve-route r1" d="M 80 620 C 310 560, 460 410, 720 360" stroke="url(#routeBlue)" stroke-width="3.5" stroke-linecap="round" />
+          <path class="dissolve-route r2" d="M 1360 590 C 1120 510, 960 410, 720 360" stroke="url(#routeOrange)" stroke-width="3.5" stroke-linecap="round" />
+          <path class="dissolve-route r3" d="M 340 60 C 490 190, 610 260, 720 360" stroke="url(#routePurple)" stroke-width="3.5" stroke-linecap="round" />
+          <!-- Arrival destination pulse -->
+          <circle class="arrival-ring" cx="720" cy="360" r="24" stroke="#30d158" stroke-width="2" />
+          <circle cx="720" cy="360" r="6" fill="#30d158" />
+        </svg>
+        <div class="privacy-vignette"></div>
+      </div>
+
+      <div class="privacy-content">
+        <div class="privacy-badge reveal">
+          <svg width="14" height="16" viewBox="0 0 14 16" fill="none" aria-hidden="true">
+            <path d="M7 1L1.5 3.4V7.6C1.5 11.2 3.84 14.48 7 15.5C10.16 14.48 12.5 11.2 12.5 7.6V3.4L7 1Z" stroke="#30d158" stroke-width="1.5" stroke-linejoin="round"/>
+            <path d="M4.8 8.1L6.3 9.6L9.4 6.5" stroke="#30d158" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>Ephemeral by Design</span>
+        </div>
+        <h2 class="display reveal">Gone on arrival.</h2>
+        <p class="hero-sub reveal">Sharing stops the moment you get there.<br />No 24/7 background tracking. Nothing kept.</p>
+      </div>
     </section>
 
     <!-- CTA -->
