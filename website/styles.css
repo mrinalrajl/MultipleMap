@@ -266,33 +266,23 @@ a { color: inherit; text-decoration: none; }
 .meter-seg {
   height: 100%;
   border-radius: 980px;
-  transform-origin: left center;
-  transform: scaleX(0);
-}
-.meter-seg.s1 {
-  width: 48%;
-  background: #ff453a;
-}
-.meter-seg.s2 {
-  width: 26%;
-  background: #ff9f0a;
-}
-.meter-seg.s3 {
-  width: 18%;
-  background: #8e8e93;
+  width: 0;
+  transition: width 0.85s var(--spring);
 }
 .bento-card.visible .meter-seg.s1 {
-  animation: fillOnce 0.8s var(--spring) 0.15s forwards;
+  width: 48%;
+  background: #ff453a;
+  transition-delay: 0.1s;
 }
 .bento-card.visible .meter-seg.s2 {
-  animation: fillOnce 0.8s var(--spring) 0.3s forwards;
+  width: 26%;
+  background: #ff9f0a;
+  transition-delay: 0.25s;
 }
 .bento-card.visible .meter-seg.s3 {
-  animation: fillOnce 0.8s var(--spring) 0.45s forwards;
-}
-@keyframes fillOnce {
-  from { transform: scaleX(0); }
-  to { transform: scaleX(1); }
+  width: 18%;
+  background: #8e8e93;
+  transition-delay: 0.4s;
 }
 .storage-meter.clean {
   background: rgba(255, 255, 255, 0.1);
@@ -301,15 +291,14 @@ a { color: inherit; text-decoration: none; }
 }
 .meter-pulse {
   display: block;
-  width: 6%;
+  width: 0;
   height: 100%;
   border-radius: 980px;
   background: linear-gradient(90deg, #0071e3, #30d158);
-  transform-origin: left center;
-  transform: scaleX(0);
+  transition: width 0.9s var(--spring) 0.45s;
 }
 .bento-card.visible .meter-pulse {
-  animation: fillOnce 0.9s var(--spring) 0.55s forwards;
+  width: 6%;
 }
 .storage-legend {
   display: flex;
@@ -514,26 +503,10 @@ a { color: inherit; text-decoration: none; }
   opacity: 0.85;
 }
 .tap-ripple {
-  position: absolute;
-  right: 26px;
-  bottom: 14px;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.75);
-  pointer-events: none;
-  opacity: 0;
-}
-.bento-card.visible .tap-ripple {
-  animation: tapPulseOnce 0.75s ease-out 0.25s forwards;
-}
-@keyframes tapPulseOnce {
-  0% { transform: scale(0.2); opacity: 0; }
-  45% { transform: scale(1); opacity: 0.9; }
-  100% { transform: scale(2.1); opacity: 0; }
+  display: none;
 }
 
-/* Animated Pop-up Sheet (runs once and stays open) */
+/* Animated Pop-up Sheet (runs once on scroll into view and stays open) */
 .clip-sheet-anim {
   background: rgba(28, 28, 32, 0.96);
   backdrop-filter: blur(20px);
@@ -545,13 +518,11 @@ a { color: inherit; text-decoration: none; }
   box-shadow: 0 -12px 32px rgba(0, 0, 0, 0.55);
   transform: translateY(105%);
   opacity: 0;
+  transition: transform 0.85s var(--spring) 0.35s, opacity 0.6s ease 0.35s;
 }
 .bento-card.visible .clip-sheet-anim {
-  animation: sheetSlideUpOnce 0.85s var(--spring) 0.55s forwards;
-}
-@keyframes sheetSlideUpOnce {
-  from { transform: translateY(105%); opacity: 0; }
-  to { transform: translateY(0%); opacity: 1; }
+  transform: translateY(0%);
+  opacity: 1;
 }
 .clip-sheet-grabber {
   width: 32px;
