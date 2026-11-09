@@ -151,5 +151,30 @@
     galleryTrack.addEventListener("scroll", updateGalleryButtons, { passive: true });
     window.addEventListener("resize", updateGalleryButtons);
     updateGalleryButtons();
+
+    // Pointer drag-to-scroll support
+    var isDown = false, startX = 0, scrollStart = 0;
+    galleryTrack.addEventListener("mousedown", function (e) {
+      isDown = true;
+      galleryTrack.classList.add("dragging");
+      startX = e.pageX - galleryTrack.offsetLeft;
+      scrollStart = galleryTrack.scrollLeft;
+    });
+    window.addEventListener("mouseup", function () {
+      if (!isDown) return;
+      isDown = false;
+      galleryTrack.classList.remove("dragging");
+    });
+    galleryTrack.addEventListener("mouseleave", function () {
+      if (!isDown) return;
+      isDown = false;
+      galleryTrack.classList.remove("dragging");
+    });
+    galleryTrack.addEventListener("mousemove", function (e) {
+      if (!isDown) return;
+      e.preventDefault();
+      var x = e.pageX - galleryTrack.offsetLeft;
+      galleryTrack.scrollLeft = scrollStart - (x - startX) * 1.2;
+    });
   }
 })();
