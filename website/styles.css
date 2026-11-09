@@ -266,11 +266,12 @@ a { color: inherit; text-decoration: none; }
 .meter-seg {
   height: 100%;
   border-radius: 980px;
+  transform-origin: left center;
+  transform: scaleX(0);
 }
 .meter-seg.s1 {
   width: 48%;
   background: #ff453a;
-  animation: bloatPulse 4s ease-in-out infinite;
 }
 .meter-seg.s2 {
   width: 26%;
@@ -280,9 +281,18 @@ a { color: inherit; text-decoration: none; }
   width: 18%;
   background: #8e8e93;
 }
-@keyframes bloatPulse {
-  0%, 100% { width: 46%; }
-  50% { width: 51%; }
+.bento-card.visible .meter-seg.s1 {
+  animation: fillOnce 0.8s var(--spring) 0.15s forwards;
+}
+.bento-card.visible .meter-seg.s2 {
+  animation: fillOnce 0.8s var(--spring) 0.3s forwards;
+}
+.bento-card.visible .meter-seg.s3 {
+  animation: fillOnce 0.8s var(--spring) 0.45s forwards;
+}
+@keyframes fillOnce {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
 }
 .storage-meter.clean {
   background: rgba(255, 255, 255, 0.1);
@@ -291,16 +301,15 @@ a { color: inherit; text-decoration: none; }
 }
 .meter-pulse {
   display: block;
+  width: 6%;
   height: 100%;
   border-radius: 980px;
   background: linear-gradient(90deg, #0071e3, #30d158);
-  animation: vanishBar 5s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  transform-origin: left center;
+  transform: scaleX(0);
 }
-@keyframes vanishBar {
-  0% { width: 0%; opacity: 0; }
-  20% { width: 16%; opacity: 1; }
-  65% { width: 16%; opacity: 1; }
-  88%, 100% { width: 0%; opacity: 0; }
+.bento-card.visible .meter-pulse {
+  animation: fillOnce 0.9s var(--spring) 0.55s forwards;
 }
 .storage-legend {
   display: flex;
@@ -328,11 +337,6 @@ a { color: inherit; text-decoration: none; }
   border-radius: 50%;
   background: #30d158;
   box-shadow: 0 0 8px #30d158;
-  animation: sparkBlink 2.5s ease-in-out infinite;
-}
-@keyframes sparkBlink {
-  0%, 100% { opacity: 0.4; transform: scale(0.85); }
-  50% { opacity: 1; transform: scale(1.15); }
 }
 
 /* Right Visual: Animated iMessage -> Pop-up Card Stage */
@@ -426,16 +430,18 @@ a { color: inherit; text-decoration: none; }
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.75);
   pointer-events: none;
-  animation: tapPulse 5.5s ease-in-out infinite;
+  opacity: 0;
 }
-@keyframes tapPulse {
-  0%, 12% { transform: scale(0.2); opacity: 0; }
-  18% { transform: scale(1); opacity: 0.9; }
-  28% { transform: scale(2.1); opacity: 0; }
+.bento-card.visible .tap-ripple {
+  animation: tapPulseOnce 0.75s ease-out 0.25s forwards;
+}
+@keyframes tapPulseOnce {
+  0% { transform: scale(0.2); opacity: 0; }
+  45% { transform: scale(1); opacity: 0.9; }
   100% { transform: scale(2.1); opacity: 0; }
 }
 
-/* Animated Pop-up Sheet */
+/* Animated Pop-up Sheet (runs once and stays open) */
 .clip-sheet-anim {
   background: rgba(28, 28, 32, 0.96);
   backdrop-filter: blur(20px);
@@ -445,12 +451,15 @@ a { color: inherit; text-decoration: none; }
   padding: 10px 14px 16px;
   margin: 12px -4px 0;
   box-shadow: 0 -12px 32px rgba(0, 0, 0, 0.55);
-  animation: sheetFloatUp 5.5s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  transform: translateY(105%);
+  opacity: 0;
 }
-@keyframes sheetFloatUp {
-  0%, 18% { transform: translateY(105%); opacity: 0; }
-  32%, 78% { transform: translateY(0%); opacity: 1; }
-  92%, 100% { transform: translateY(105%); opacity: 0; }
+.bento-card.visible .clip-sheet-anim {
+  animation: sheetSlideUpOnce 0.85s var(--spring) 0.55s forwards;
+}
+@keyframes sheetSlideUpOnce {
+  from { transform: translateY(105%); opacity: 0; }
+  to { transform: translateY(0%); opacity: 1; }
 }
 .clip-sheet-grabber {
   width: 32px;
