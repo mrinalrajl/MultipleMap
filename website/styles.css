@@ -351,25 +351,116 @@ a { color: inherit; text-decoration: none; }
 .iphone-top-frame {
   width: 100%;
   max-width: 360px;
-  background: #0d0f14;
-  border-radius: 32px 32px 0 0;
-  padding: 12px 14px 0;
+  background: #000;
+  border-radius: 38px 38px 0 0;
+  padding: 0 12px;
   box-shadow:
-    inset 0 0 0 1.5px rgba(255, 255, 255, 0.16),
+    inset 0 0 0 2px rgba(255, 255, 255, 0.2),
+    inset 0 0 0 5px #090a0f,
     0 18px 40px rgba(0, 0, 0, 0.18);
   position: relative;
   overflow: hidden;
-  min-height: 256px;
+  min-height: 310px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
+.imsg-top-bar {
+  background: rgba(24, 24, 28, 0.86);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  margin: 5px -7px 8px;
+  padding: 8px 14px 8px;
+  border-radius: 33px 33px 0 0;
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.12);
+}
+.ios-statusbar {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  margin-bottom: 6px;
+}
+.ios-time {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: -0.01em;
+  padding-left: 6px;
+}
 .iphone-island {
-  width: 76px;
-  height: 20px;
+  width: 82px;
+  height: 22px;
   background: #000;
   border-radius: 99px;
-  margin: 0 auto 12px;
+  box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 7px;
+}
+.island-cam {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #1d3557 0%, #090d16 65%, #000 100%);
+  box-shadow: inset 0 0 1px rgba(255, 255, 255, 0.35);
+}
+.ios-status-icons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
+  color: #fff;
+  padding-right: 4px;
+}
+.imsg-nav {
+  display: grid;
+  grid-template-columns: 44px 1fr 44px;
+  align-items: center;
+}
+.imsg-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+.imsg-unread {
+  background: #0a84ff;
+  color: #fff;
+  font-size: 0.62rem;
+  font-weight: 600;
+  padding: 1px 5px;
+  border-radius: 99px;
+  line-height: 1.2;
+}
+.imsg-contact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+.imsg-memoji {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+.imsg-contact-name {
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: #f5f5f7;
+  letter-spacing: -0.01em;
+}
+.imsg-contact-name i {
+  font-style: normal;
+  color: #8e8e93;
+  font-weight: 600;
+  margin-left: 1px;
+}
+.imsg-facetime {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 .imsg-chat {
   padding: 0 4px;
@@ -378,9 +469,10 @@ a { color: inherit; text-decoration: none; }
   align-items: flex-end;
 }
 .imsg-sender {
-  font-size: 0.68rem;
-  color: #86868b;
-  margin-bottom: 5px;
+  font-size: 0.62rem;
+  font-weight: 500;
+  color: #8e8e93;
+  margin-bottom: 6px;
   align-self: center;
 }
 .imsg-bubble {
