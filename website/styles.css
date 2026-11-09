@@ -339,60 +339,48 @@ a { color: inherit; text-decoration: none; }
 }
 .iphone-top-frame {
   width: 100%;
-  max-width: 360px;
+  max-width: 356px;
   background: #000;
   border-radius: 38px 38px 0 0;
-  padding: 0 12px;
+  padding: 0 12px 8px;
   box-shadow:
     inset 0 0 0 2px rgba(255, 255, 255, 0.2),
     inset 0 0 0 5px #090a0f,
-    0 18px 40px rgba(0, 0, 0, 0.18);
+    0 18px 40px rgba(0, 0, 0, 0.22);
   position: relative;
   overflow: hidden;
-  min-height: 310px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 .imsg-top-bar {
-  background: rgba(24, 24, 28, 0.86);
-  backdrop-filter: saturate(180%) blur(20px);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-  margin: 5px -7px 8px;
-  padding: 8px 14px 8px;
+  background:
+    radial-gradient(ellipse at 62% 28%, rgba(28, 75, 135, 0.62) 0%, rgba(16, 38, 68, 0.35) 52%, rgba(22, 22, 26, 0.92) 100%);
+  backdrop-filter: saturate(180%) blur(24px);
+  -webkit-backdrop-filter: saturate(180%) blur(24px);
+  margin: 5px -7px 6px;
+  padding: 9px 14px 8px;
   border-radius: 33px 33px 0 0;
-  border-bottom: 0.5px solid rgba(255, 255, 255, 0.12);
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.14);
 }
 .ios-statusbar {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  display: flex;
   align-items: center;
-  margin-bottom: 6px;
+  justify-content: space-between;
+  margin-bottom: 4px;
 }
 .ios-time {
-  font-size: 0.72rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75rem;
   font-weight: 600;
   color: #fff;
   letter-spacing: -0.01em;
   padding-left: 6px;
 }
-.iphone-island {
-  width: 82px;
-  height: 22px;
-  background: #000;
-  border-radius: 99px;
-  box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.12);
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding-right: 7px;
-}
-.island-cam {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #1d3557 0%, #090d16 65%, #000 100%);
-  box-shadow: inset 0 0 1px rgba(255, 255, 255, 0.35);
+.ios-car-icon {
+  opacity: 0.95;
 }
 .ios-status-icons {
   display: flex;
@@ -404,7 +392,7 @@ a { color: inherit; text-decoration: none; }
 }
 .imsg-nav {
   display: grid;
-  grid-template-columns: 44px 1fr 44px;
+  grid-template-columns: 54px 1fr 54px;
   align-items: center;
 }
 .imsg-back {
@@ -417,9 +405,9 @@ a { color: inherit; text-decoration: none; }
   color: #fff;
   font-size: 0.62rem;
   font-weight: 600;
-  padding: 1px 5px;
+  padding: 1.5px 6px;
   border-radius: 99px;
-  line-height: 1.2;
+  line-height: 1.15;
 }
 .imsg-contact {
   display: flex;
@@ -428,23 +416,29 @@ a { color: inherit; text-decoration: none; }
   gap: 3px;
 }
 .imsg-memoji {
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 .imsg-contact-name {
-  font-size: 0.68rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.66rem;
   font-weight: 500;
   color: #f5f5f7;
   letter-spacing: -0.01em;
+}
+.imsg-contact-badge {
+  font-size: 0.62rem;
+  line-height: 1;
 }
 .imsg-contact-name i {
   font-style: normal;
   color: #8e8e93;
   font-weight: 600;
-  margin-left: 1px;
 }
 .imsg-facetime {
   display: flex;
@@ -452,70 +446,77 @@ a { color: inherit; text-decoration: none; }
   align-items: center;
 }
 .imsg-chat {
-  padding: 0 4px;
+  padding: 2px 4px 6px;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: flex-start;
 }
-.imsg-sender {
-  font-size: 0.62rem;
+.imsg-timestamp {
+  font-size: 0.6rem;
   font-weight: 500;
   color: #8e8e93;
-  margin-bottom: 6px;
+  margin: 2px 0 6px;
   align-self: center;
 }
-.imsg-bubble {
-  background: #0071e3;
-  color: #fff;
-  border-radius: 18px 18px 4px 18px;
+/* Incoming / Received iMessage Bubble (Left-aligned, dark gray #262629 with bottom-left tail) */
+.imsg-bubble-received {
+  background: #262629;
+  color: #f5f5f7;
+  border-radius: 18px 18px 18px 4px;
   padding: 10px 12px;
   font-size: 0.78rem;
   line-height: 1.35;
   max-width: 90%;
   position: relative;
-  box-shadow: 0 6px 16px rgba(0, 113, 227, 0.25);
+  border: 0.5px solid rgba(255, 255, 255, 0.08);
 }
-.imsg-link-card {
+.imsg-link-card-dark {
   margin-top: 8px;
-  background: rgba(255, 255, 255, 0.16);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: rgba(255, 255, 255, 0.08);
+  border: 0.5px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
   padding: 8px 10px;
   display: flex;
   align-items: center;
-  gap: 9px;
+  gap: 10px;
 }
-.imsg-link-card img {
-  width: 28px;
-  height: 28px;
-  border-radius: 7px;
+.imsg-app-icon-tile {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  overflow: hidden;
   flex-shrink: 0;
+  background: #000;
 }
-.imsg-link-card strong {
+.imsg-app-icon-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.imsg-file-meta strong {
   display: block;
   font-size: 0.74rem;
   font-weight: 600;
+  color: #fff;
+  line-height: 1.25;
 }
-.imsg-link-card span {
+.imsg-file-meta span {
   display: block;
-  font-size: 0.66rem;
-  opacity: 0.85;
-}
-.tap-ripple {
-  display: none;
+  font-size: 0.65rem;
+  color: #a1a1a6;
+  margin-top: 1px;
 }
 
 /* Animated Pop-up Sheet (runs once on scroll into view and stays open) */
 .clip-sheet-anim {
-  background: rgba(28, 28, 32, 0.96);
+  background: rgba(30, 30, 34, 0.96);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-top: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 22px 22px 0 0;
-  padding: 10px 14px 16px;
-  margin: 12px -4px 0;
-  box-shadow: 0 -12px 32px rgba(0, 0, 0, 0.55);
+  border: 0.5px solid rgba(255, 255, 255, 0.14);
+  border-radius: 20px;
+  padding: 9px 12px 11px;
+  margin: 6px 0 8px;
+  box-shadow: 0 -10px 28px rgba(0, 0, 0, 0.55);
   transform: translateY(105%);
   opacity: 0;
   transition: transform 0.85s var(--spring) 0.35s, opacity 0.6s ease 0.35s;
@@ -525,60 +526,102 @@ a { color: inherit; text-decoration: none; }
   opacity: 1;
 }
 .clip-sheet-grabber {
-  width: 32px;
-  height: 4px;
+  width: 30px;
+  height: 3.5px;
   border-radius: 99px;
-  background: rgba(255, 255, 255, 0.25);
-  margin: 0 auto 10px;
+  background: rgba(255, 255, 255, 0.28);
+  margin: 0 auto 8px;
 }
 .clip-sheet-row {
   display: flex;
   align-items: center;
-  gap: 11px;
-  margin-bottom: 12px;
+  gap: 10px;
+  margin-bottom: 9px;
 }
 .clip-sheet-logo {
-  width: 42px;
-  height: 42px;
-  border-radius: 10px;
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
   flex-shrink: 0;
 }
 .clip-sheet-meta span {
   display: block;
-  font-size: 0.6rem;
+  font-size: 0.56rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   color: #30d158;
 }
 .clip-sheet-meta h4 {
-  font-size: 0.9rem;
+  font-size: 0.82rem;
   font-weight: 600;
   color: #fff;
   margin: 1px 0;
 }
 .clip-sheet-meta p {
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   color: #a1a1a6;
 }
 .clip-sheet-cta {
   background: linear-gradient(90deg, #0071e3, #00c7be);
   color: #fff;
   text-align: center;
-  font-size: 0.8rem;
+  font-size: 0.76rem;
   font-weight: 600;
-  padding: 9px;
+  padding: 7.5px;
   border-radius: 980px;
+}
+
+/* Authentic iMessage Bottom Input Bar */
+.imsg-input-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 2px 2px 6px;
+}
+.imsg-plus-btn {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #1c1c1e;
+  color: #8e8e93;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 400;
+  flex-shrink: 0;
+}
+.imsg-text-pill {
+  flex: 1;
+  height: 28px;
+  border-radius: 99px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: #0b0b0d;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 9px 0 12px;
+  font-size: 0.72rem;
+  color: #636366;
+}
+.imsg-home-ind {
+  width: 108px;
+  height: 4px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.85);
+  margin: 2px auto 0;
 }
 
 /* ---------- Dark sticky showcase ---------- */
 .dark { background: #000; color: #f5f5f7; }
 .sticky-wrap {
-  max-width: 1100px; margin: 0 auto; padding: 110px 22px;
+  max-width: 1100px; margin: 0 auto; padding: 60px 22px;
   display: grid; grid-template-columns: 1.05fr 1fr; gap: 64px;
   align-items: start;
 }
 .sticky-media {
-  position: sticky; top: 96px;
+  position: sticky; top: 48px;
+  height: calc(100vh - 48px);
   display: flex; align-items: center; justify-content: center;
 }
 .device-bezel {
@@ -618,12 +661,20 @@ a { color: inherit; text-decoration: none; }
   opacity: 1;
   transform: scale(1);
 }
-.step {
-  padding: 96px 0; display: flex; flex-direction: column; justify-content: center;
-  opacity: 0.32; transform: translateY(18px);
-  transition: opacity 0.6s var(--spring), transform 0.8s var(--spring);
+.sticky-steps {
+  display: flex;
+  flex-direction: column;
 }
-.step:first-child { opacity: 1; transform: none; }
+.step {
+  min-height: 78vh;
+  padding: 120px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 0.14;
+  transform: translateY(18px);
+  transition: opacity 0.55s var(--spring), transform 0.7s var(--spring);
+}
 .step.active { opacity: 1; transform: none; }
 .step-kicker { color: var(--green); font-weight: 600; font-size: 0.98rem; letter-spacing: 0.01em; }
 .step h3 { font-size: clamp(2.1rem, 4vw, 3.2rem); letter-spacing: -0.035em; line-height: 1.06; margin: 10px 0 16px; }

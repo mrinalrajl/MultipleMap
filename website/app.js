@@ -76,18 +76,21 @@
 
   // Sticky showcase steps
   var showcaseImgs = document.querySelectorAll("[data-showcase-img]");
+  var allSteps = document.querySelectorAll("[data-step]");
   var stepIo = new IntersectionObserver(function (entries) {
     entries.forEach(function (en) {
-      en.target.classList.toggle("active", en.isIntersecting);
-      if (en.isIntersecting && showcaseImgs.length) {
+      if (en.isIntersecting) {
         var idx = en.target.getAttribute("data-step");
+        allSteps.forEach(function (s) {
+          s.classList.toggle("active", s === en.target);
+        });
         showcaseImgs.forEach(function (img) {
           img.classList.toggle("active", img.getAttribute("data-showcase-img") === idx);
         });
       }
     });
-  }, { rootMargin: "-40% 0px -40% 0px" });
-  document.querySelectorAll("[data-step]").forEach(function (el) { stepIo.observe(el); });
+  }, { rootMargin: "-42% 0px -42% 0px" });
+  allSteps.forEach(function (el) { stepIo.observe(el); });
 
   // Link composer
   var form = document.getElementById("composer"),
